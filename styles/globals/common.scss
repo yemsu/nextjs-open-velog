@@ -6,14 +6,21 @@ body {
   font-family: $font-family;
   font-size: var(--font-size-M-pc);
   font-weight: var(--font-weight-normal);
-  color: var(--font-color-black);
+  color: var(--font-black);
   line-height: 1.4;
   letter-spacing: -0.025em;
 }
 button, a, input, textarea {
   font-family: inherit;
   font-size: inherit;
+  font-weight:inherit; 
   letter-spacing: inherit;
+}
+button, a {
+  &:hover {
+    opacity: .7;
+    transition: opacity .2s
+  }
 }
 strong {
   font-weight: var(--text-weight-X-bold);

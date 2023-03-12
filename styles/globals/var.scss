@@ -13,11 +13,41 @@
   --font-size-XXS: 11px;
   
   // Font Weight
-  --font-weight-thin: 300;
-  --font-weight-normal: 400;
-  --font-weight-bold: 500;
-  --font-weight-X-bold: 600;
+  --font-weight-thin: 400;
+  --font-weight-normal: 500;
+  --font-weight-bold: 600;
+  --font-weight-X-bold: 700;
+
+  // primary color
+  --primary-h: 248;
+  --primary-color: var(--primary-h), 42%, 45%;
+
+  // Gray Color Pallet
+  --gray-10: var(--primary-h), 1%, 14%;
+  --gray-20: var(--primary-h), 4%, 20%;
+  --gray-30: var(--primary-h), 4%, 30%;
+  --gray-40: var(--primary-h), 4%, 40%;
+  --gray-50: var(--primary-h), 4%, 50%;
+  --gray-60: var(--primary-h), 6%, 60%;
+  --gray-70: var(--primary-h), 6%, 70%;
+  --gray-80: var(--primary-h), 7%, 80%;
+  --gray-90: var(--primary-h), 14%, 90%;
+  --gray-95: var(--primary-h), 14%, 95%;
+
+  // common darker
+  --darker-10: hsla(var(--gray-10), 8%);
 
   // Font Color
-  --font-color-black: #333;
+  --font-dark: hsl(var(--gray-10));
+  --font-dark-gray: hsl(var(--gray-30));
+  --font-gray: hsl(var(--gray-50));
+  --font-light-gray: hsl(var(--gray-70));
+  --font-light: hsl(var(--gray-70));
+
+  // Border Color 
+  --border-dark: hsl(var(--gray-60));
+  --border-dark-gray: hsl(var(--gray-60));
+  --border-gray: hsl(var(--gray-80));
+  --border-light-gray: hsl(var(--gray-95));
+  --border-light: hsl(var(--gray-95));
 }
