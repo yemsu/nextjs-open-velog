@@ -31,8 +31,12 @@
   --gray-60: var(--primary-h), 6%, 60%;
   --gray-70: var(--primary-h), 6%, 70%;
   --gray-80: var(--primary-h), 7%, 80%;
-  --gray-90: var(--primary-h), 14%, 90%;
-  --gray-95: var(--primary-h), 14%, 95%;
+  --gray-90: var(--primary-h), 12%, 90%;
+  --gray-95: var(--primary-h), 12%, 95%;
+
+  // basic color
+  --black: --gray-10;
+  --white: #fff;
 
   // common darker
   --darker-10: hsla(var(--gray-10), 8%);
@@ -50,4 +54,16 @@
   --border-gray: hsl(var(--gray-80));
   --border-light-gray: hsl(var(--gray-95));
   --border-light: hsl(var(--gray-95));
+
+  // Background Color
+  --bg-dimmed: hsla(var(--gray-95), .8);
+  --bg-white: var(--white);
+
+  // Shadow Color
+  --shadow-color: hsla(var(--gray-50), .1);
+  --shadow-M: 0 2px 10px var(--shadow-color);
+  // border radius
+  --border-radius-S: 5px;
+  --border-radius-M: 10px;
+  --border-radius-B: 15px;
 }
