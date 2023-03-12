@@ -1,0 +1,24 @@
+// Break Points
+$break-points: (
+  'tablet': 1024px,
+  'mobile': 768px
+);
+
+// Media Query
+@mixin pc {
+  @media screen and (min-width: #{map-get($break-points, 'mobile') + 1}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: #{map-get($break-points, 'tablet')}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: #{map-get($break-points, 'mobile')}) {
+    @content;
+  }
+}
