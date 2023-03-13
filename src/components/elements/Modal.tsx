@@ -1,21 +1,27 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { ReactNode } from 'react'
 
-type ModalProps = {
+type Sizes = 'small' | 'medium' | 'large'
+
+interface ModalProps {
   isOpen: boolean,
   title: string,
   toggle: () => void,
-  children: ReactNode
+  children: ReactNode,
+  size?: Sizes
 };
 
 function Modal (props: ModalProps) {
-  const { isOpen, title, toggle, children } = props
+  const { isOpen, title, toggle, children, size = 'medium' } = props
   
   return (
     <>
       {isOpen && (
         <Wrapper onClick={toggle}>
-          <ModalBox onClick={(e) => e.stopPropagation()}>
+          <ModalBox
+            size={size}
+            onClick={(e) => e.stopPropagation()}
+          >
             <WrapTitle>
               <Title>{title}</Title>
             </WrapTitle>
@@ -28,11 +34,6 @@ function Modal (props: ModalProps) {
       )}
     </>
   )
-}
-
-const modalPd = {
-  vtc: '40px',
-  hrz: '30px'
 }
 
 const Wrapper = styled.div`
@@ -48,28 +49,47 @@ const Wrapper = styled.div`
   background-color: var(--bg-dimmed);
 `
 
-const ModalBox = styled.section`
+const ModalBox = styled.section<{ size: string }>`
   position: relative;
   min-width: 400px;
-  padding: ${modalPd.vtc} ${modalPd.hrz};
+  padding: 60px 30px;
   background-color: var(--bg-white);
   transform: translateY(calc(25% - 20vh));
   border-radius: var(--border-radius-M);
   box-shadow: var(--shadow-M);
+  ${({size}) => {
+    switch (size) {
+      case 'small':
+        return css`
+          min-width: 400px;
+        `
+      case 'medium':
+        return css`
+          min-width: 500px;
+        `
+      case 'large':
+        return css`
+          min-width: 600px;
+        `
+    }
+  }}
 `
 
 const WrapTitle = styled.div`
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 `
 
 const Title = styled.h2`
   font-size: var(--font-size-title-M);
-  font-weight: var(--font-weight-X-bold);
+  font-weight: var(--font-weight-bold);
   line-height: 1.2;
 `
 
 const WrapContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-size: var(--font-size-title-M);
   font-weight: var(--font-weight-X-bold);
   line-height: 1.2;
@@ -77,8 +97,8 @@ const WrapContent = styled.div`
 
 const ButtonClose = styled.button`
   position: absolute;
-  top: ${modalPd.vtc};
-  right: ${modalPd.hrz};
+  top: 20px;
+  right: 20px;
 `
 
 export default Modal
