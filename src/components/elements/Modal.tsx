@@ -8,11 +8,12 @@ interface ModalProps {
   title: string,
   toggle: () => void,
   children: ReactNode,
+  submitButton: ReactNode,
   size?: Sizes
 };
 
 function Modal (props: ModalProps) {
-  const { isOpen, title, toggle, children, size = 'medium' } = props
+  const { isOpen, title, toggle, children, submitButton, size = 'medium' } = props
   
   return (
     <>
@@ -26,6 +27,9 @@ function Modal (props: ModalProps) {
               <Title>{title}</Title>
             </WrapTitle>
             <WrapContent>{children}</WrapContent>
+            <WrapButtons>
+              { submitButton }
+            </WrapButtons>
             <ButtonClose onClick={toggle}>
               닫기
             </ButtonClose>
@@ -52,7 +56,7 @@ const Wrapper = styled.div`
 const ModalBox = styled.section<{ size: string }>`
   position: relative;
   min-width: 400px;
-  padding: 60px 30px;
+  padding: 60px 30px 40px;
   background-color: var(--bg-white);
   transform: translateY(calc(25% - 20vh));
   border-radius: var(--border-radius-M);
@@ -93,6 +97,13 @@ const WrapContent = styled.div`
   font-size: var(--font-size-title-M);
   font-weight: var(--font-weight-X-bold);
   line-height: 1.2;
+`
+
+const WrapButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 50px;
 `
 
 const ButtonClose = styled.button`
