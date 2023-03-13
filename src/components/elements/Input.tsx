@@ -1,54 +1,120 @@
 import React, { SyntheticEvent } from "react"
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 
 interface InputProps {
   type: string,
+  id?: string,
   name: string,
-  label: string,
+  label?: string,
   value?: string,
   placeholder?: string,
+  checked?: boolean,
+  isRequired?: boolean,
   onChange: (e: SyntheticEvent) => void
 }
 
 function Input(props: InputProps) {
-  const { type, name, label, placeholder, value, onChange } = props
+  const { type, id, name, label, placeholder, value, checked, isRequired = true, onChange } = props
 
-  const id = `input-${name}`
+  const idStr = id || `input-${name}`
+  const isBackLabelStyle = ["checkbox", "radio"].includes(type)
   return (
-    <Wrapper>
-      <Label htmlFor={id}>{label}</Label>
-      <InputTag
-        type={type}
-        id={id}
-        name={name}
-        placeholder={placeholder || `${label} 입력 해주세요`}
-        value={value}
-        onChange={onChange}
-      />
+    <Wrapper type={type}>
+      {
+        label && !isBackLabelStyle &&
+        <Label htmlFor={idStr} type={type}>{label}</Label>
+      }
+      <InputWrapLabel
+        as={isBackLabelStyle ? 'label' : 'div'}
+        className='wrap-input'
+      >
+        <InputTag
+          type={type}
+          id={idStr}
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          checked={checked}
+          required={isRequired}
+          onChange={onChange}
+        />
+        {isBackLabelStyle && <LabelText>{label}</LabelText>}
+      </InputWrapLabel>
     </Wrapper>
   )
 }
 
-const Wrapper = styled.div`
-  &:nth-child(n+2) {
-    margin-top: 15px;
-  }
+const Wrapper = styled.div<{ type: string }>`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  ${({type}) => {
+    if(isTextInputStyle(type)) {
+      return css`
+        width: 100%;
+        .wrap-input {
+          width: 100%;
+        }
+      `
+    }
+  }}
 `
-const Label = styled.label`
-  display: block;
-  margin-bottom: 5px;
+
+const CommonLabel = styled.label`
+  min-width: 30px;
   font-size: var(--font-size-S);
   line-height: 1;
 `
-const InputTag = styled.input`
-  flex: 1;
-  padding: 10px 10px 5px;
-  border-bottom: 1px solid var(--border-dark);
+
+const InputWrapLabel = styled(CommonLabel)`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+`
+
+const Label = styled(CommonLabel)<{ type: string }>`
+  ${({type}) => {
+    if(isTextInputStyle(type)) {
+      return css`
+        width: 100%;
+      `
+    }
+  }}
+`
+
+const InputTag = styled.input<{ type: string }>`
   font-size: var(--font-size-S);
+  ${({type}) => {
+    if(isTextInputStyle(type)) {
+      return css`
+        appearance: none;
+        flex: 1;
+        padding: 5px;
+        border: none;
+        border-bottom: 1px solid var(--border-dark);
+      `
+    }
+  }}
+  &[type="number"]::-webkit-outer-spin-button,
+  &[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
   &::placeholder {
     font-weight: var(--font-weight-thin);
     color: var(--font-light-gray);
   }
 `
+
+const LabelText = styled.span`
+  min-width: 2em;
+`
+
+function isTextInputStyle(inputType: string) {
+  return ["text", "email", "password", "number"].includes(inputType)
+}
+
 
 export default React.memo(Input)
