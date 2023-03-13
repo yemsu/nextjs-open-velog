@@ -24,7 +24,7 @@
 
   // primary color
   --primary-h: 248;
-  --primary-color: var(--primary-h), 42%, 45%;
+  --primary-hsl: var(--primary-h), 42%, 45%;
 
   // Gray Color Pallet
   --gray-10: var(--primary-h), 1%, 14%;
@@ -70,4 +70,5 @@
   --border-radius-S: 5px;
   --border-radius-M: 10px;
   --border-radius-B: 15px;
+  --border-radius-F: 50px;
 }
