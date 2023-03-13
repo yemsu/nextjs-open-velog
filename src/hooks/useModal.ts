@@ -1,10 +1,8 @@
 import { useState } from "react";
 
-type ModalProps = [boolean, () => void];
+type useModal = [boolean, () => void];
 
-export default function useModal(
-  isDefaultOption = false
-): ModalProps {
+function useModal(isDefaultOption = false): useModal {
   const [isOpen, setIsOpen] = useState(isDefaultOption);
 
   const toggle: () => void = () => {
@@ -16,3 +14,5 @@ export default function useModal(
     toggle
   ]
 }
+
+export default useModal
