@@ -103,6 +103,7 @@ const InputTag = styled.input<{ type: string }>`
     margin: 0;
   }
   &::placeholder {
+    font-size: var(--font-size-XS);
     font-weight: var(--font-weight-thin);
     color: var(--font-light-gray);
   }
