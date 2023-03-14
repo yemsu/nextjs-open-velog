@@ -22,10 +22,6 @@ function JoinModal(props: JoinModalProps) {
     gender: '',
     birth: '',
   })
-  
-  useEffect(() => {
-    console.log('forms', forms)
-  }, [forms])
 
   const onSubmitJoin = () => {
     reset()
