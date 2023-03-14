@@ -1,17 +1,34 @@
 import Link from "next/link"
+import { useSelector, useDispatch  } from "react-redux";
+import { SET_IS_LOGIN } from "@/store/auth";
+import { RootState } from "@/store";
+import Axios from "@/api/Axios";
 import JoinModal from "@/components/auth/JoinModal"
 import ContentWrapper from "@/components/layouts/ContentWrapper"
 import useModal from "@/hooks/useModal"
 import styled from "styled-components"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Header() {
   const [isOpen, toggle] = useModal()
   const [joinOrLogin, setJoinOrLogin] = useState('join')
+  const dispatch = useDispatch()
+  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
+
+  useEffect(() => {
+    const hasToken = localStorage.getItem('AUTH_TOKEN')
+    if(hasToken) dispatch(SET_IS_LOGIN(true))
+  }, [])
 
   const onClickUtil = (type: string) => {
     setJoinOrLogin(type)
     toggle()
+  }
+
+  const onClickLogout = () => {
+    localStorage.removeItem('AUTH_TOKEN')
+    dispatch(SET_IS_LOGIN(false))
+    Axios.prototype.authToken = null
   }
   
   return (
@@ -22,12 +39,24 @@ export default function Header() {
             <Link href="/">Open Velog</Link>
           </Logo>
           <Utils>
-            <Util>
-              <UtilButton onClick={() => onClickUtil('join')}>회원 가입</UtilButton>
-            </Util>
-            <Util>
-              <UtilButton onClick={() => onClickUtil('login')}>로그인</UtilButton>
-            </Util>
+            {!isLogin ?
+              <>
+                <Util>
+                  <UtilButton onClick={() => onClickUtil('join')}>회원 가입</UtilButton>
+                </Util>
+                <Util>
+                  <UtilButton onClick={() => onClickUtil('login')}>로그인</UtilButton>
+                </Util>
+              </> :
+              <>
+                <Util>
+                  <UtilLink href="/boards">My Velog</UtilLink>
+                </Util>
+                <Util>
+                  <UtilButton onClick={onClickLogout}>로그아웃</UtilButton>
+                </Util>
+              </> 
+            }
           </Utils>
         </ContentWrapper>
       </Wrapper>
@@ -63,4 +92,6 @@ const Util = styled.li`
 `
 
 const UtilButton = styled.button`
+`
+const UtilLink = styled(Link)`
 `

@@ -25,13 +25,41 @@ function JoinModal(props: JoinModalProps) {
     gender: '',
     birthday: '',
   })
+  const dispatch = useDispatch()
+  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
 
-  const onSubmitJoin = () => {
+  const onSubmitJoin = async() => {
+    const { userId, username, password2, email, gender, birthday } = forms
+    const result = {
+      userId,
+      username,
+      password: password2,
+      email,
+      gender,
+      birthday
+    }
+    const action = await dispatch(fetchJoin(result))
+    if(!action.error) {
+      alert('회원가입 완료')
+    } else {
+      alert('회원가입 실패')
+    }
     reset()
     toggle()
   }
 
-  const onSubmitLogin = () => {
+  const onSubmitLogin = async() => {
+    const { userId, password2 } = forms
+    const result = {
+      userId,
+      password: password2,
+    }
+    const action = await dispatch(fetchLogin(result))
+    if(!action.error) {
+      alert('로그인 완료')
+    } else {
+      alert('로그인 실패')
+    }
     reset()
     toggle()
   }
