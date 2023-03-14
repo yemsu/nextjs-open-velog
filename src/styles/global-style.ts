@@ -36,6 +36,9 @@ export default createGlobalStyle`
   strong {
     font-weight: var(--text-weight-X-bold);
   }
+  label {
+    font-weight: var(--font-weight-normal);
+  }
   input[type="radio"],
   input[type="checkbox"] {
     margin: 0;
