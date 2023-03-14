@@ -17,9 +17,7 @@ export default function Button(props: ButtonProps) {
 
   return (
     <ButtonTag
-      styleType={styleType}
-      bgColor={bgColor}
-      size={size}
+      className={`type-${styleType} bg-${bgColor} size-${size}`}
       onClick={onClick}
     >
       <Text>{buttonText}</Text>
@@ -27,60 +25,7 @@ export default function Button(props: ButtonProps) {
   )
 }
 
-interface ButtonStyledProps {
-  styleType: string,
-  bgColor: string,
-  size: string,
-}
-
-const typeStyles = css<{styleType: string}>`
-  ${({styleType}) => {
-    // style type
-    switch (styleType) {
-      case 'square-round':
-        return css`
-          border-radius: var(--border-radius-M);
-        `
-      case 'round':
-        return css`
-          border-radius: var(--border-radius-F);
-        `
-    }
-  }}
-`
-
-const bgStyles = css<{bgColor: string}>`
-  ${({bgColor}) => {
-    switch (bgColor) {
-      case 'primary':
-        return css`
-          background-color: hsl(var(--primary-hsl));
-          color: #fff;
-        `
-    }
-  }}
-`
-
-const sizeStyles = css<{size: string}>`
-  ${({size}) => {
-    switch (size) {
-      case 'small':
-        return css`
-          font-size: var(--font-size-XS);
-        `
-      case 'medium':
-        return css`
-          font-size: var(--font-size-S);
-        `
-      case 'large':
-        return css`
-          font-size: var(--font-size-M);
-        `
-    }
-  }}
-`
-
-const ButtonTag = styled.button<ButtonStyledProps>`
+const ButtonTag = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,9 +33,31 @@ const ButtonTag = styled.button<ButtonStyledProps>`
   height: 40px;
   padding: 0 20px;
   line-height: 1;
-  ${typeStyles}
-  ${bgStyles}
-  ${sizeStyles}
+  &.type {
+    &-square-round {
+      border-radius: var(--border-radius-M);
+    }
+    &-round {
+      border-radius: var(--border-radius-F);
+    }
+  }
+  &.bg {
+    &-primary {
+      background-color: hsl(var(--primary-hsl));
+      color: #fff;
+    }
+  }
+  &.size {
+    &-small {
+      font-size: var(--font-size-XS);
+    }
+    &-medium {
+      font-size: var(--font-size-S);
+    }
+    &-large {
+      font-size: var(--font-size-M);
+    }
+  }
 `
 
 const Text = styled.span`
