@@ -3,6 +3,7 @@ import { useSelector, useDispatch  } from "react-redux";
 import { SET_IS_LOGIN } from "@/store/auth";
 import { RootState } from "@/store";
 import Axios from "@/api/Axios";
+import { AUTH_TOKEN } from "@/constants/etc";
 import JoinModal from "@/components/auth/JoinModal"
 import ContentWrapper from "@/components/layouts/ContentWrapper"
 import useModal from "@/hooks/useModal"
@@ -16,7 +17,7 @@ export default function Header() {
   const isLogin = useSelector((state: RootState) => state.auth.isLogin);
 
   useEffect(() => {
-    const hasToken = localStorage.getItem('AUTH_TOKEN')
+    const hasToken = localStorage.getItem(AUTH_TOKEN)
     if(hasToken) dispatch(SET_IS_LOGIN(true))
   }, [])
 
@@ -26,7 +27,7 @@ export default function Header() {
   }
 
   const onClickLogout = () => {
-    localStorage.removeItem('AUTH_TOKEN')
+    localStorage.removeItem(AUTH_TOKEN)
     dispatch(SET_IS_LOGIN(false))
     Axios.prototype.authToken = null
   }

@@ -1,6 +1,7 @@
-import Axios from '@/api/Axios'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { AUTH_TOKEN } from '@/constants/etc'
+import Axios from '@/api/Axios'
 import { SignupPayLoad, SignInPayLoad, UserInfo } from '@/types/auth'
 import { postSignup, postSignIn } from '@/api/auth'
 
@@ -35,7 +36,7 @@ export const fetchLogin = createAsyncThunk(
     try {
       const response = await postSignIn(payload)
       const authToken = response.headers.authorization.replace('Bearer ', '')
-      localStorage.setItem('AUTH_TOKEN', authToken)
+      localStorage.setItem(AUTH_TOKEN, authToken)
       Axios.prototype.authToken = authToken
       return response.data.data
     } catch (e: any) {
