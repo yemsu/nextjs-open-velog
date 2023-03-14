@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import posts from '@/store/posts';
+import boards from '@/store/board';
 
 const rootReducer = combineReducers({
-  posts
+  boards
 });
 
 export default rootReducer;

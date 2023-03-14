@@ -16,8 +16,13 @@ interface InputProps {
 function Input(props: InputProps) {
   const { type, id, name, label, placeholder, value, checked, isRequired = true, onChange } = props
 
-  const idStr = id || `input-${name}`
   const isBackLabelStyle = ["checkbox", "radio"].includes(type)
+  const idStr = id || `input-${name}`
+
+  const onClick = (e: SyntheticEvent) => {
+    if(!isBackLabelStyle) return
+    onChange(e)
+  }
   return (
     <Wrapper type={type}>
       {
@@ -37,6 +42,7 @@ function Input(props: InputProps) {
           checked={checked}
           required={isRequired}
           onChange={onChange}
+          onClick={onClick}
         />
         {isBackLabelStyle && <LabelText>{label}</LabelText>}
       </InputWrapLabel>

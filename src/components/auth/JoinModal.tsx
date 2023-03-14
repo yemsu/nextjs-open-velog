@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { fetchJoin } from "@/store/auth"
 import Modal from "@/components/elements/Modal"
 import Input from "@/components/elements/Input";
 import WrapInputs from "@/components/elements/WrapInputs";
@@ -15,15 +17,28 @@ interface JoinModalProps {
 function JoinModal(props: JoinModalProps) {
   const { isOpen, toggle, modalType } = props
   const [forms, onChange, reset] = useInputs({
-    email: '',
-    password1: '',
-    password2: '',
-    nick: '',
-    gender: '',
-    birth: '',
+    userId: 'test1test1',
+    email: 'as@gmail.com',
+    password1: 'a123123123!',
+    password2: 'a123123123!',
+    username: '김말순',
+    gender: 'woman',
+    birthday: '1991-06-10',
   })
+  const dispatch = useDispatch()
 
   const onSubmitJoin = () => {
+    const { userId, username, password2, email, gender, birthday } = forms
+    const result = {
+        userId,
+        username,
+        password: password2,
+        email,
+        gender,
+        birthday
+      }
+    // console.log('result', result)
+    dispatch(fetchJoin(result))
     reset()
     toggle()
   }
@@ -54,11 +69,11 @@ function JoinModal(props: JoinModalProps) {
       <WrapForm>
         <WrapInputs>
           <Input
-            type="email"
-            name="email"
-            label="이메일"
-            value={forms.email}
-            placeholder="ex) abcde@gmail.com"
+            type="text"
+            name="userId"
+            label="아이디"
+            value={forms.userId}
+            placeholder="영문, 숫자(4~16자)"
             onChange={onChange}
           />
         </WrapInputs>
@@ -68,7 +83,7 @@ function JoinModal(props: JoinModalProps) {
             name="password1"
             label="비밀번호"
             value={forms.password1}
-            placeholder="영문, 숫자, 특수문자 포함(8자 이상)"
+            placeholder="영문, 숫자, 특수문자 포함(8~15자)"
             onChange={onChange}
           />
         </WrapInputs>
@@ -86,40 +101,50 @@ function JoinModal(props: JoinModalProps) {
             </WrapInputs>
             <WrapInputs>
               <Input
-                type="text"
-                name="nick"
-                label="닉네임"
-                value={forms.nick}
-                placeholder="특수문자 사용 불가(8~10자)"
+                type="email"
+                name="email"
+                label="이메일"
+                value={forms.email}
+                placeholder="ex) abcde@gmail.com"
                 onChange={onChange}
               />
             </WrapInputs>
             <WrapInputs>
               <Input
-                type="number"
-                name="birth"
+                type="text"
+                name="username"
+                label="닉네임"
+                value={forms.username}
+                placeholder="아무 문자(4~20자)"
+                onChange={onChange}
+              />
+            </WrapInputs>
+            <WrapInputs>
+              <Input
+                type="text"
+                name="birthday"
                 label="생년월일"
-                value={forms.birth}
-                placeholder="생년월일 8자리 ex)19910610"
+                value={forms.birthday}
+                placeholder="생년월일 8자리 ex)1991-06-10"
                 onChange={onChange}
               />
             </WrapInputs>
             <WrapInputs label="성별" labelFor="female">
               <Input
                 type="radio"
-                id="female"
+                id="woman"
                 name="gender"
                 label="여"
-                value="F"
+                value="woman"
                 checked={true}
                 onChange={onChange}
               />
               <Input
                 type="radio"
-                id="mail"
+                id="man"
                 name="gender"
                 label="남"
-                value="M"
+                value="man"
                 onChange={onChange}
               />
             </WrapInputs>
