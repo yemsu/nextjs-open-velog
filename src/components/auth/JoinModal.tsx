@@ -4,18 +4,32 @@ import Modal from "@/components/elements/Modal"
 import Input from "@/components/elements/Input";
 import WrapInputs from "@/components/elements/WrapInputs";
 import useInputs from "@/hooks/useInputs"
-import Button from "@/components/elements/Button";
+import Button from "@/components/elements/Button"
 import styled from "styled-components"
 
 interface JoinModalProps {
   modalType: string,
   isOpen: boolean,
   toggle: () => void,
-};
+}
+
+interface InputCategory {
+  type: string,
+  name: string,
+  label: string,
+  placeholder?: string,
+  id?: string,
+  value?: string,
+  isForLogin?: boolean,
+}
+
+interface FormDataTypes {
+  [key: string]: string
+}
 
 function JoinModal(props: JoinModalProps) {
   const { isOpen, toggle, modalType } = props
-  const [forms, onChange, reset] = useInputs({
+  const [forms, onChange, reset] = useInputs<FormDataTypes>({
     userId: '',
     email: '',
     password1: '',
@@ -57,11 +71,66 @@ function JoinModal(props: JoinModalProps) {
     toggle()
   }
   
-  const isJoin = modalType === 'join'
-  const modalTitle = isJoin ? 'Welcome to Open Velog 🐣' : 'Nice to see you again 😁'
-  const submitButtonText = isJoin ? '가입' : '로그인'
-  const onSubmitEvent = isJoin ? onSubmitJoin : onSubmitLogin
+  const isLogin = modalType === 'login'
+  const modalTitle = isLogin ? 'Nice to see you again 😁' : 'Welcome to Open Velog 🐣' 
+  const submitButtonText = isLogin ? '로그인' : '가입' 
+  const onSubmitEvent = isLogin ? onSubmitLogin : onSubmitJoin 
   const SubmitButton = <Button styleType="round" bgColor="primary" size="medium" buttonText={submitButtonText} onClick={onSubmitEvent} />
+  const loginInputNames = ['userId', 'password1']
+  const inputCategories = [
+    [{
+      type: 'text',
+      name: 'userId',
+      label: '아이디',
+      placeholder: '영문, 숫자(6~16자)'
+    }],
+    [{
+      type: 'password',
+      name: 'password1',
+      label: '비밀번호',
+      placeholder: '영문, 숫자, 특수문자 포함(8~15자)'
+    }],
+    [{
+      type: 'password',
+      name: 'password2',
+      label: '비밀번호 확인',
+      placeholder: '영문, 숫자, 특수문자 포함(8자 이상)'
+    }],
+    [{
+      type: 'email',
+      name: 'email',
+      label: '이메일',
+      placeholder: 'ex) abcde@gmail.com'
+    }],
+    [{
+      type: 'text',
+      name: 'username',
+      label: '닉네임',
+      placeholder: '한글, 영문, 숫자(3~10자)'
+    }],
+    [{
+      type: 'text',
+      name: 'birthday',
+      label: '생년월일',
+      placeholder: '생년월일 8자리 ex)1991-06-10'
+    }],
+    [{
+        type: 'radio',
+        id: 'woman',
+        name: 'gender',
+        label: '여',
+        value: 'woman',
+        isForJoin: true
+      },
+      {
+        type: 'radio',
+        id: 'man',
+        name: 'gender',
+        label: '남',
+        value: 'man',
+        isForJoin: true
+    }]
+  ]
   return (
     <Modal
       isOpen={isOpen}
@@ -71,89 +140,28 @@ function JoinModal(props: JoinModalProps) {
       submitButton={SubmitButton}
     >
       <WrapForm>
-        <WrapInputs>
-          <Input
-            type="text"
-            name="userId"
-            label="아이디"
-            value={forms.userId}
-            placeholder="영문, 숫자(6~16자)"
-            onChange={onChange}
-          />
-        </WrapInputs>
-        <WrapInputs>
-          <Input
-            type="password"
-            name="password1"
-            label="비밀번호"
-            value={forms.password1}
-            placeholder="영문, 숫자, 특수문자 포함(8~15자)"
-            onChange={onChange}
-          />
-        </WrapInputs>
-        {isJoin && 
-          <>
-            <WrapInputs>
-              <Input
-                type="password"
-                name="password2"
-                label="비밀번호 확인"
-                value={forms.password2}
-                placeholder="영문, 숫자, 특수문자 포함(8자 이상)"
-                onChange={onChange}
-              />
+        {inputCategories.map((inputs, i) => {
+          return (
+            ((isLogin && loginInputNames.includes(inputs[0].name)) || !isLogin) &&
+            <WrapInputs key={`category${i}`}>
+              {inputs.map(({ type, id, name, label, value, placeholder }: InputCategory, i) => {
+                return (
+                  <Input
+                    type={type}
+                    id={id}
+                    name={name}
+                    label={label}
+                    value={value || forms[name]}
+                    checked={type === 'radio' && i === 0}
+                    placeholder={placeholder}
+                    onChange={onChange}
+                    key={name + id}
+                  />
+                )
+              })}
             </WrapInputs>
-            <WrapInputs>
-              <Input
-                type="email"
-                name="email"
-                label="이메일"
-                value={forms.email}
-                placeholder="ex) abcde@gmail.com"
-                onChange={onChange}
-              />
-            </WrapInputs>
-            <WrapInputs>
-              <Input
-                type="text"
-                name="username"
-                label="닉네임"
-                value={forms.username}
-                placeholder="한글, 영문, 숫자(3~10자)"
-                onChange={onChange}
-              />
-            </WrapInputs>
-            <WrapInputs>
-              <Input
-                type="text"
-                name="birthday"
-                label="생년월일"
-                value={forms.birthday}
-                placeholder="생년월일 8자리 ex)1991-06-10"
-                onChange={onChange}
-              />
-            </WrapInputs>
-            <WrapInputs label="성별" labelFor="female">
-              <Input
-                type="radio"
-                id="woman"
-                name="gender"
-                label="여"
-                value="woman"
-                checked={true}
-                onChange={onChange}
-              />
-              <Input
-                type="radio"
-                id="man"
-                name="gender"
-                label="남"
-                value="man"
-                onChange={onChange}
-              />
-            </WrapInputs>
-          </>
-        }
+          )
+          })}
       </WrapForm>
     </Modal>
   )
