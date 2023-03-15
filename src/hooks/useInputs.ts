@@ -7,15 +7,17 @@ type useInputs<T> = [
 ]
 
 function useInputs<T>(initialForm: T): useInputs<T> {
-  const [forms, setForm] = useState(initialForm)
+  const [forms, setForms] = useState(initialForm)
 
   const onChange = useCallback((e: SyntheticEvent) => {
     const { name, value } = e.target as HTMLInputElement
-    setForm((prev) => ({ ...prev, [name]: value }))
+    setForms((prev) => {
+      return { ...prev, [name]: value }
+    })
   }, [])
 
   const reset = useCallback(() => {
-    setForm(initialForm)
+    setForms(initialForm)
   }, [initialForm])
 
   return [forms, onChange, reset]
