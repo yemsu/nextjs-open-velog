@@ -17,10 +17,10 @@
   --font-size-XXS: 11px;
   
   // Font Weight
-  --font-weight-thin: 400;
-  --font-weight-normal: 500;
-  --font-weight-bold: 600;
-  --font-weight-X-bold: 700;
+  --font-weight-thin: 300;
+  --font-weight-normal: 400;
+  --font-weight-bold: 500;
+  --font-weight-X-bold: 600;
 
   // primary color
   --primary-h: 248;
@@ -56,7 +56,7 @@
   --border-dark: hsl(var(--gray-60));
   --border-dark-gray: hsl(var(--gray-60));
   --border-gray: hsl(var(--gray-80));
-  --border-light-gray: hsl(var(--gray-95));
+  --border-light-gray: hsl(var(--gray-90));
   --border-light: hsl(var(--gray-95));
 
   // Background Color

@@ -1,19 +1,17 @@
 import { ReactNode } from "react"
 import styled, { css } from "styled-components"
 
-type LayoutTypes = 'basic' | 'flex-row'
-type Sizes = 'normal' | 'wide' | 'full'
-
 interface ContentWrapperProps {
   children: ReactNode,
-  layoutType?: LayoutTypes,
-  size?: Sizes,
+  layoutType?: 'basic' | 'flex-row',
+  size?: 'narrow' | 'normal' | 'wide' | 'full',
+  contentType?: 'normal' | 'main'
 }
 
 function ContentWrapper(props: ContentWrapperProps) {
-  const { children, size = 'normal', layoutType = 'basic' } = props
+  const { children, size = 'normal', layoutType = 'basic', contentType = 'normal' } = props
   return (
-    <Wrapper className={`layout-${layoutType} size-${size}`}>
+    <Wrapper className={`layout-${layoutType} size-${size} type-${contentType}`}>
       {children}
     </Wrapper>
   )
@@ -22,6 +20,12 @@ function ContentWrapper(props: ContentWrapperProps) {
 export default ContentWrapper
 
 const Wrapper = styled.div`
+  min-height: 100%;
+  &.type {
+    &-main {
+      padding-top: 60px;
+    }
+  }
   &.layout {
     &-flex-row {
       display: flex;
@@ -30,16 +34,11 @@ const Wrapper = styled.div`
   }
   /* size */
   &.size {
-    &-normal,
-    &-wide {
-      max-width: 100%;
-      min-height: 100%;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0 20px;
+    &-narrow {
+      width: 768px;
     }
     &-normal {
-      width: 1200px;
+      width: 1000px;
     }
     &-wide {
       width: 1200px;
@@ -48,5 +47,12 @@ const Wrapper = styled.div`
       width: 100%;
       padding: 0 64px;
     }
+  }
+  &:not(.size-full) {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 `
