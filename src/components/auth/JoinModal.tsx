@@ -76,7 +76,12 @@ function JoinModal(props: JoinModalProps) {
   const submitButtonText = isLogin ? '로그인' : '가입' 
   const onSubmitEvent = isLogin ? onSubmitLogin : onSubmitJoin 
   const SubmitButton = <Button styleType="round" bgColor="primary" size="medium" buttonText={submitButtonText} onClick={onSubmitEvent} />
-  const loginInputNames = ['userId', 'password1']
+  const isInputForLogin = (inputs: InputCategory[]) => (
+    ['userId', 'password1'].includes(inputs[0].name)
+  )
+  const isVisibleCategory = (inputs: InputCategory[]) => (
+    !isLogin || (isLogin && isInputForLogin(inputs))
+    )
   const inputCategories = [
     [{
       type: 'text',
@@ -142,7 +147,7 @@ function JoinModal(props: JoinModalProps) {
       <WrapForm>
         {inputCategories.map((inputs, i) => {
           return (
-            ((isLogin && loginInputNames.includes(inputs[0].name)) || !isLogin) &&
+            isVisibleCategory(inputs) &&
             <WrapInputs key={`category${i}`}>
               {inputs.map(({ type, id, name, label, value, placeholder }: InputCategory, i) => {
                 return (
