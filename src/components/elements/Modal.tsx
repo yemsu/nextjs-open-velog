@@ -85,8 +85,9 @@ const WrapTitle = styled.div`
 `
 
 const Title = styled.h2`
+  font-family: var(--font-family-eng-title);
   font-size: var(--font-size-title-M);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-X-bold);
   line-height: 1.2;
 `
 

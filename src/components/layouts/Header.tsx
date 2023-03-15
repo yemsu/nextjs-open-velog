@@ -82,6 +82,7 @@ const Wrapper = styled.div`
 `
 
 const Logo = styled.h1`
+  font-family: var(--font-family-eng-title);
   font-size: var(--font-size-title-S);
   font-weight: var(--font-weight-X-bold);
 `
@@ -101,4 +102,5 @@ const Util = styled.li`
 const UtilButton = styled.button`
 `
 const UtilLink = styled(Link)`
+  font-family: var(--font-family-eng-title);
 `
