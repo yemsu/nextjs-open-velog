@@ -15,7 +15,7 @@ export interface SignInPayLoad {
   password: string
 }
 
-export interface Response extends UserInfo {
+export interface UserResponse extends UserInfo {
   id: number,
   createdAt: string,
   modifiedAt: string

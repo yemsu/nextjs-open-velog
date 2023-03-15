@@ -1,6 +1,5 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchJoin, fetchLogin } from "@/store/auth"
-import { RootState } from "@/store";
 import Modal from "@/components/elements/Modal"
 import Input from "@/components/elements/Input";
 import WrapInputs from "@/components/elements/WrapInputs";
@@ -26,7 +25,6 @@ function JoinModal(props: JoinModalProps) {
     birthday: '',
   })
   const dispatch = useDispatch()
-  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
 
   const onSubmitJoin = async() => {
     const { userId, username, password2, email, gender, birthday } = forms
@@ -38,12 +36,7 @@ function JoinModal(props: JoinModalProps) {
       gender,
       birthday
     }
-    const action = await dispatch(fetchJoin(result))
-    if(!action.error) {
-      alert('회원가입 완료')
-    } else {
-      alert('회원가입 실패')
-    }
+    await dispatch(fetchJoin(result) as any)
     reset()
     toggle()
   }
@@ -54,12 +47,7 @@ function JoinModal(props: JoinModalProps) {
       userId,
       password: password2,
     }
-    const action = await dispatch(fetchLogin(result))
-    if(!action.error) {
-      alert('로그인 완료')
-    } else {
-      alert('로그인 실패')
-    }
+    await dispatch(fetchLogin(result) as any)
     reset()
     toggle()
   }

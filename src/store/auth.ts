@@ -1,36 +1,31 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { AUTH_TOKEN } from '@/constants/etc'
 import Axios from '@/api/Axios'
-import { SignupPayLoad, SignInPayLoad, UserInfo } from '@/types/auth'
+import { SignupPayLoad, SignInPayLoad, UserResponse } from '@/types/auth'
+import { ErrorResponse } from '@/types/api'
 import { postSignup, postSignIn } from '@/api/auth'
+import { getRejectValue } from '@/utils/store'
+import { AxiosError } from 'axios'
 
 const name = 'auth'
 
-interface AuthState {
-  isLogin: boolean
-  userInfo: UserInfo | null
-}
-
-const initialState = {
-  isLogin: false,
-  userInfo: null
-} as AuthState
-
-export const fetchJoin = createAsyncThunk(
+export const fetchJoin = createAsyncThunk<UserResponse, SignupPayLoad, {rejectValue: ErrorResponse}>(
   `${name}/fetchJoin`,
   async (payload: SignupPayLoad, thunkAPI) => {
     try {
       const response = await postSignup(payload)
-      console.log('fetchJoin', response.data)
       return response.data
-    } catch (e: any) {
-      return thunkAPI.rejectWithValue(await e.response.data);
+    } catch (error: unknown) {
+      if(error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(getRejectValue(error))
+      } else {
+        throw error;
+      }
     }
   }
 )
 
-export const fetchLogin = createAsyncThunk(
+export const fetchLogin = createAsyncThunk<UserResponse, SignInPayLoad, {rejectValue: ErrorResponse}>(
   `${name}/fetchLogin`,
   async (payload: SignInPayLoad, thunkAPI) => {
     try {
@@ -38,12 +33,28 @@ export const fetchLogin = createAsyncThunk(
       const authToken = response.headers.authorization.replace('Bearer ', '')
       localStorage.setItem(AUTH_TOKEN, authToken)
       Axios.prototype.authToken = authToken
-      return response.data.data
-    } catch (e: any) {
-      return thunkAPI.rejectWithValue(await e.response.data);
+      return response.data
+    } catch (error: unknown) {
+      if(error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(getRejectValue(error))
+      } else {
+        throw error;
+      }
     }
   }
 )
+
+interface AuthState {
+  isLogin: boolean
+  userInfo: UserResponse | null,
+  error: string | null
+}
+
+const initialState = {
+  isLogin: false,
+  userInfo: null,
+  error: null
+} as AuthState
 
 const authSlide = createSlice({
   name,
@@ -56,39 +67,37 @@ const authSlide = createSlice({
       state.isLogin = action.payload
     },
   },
-  extraReducers: {
-    [fetchJoin.pending.type]: (state, action) => {
-      // 호출 전
-      console.log('회원가입 호출 전')
-    },
-    [fetchJoin.fulfilled.type]: (state, action) => {
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchJoin.pending, (state, action) => {
+        console.log('회원가입 호출 전')
+      })
+      .addCase(fetchJoin.fulfilled, (state, action) => {
       // 성공
-      console.log('회원가입 성공!!!', action.payload)
-      state.isLogin = true
-    },
-    [fetchJoin.rejected.type]: (
-      state,
-      action: PayloadAction<{ message: string; code: number }>
-    ) => {
-      // 실패
-      console.log('회원가입 실패', action.payload.message)
-    },
-    [fetchLogin.pending.type]: (state, action) => {
-      // 호출 전
-      console.log('로그인 호출 전')
-    },
-    [fetchLogin.fulfilled.type]: (state, action) => {
-      // 성공
-      console.log('로그인 성공!!!', action.payload)
-      state.isLogin = true
-    },
-    [fetchLogin.rejected.type]: (
-      state,
-      action: PayloadAction<{ message: string; code: number }>
-    ) => {
-      // 실패
-      console.log('로그인 실패', action.payload.message)
-    },
+        console.log('회원가입 성공!!!', action.payload)
+        state.isLogin = true
+        alert('회원가입 완료')
+      })
+      .addCase(fetchJoin.rejected, (state, action) => {
+        // 실패
+        console.log('회원가입 실패', action.payload)
+        alert('회원가입 실패')
+      })
+      .addCase(fetchLogin.pending, (state, action) => {
+        // 호출 전
+        console.log('로그인 호출 전')
+      })
+      .addCase(fetchLogin.fulfilled, (state, action) => {
+        // 성공
+        console.log('로그인 성공!!!', action.payload)
+        state.isLogin = true
+        alert('로그인 완료')
+      })
+      .addCase(fetchLogin.rejected, (state, action) => {
+        // 실패
+        console.log('로그인 실패', action.payload)
+        alert('로그인 실패')
+      })
   }
 })
 
