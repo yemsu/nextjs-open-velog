@@ -150,6 +150,8 @@ function JoinModal(props: JoinModalProps) {
             isVisibleCategory(inputs) &&
             <WrapInputs key={`category${i}`}>
               {inputs.map(({ type, id, name, label, value, placeholder }: InputCategory, i) => {
+                const defaultFirstCheck = !forms[name] && type === 'radio' && i === 0
+                const isChecked = (defaultFirstCheck || forms[name] === value)
                 return (
                   <Input
                     type={type}
@@ -157,7 +159,7 @@ function JoinModal(props: JoinModalProps) {
                     name={name}
                     label={label}
                     value={value || forms[name]}
-                    checked={type === 'radio' && i === 0}
+                    checked={isChecked}
                     placeholder={placeholder}
                     onChange={onChange}
                     key={name + id}
