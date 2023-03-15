@@ -24,6 +24,7 @@ const Wrapper = styled.div`
   &.type {
     &-main {
       padding-top: 60px;
+      padding-bottom: 60px;
     }
   }
   &.layout {

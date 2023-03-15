@@ -31,10 +31,10 @@ interface FormDataTypes {
 function JoinModal(props: JoinModalProps) {
   const { isOpen, toggle, modalType } = props
   const [forms, onChange, reset] = useInputs<FormDataTypes>({
-    userId: '',
+    userId: 'test1test1',
     email: '',
-    password1: '',
-    password2: '',
+    password1: 'a123123123!',
+    password2: 'a123123123!',
     username: '',
     gender: '',
     birthday: '',

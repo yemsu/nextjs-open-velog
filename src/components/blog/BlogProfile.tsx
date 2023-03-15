@@ -25,8 +25,7 @@ const Wrapper = styled.div`
   &.pos {
     &-top {
       padding-top: 0;
-      margin-bottom: 30px;
-      border-bottom: 1px solid var(--border-light-gray);
+      margin-bottom: 10px;
     }
   }
 `

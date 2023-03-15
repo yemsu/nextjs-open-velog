@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { AUTH_TOKEN } from '@/constants/etc'
+import { AUTH_TOKEN, USER_INFO } from '@/constants/etc'
 import Axios from '@/api/Axios'
 import { SignupPayLoad, SignInPayLoad, UserResponse, UserResponseData } from '@/types/auth'
 import { ErrorResponse } from '@/types/api'
@@ -33,6 +33,7 @@ export const fetchLogin = createAsyncThunk<UserResponse, SignInPayLoad, {rejectV
       const response = await postSignIn(payload)
       const authToken = response.headers.authorization.replace('Bearer ', '')
       localStorage.setItem(AUTH_TOKEN, authToken)
+      localStorage.setItem(USER_INFO, JSON.stringify(response.data.data))
       Axios.prototype.authToken = authToken
       return response.data
     } catch (error: unknown) {
@@ -64,8 +65,9 @@ const authSlide = createSlice({
     SET_IS_LOGIN(state, action: PayloadAction<boolean>) {
       state.isLogin = action.payload
     },
-    SET_USER_INFO(state, action: PayloadAction<boolean>) {
-      state.isLogin = action.payload
+    SET_USER_INFO(state, action: PayloadAction<UserResponseData | null>) {
+      console.log('action.payload', action.payload)
+      state.userInfo = action.payload
     },
   },
   extraReducers: (builder) => {
