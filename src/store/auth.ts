@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { AUTH_TOKEN } from '@/constants/etc'
 import Axios from '@/api/Axios'
-import { SignupPayLoad, SignInPayLoad, UserResponse } from '@/types/auth'
+import { SignupPayLoad, SignInPayLoad, UserResponse, UserResponseData } from '@/types/auth'
 import { ErrorResponse } from '@/types/api'
 import { postSignup, postSignIn } from '@/api/auth'
 import { getRejectValue } from '@/utils/store'
 import { AxiosError } from 'axios'
+import { RootState } from '.'
 
 const name = 'auth'
 
@@ -46,7 +47,7 @@ export const fetchLogin = createAsyncThunk<UserResponse, SignInPayLoad, {rejectV
 
 interface AuthState {
   isLogin: boolean
-  userInfo: UserResponse | null,
+  userInfo: UserResponseData | null,
   error: string | null
 }
 
@@ -69,9 +70,6 @@ const authSlide = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchJoin.pending, (state, action) => {
-        console.log('회원가입 호출 전')
-      })
       .addCase(fetchJoin.fulfilled, (state, action) => {
       // 성공
         console.log('회원가입 성공!!!', action.payload)
@@ -83,15 +81,10 @@ const authSlide = createSlice({
         console.log('회원가입 실패', action.payload)
         alert('회원가입 실패')
       })
-      .addCase(fetchLogin.pending, (state, action) => {
-        // 호출 전
-        console.log('로그인 호출 전')
-      })
       .addCase(fetchLogin.fulfilled, (state, action) => {
-        // 성공
-        console.log('로그인 성공!!!', action.payload)
+        // console.log('로그인 성공!!!', action.payload)
         state.isLogin = true
-        alert('로그인 완료')
+        state.userInfo = action.payload.data
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         // 실패
@@ -101,5 +94,9 @@ const authSlide = createSlice({
   }
 })
 
+export const getIsLogin = (state: RootState) => state.auth.isLogin
+export const getUserInfo = (state: RootState) => state.auth.userInfo
+
 export const { SET_IS_LOGIN, SET_USER_INFO } = authSlide.actions
+
 export default authSlide.reducer;

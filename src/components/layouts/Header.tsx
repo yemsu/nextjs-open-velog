@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { useSelector, useDispatch  } from "react-redux";
-import { SET_IS_LOGIN } from "@/store/auth";
-import { RootState } from "@/store";
+import { getIsLogin, SET_IS_LOGIN } from "@/store/auth";
 import Axios from "@/api/Axios";
 import { AUTH_TOKEN } from "@/constants/etc";
 import JoinModal from "@/components/auth/JoinModal"
@@ -14,7 +13,7 @@ export default function Header() {
   const [isOpen, toggle] = useModal()
   const [joinOrLogin, setJoinOrLogin] = useState('join')
   const dispatch = useDispatch()
-  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
+  const isLogin = useSelector(getIsLogin);
 
   useEffect(() => {
     const hasToken = localStorage.getItem(AUTH_TOKEN)
