@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { fetchJoin, fetchLogin } from "@/store/auth"
 import Modal from "@/components/elements/Modal"
 import Input from "@/components/elements/Input";
-import WrapInputs from "@/components/elements/WrapInputs";
+import WrapInputs from "@/components/elements/InputWrapper";
 import useInputs from "@/hooks/useInputs"
 import Button from "@/components/elements/Button"
 import styled from "styled-components"

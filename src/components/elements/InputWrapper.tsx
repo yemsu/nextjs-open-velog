@@ -1,13 +1,13 @@
 import styled, { css } from "styled-components"
 import React, { ReactNode } from 'react'
 
-interface ChecksWrapProps {
+interface InputWrapperProps {
   label?: string,
   labelFor?: string,
   children: ReactNode
 }
 
-function ChecksWrap(props: ChecksWrapProps) {
+function InputWrapper(props: InputWrapperProps) {
   const { children, label, labelFor } = props
   
   const childrenCount = React.Children.count(children)
@@ -48,4 +48,4 @@ const Inputs = styled.div`
   gap: 15px;
 `
 
-export default ChecksWrap
+export default InputWrapper
