@@ -6,6 +6,7 @@ import WrapInputs from "@/components/elements/InputWrapper";
 import useInputs from "@/hooks/useInputs"
 import Button from "@/components/elements/Button"
 import styled from "styled-components"
+import { APP_TITLE } from "@/constants/etc";
 
 interface JoinModalProps {
   modalType: string,
@@ -72,7 +73,7 @@ function JoinModal(props: JoinModalProps) {
   }
   
   const isLogin = modalType === 'login'
-  const modalTitle = isLogin ? 'Welcome back ' : `Join Open Velog 🐣` 
+  const modalTitle = isLogin ? 'Welcome back ' : `Join ${APP_TITLE} 🐣` 
   const submitButtonText = isLogin ? '로그인' : '가입' 
   const onSubmitEvent = isLogin ? onSubmitLogin : onSubmitJoin 
   const SubmitButton = <Button styleType="round" bgColor="primary" size="medium" buttonText={submitButtonText} onClick={onSubmitEvent} />

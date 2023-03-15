@@ -2,7 +2,7 @@ import Link from "next/link"
 import { useSelector, useDispatch  } from "react-redux";
 import { getIsLogin, getUserInfo, SET_IS_LOGIN, SET_USER_INFO } from "@/store/auth";
 import Axios from "@/api/Axios";
-import { AUTH_TOKEN, USER_INFO } from "@/constants/etc";
+import { APP_TITLE, AUTH_TOKEN, USER_INFO } from "@/constants/etc";
 import JoinModal from "@/components/auth/JoinModal"
 import ContentWrapper from "@/components/layouts/ContentWrapper"
 import useModal from "@/hooks/useModal"
@@ -44,7 +44,7 @@ export default function Header() {
       <Wrapper>
         <ContentWrapper size="full" layoutType="flex-row">
           <Logo>
-            <Link href="/">Open Velog</Link>
+            <Link href="/">{APP_TITLE}</Link>
           </Logo>
           <Utils>
             {!isLogin ?
