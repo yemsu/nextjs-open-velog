@@ -23,7 +23,7 @@ class Axios {
 
   get<ParamsType, ResponseType>(
     url: string,
-    params: ParamsType
+    params?: ParamsType
   ): Promise<AxiosResponse<ResponseType>> {
     return this._axios.get(url, { 
       params: { ...params },
@@ -32,7 +32,7 @@ class Axios {
   }
   post<PayloadType, ResponseType>(
     url: string,
-    payload:PayloadType
+    payload: PayloadType
   ): Promise<AxiosResponse<ResponseType>> {
     return this._axios.post(url, payload, { 
       headers: getHeader()
