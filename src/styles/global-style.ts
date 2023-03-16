@@ -16,6 +16,7 @@ export default createGlobalStyle`
   }
   button {
     appearance: none;
+    padding: 0;
     border: none;
     background-color: transparent;
     color: inherit;

@@ -1,17 +1,46 @@
+import useInputs from "@/hooks/useInputs"
+import { useCallback } from "react"
 import styled from "styled-components"
+import EditableText from "../elements/EditableText"
 
 interface BlogProfileProps {
   profilePosition: 'top' | 'bottom'
+  username: string,
+  introduce: string,
+  isMine?: boolean
+}
+
+interface FormDataTypes {
+  [key: string]: string
 }
 
 function BlogProfile(props: BlogProfileProps) {
-  const { profilePosition } = props
+  const { profilePosition, username, introduce, isMine = false } = props
+  const [forms, onChange, reset] = useInputs<FormDataTypes>({
+    blogIntroduce: ''
+  })
+
+  const onSubmitEditableText = useCallback(() => {
+    console.log('forms', forms)
+  }, [forms])
+
   return (
     <Wrapper className={`pos-${profilePosition}`}>
-      <Profile>김말순</Profile>
+      <Profile>{username}</Profile>
       <TextWrapper>
-        <BlogTitle>김말순님의 블로그</BlogTitle>
-        <BlogDescription>FE 블로그</BlogDescription>
+        <BlogTitle>{username}님의 블로그</BlogTitle>
+        {isMine && !introduce
+          ? <EditableText
+              defaultText="블로그 소개글을 작성해주세요."
+              inputName="blogIntroduce"
+              inputValue={forms.blogIntroduce}
+              placeholder="블로그 소개글"
+              resetInput={reset}
+              onChange={onChange}
+              onSubmit={onSubmitEditableText}
+            />
+          : <BlogDescription>{introduce}</BlogDescription> 
+        }
       </TextWrapper>
     </Wrapper>
   )
@@ -47,6 +76,7 @@ const TextWrapper = styled.div`
 `
 
 const BlogTitle = styled.h2`
+  margin-bottom: 5px;
   font-size: var(--font-size-title-S);
   font-weight: var(--font-weight-bold);
 `
