@@ -11,7 +11,7 @@ export default createGlobalStyle`
     font-size: var(--font-size-M-pc);
     font-weight: var(--font-weight-normal);
     color: var(--font-black);
-    line-height: 1.4;
+    line-height: 1.5;
     letter-spacing: -0.025em;
   }
   button {
