@@ -11,7 +11,11 @@ interface ContentWrapperProps {
 function ContentWrapper(props: ContentWrapperProps) {
   const { children, size = 'normal', layoutType = 'basic', contentType = 'normal' } = props
   return (
-    <Wrapper className={`layout-${layoutType} size-${size} type-${contentType}`}>
+    <Wrapper className={[
+      `layout-${layoutType}`,
+      `size-${size}`,
+      `type-${contentType}`
+    ].join(' ')}>
       {children}
     </Wrapper>
   )
