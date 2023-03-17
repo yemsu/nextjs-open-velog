@@ -1,8 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import auth from '@/store/auth';
+import board from '@/store/board';
 
 const rootReducer = combineReducers({
-  auth
+  auth,
+  board
 });
 
 export default rootReducer;
