@@ -8,6 +8,7 @@ const createAxios = (service: string) => {
 }
 
 const getHeader = () => ({
+  'Content-Type': 'application/json',
   Authorization: Axios.prototype.authToken
 })
 
@@ -58,7 +59,8 @@ class Axios {
   put<PayloadType, ResponseType>(
     url: string, payload: PayloadType
   ): Promise<AxiosResponse<ResponseType>> {
-    // console.log('putApi', payload)
+    console.log('putApi', payload)
+    console.log('putApi', getHeader() )
     return this._axios.put(url, payload, { 
       headers: getHeader() 
     }).then((res) => res)
