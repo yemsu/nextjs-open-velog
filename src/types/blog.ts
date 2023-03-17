@@ -1,7 +1,6 @@
 import { CommonResponse } from "./api"
 
 export interface BlogPayload {
-  title: string,
   introduce: string
 }
 
