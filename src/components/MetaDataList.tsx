@@ -12,7 +12,6 @@ const mapTitles = [
 ]
 
 function MetaDataList(props: MetaDataListProps) {
-  console.log('props', Object.keys(props))
   return (
     <MetaDataListDl>
       {mapTitles.map(([key, title, emoji]) => (
