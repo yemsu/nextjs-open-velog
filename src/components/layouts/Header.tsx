@@ -59,7 +59,7 @@ export default function Header() {
               </> :
               <>
                 <Util>
-                  {userInfo && <UtilLink href={`${PAGES.BLOG}/${userInfo.userId}`}>My Velog</UtilLink>}
+                  {userInfo && <UtilLink href={PAGES.USER_BLOG(userInfo?.userId)}>My Velog</UtilLink>}
                 </Util>
                 <Util>
                   <UtilButton onClick={onClickLogout}>로그아웃</UtilButton>
