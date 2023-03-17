@@ -1,30 +1,34 @@
 import BoardList from "@/components/board/BoardList"
 import ContentWrapper from "@/components/layouts/ContentWrapper"
 import BlogProfile from "@/components/blog/BlogProfile"
-import { useEffect } from "react"
-import { useDispatch } from "react-redux"
 import styled from "styled-components"
-import { fetchUserBlog, getUserBlog } from "@/store/blog"
 import { useRouter } from "next/router"
 import { useSelector } from "react-redux"
 import { getUserInfo } from "@/store/auth"
+import { getBlog } from "@/api/blog"
+import useGetQuery from "@/hooks/useCommonQuery"
+import { BlogResponseData } from "@/types/blog"
+import { QUERY_KEYS } from "@/constants/queryKeys"
+
 
 function UserBlog() {
-  const router = useRouter()
-  const dispatch = useDispatch()
-  const userBlog = useSelector(getUserBlog)
   const userInfo = useSelector(getUserInfo)
+  const router = useRouter()
+  const userId = router.query.userId as string
+  const {
+    error: userBlogError,
+    data: userBlog
+  } = useGetQuery<string, BlogResponseData>({
+    queryKey: QUERY_KEYS.BLOG,
+    params: userId, 
+    promiseFn: getBlog, 
+    enabledChecker: !!userId
+  })
+  
+  if (userBlogError) return "An userBlogError error has occurred: " + userBlogError.message;
 
-  useEffect(() => {
-    const userId = router.query.userId as string
-    const fetchData = async() => {
-      const { payload: { data: { id } } } = await dispatch(fetchUserBlog(userId) as any)
-    }
-    if(userId) {
-      fetchData()
-    }
-  }, [router.query.userId])
-
+  if(!userBlog) return null
+  
   return (
     <ContentWrapper size="narrow" contentType="main">
       {userBlog &&

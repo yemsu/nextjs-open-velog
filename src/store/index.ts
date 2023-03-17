@@ -1,10 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import auth from '@/store/auth';
-import blog from '@/store/blog';
 
 const rootReducer = combineReducers({
-  auth,
-  blog
+  auth
 });
 
 export default rootReducer;

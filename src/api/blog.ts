@@ -7,8 +7,9 @@ export const postBlog = (payload: BlogPayload) => {
   return $axios.post<BlogPayload, BlogResponse>(`/signup`, payload)
 }
 
-export const getBlog = (userId: string) => {
+export const getBlog = async(userId: string) => {
   return $axios.get<null, BlogResponse>(`/${userId}`)
+    .then(res => res.data.data)
 }
 
 export const putBlog = (blogId: string, payload: BlogPayload) => {
