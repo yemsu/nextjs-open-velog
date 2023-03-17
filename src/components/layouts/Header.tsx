@@ -18,11 +18,12 @@ export default function Header() {
   const userInfo = useSelector(getUserInfo);
 
   useEffect(() => {
-    const hasToken = localStorage.getItem(AUTH_TOKEN)
+    const savedToken = localStorage.getItem(AUTH_TOKEN)
     const userInfoStr = localStorage.getItem(USER_INFO)
-    if(hasToken && userInfoStr) {
+    if(savedToken && userInfoStr) {
       dispatch(SET_IS_LOGIN(true))
       dispatch(SET_USER_INFO(JSON.parse(userInfoStr)))
+      Axios.prototype.authToken = savedToken
     }
   }, [])
 
