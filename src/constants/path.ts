@@ -11,4 +11,5 @@ export const PAGES = {
   MAIN: '/',
   BLOG: '/blog',
   USER_BLOG: (userId: string): string => `${PAGES.BLOG}/${userId}`,
+  BLOG_WRITE: `/write`,
 }

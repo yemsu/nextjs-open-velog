@@ -9,6 +9,7 @@ import useModal from "@/hooks/useModal"
 import styled from "styled-components"
 import { useEffect, useState } from "react"
 import { PAGES } from "@/constants/path";
+import Button from "../elements/Button";
 
 export default function Header() {
   const [isOpen, toggle] = useModal()
@@ -59,8 +60,20 @@ export default function Header() {
               </> :
               <>
                 <Util>
-                  {userInfo && <UtilLink href={PAGES.USER_BLOG(userInfo?.userId)}>My Velog</UtilLink>}
+                  <Button
+                    styleType="round"
+                    bgColor="border-black"
+                    size="small"
+                    href={PAGES.BLOG_WRITE}
+                    buttonText="새 글쓰기"
+                  />
                 </Util>
+                <Util>{
+                  userInfo && 
+                    <UtilLink href={PAGES.USER_BLOG(userInfo?.userId)}>
+                      My Velog
+                    </UtilLink>
+                }</Util>
                 <Util>
                   <UtilButton onClick={onClickLogout}>로그아웃</UtilButton>
                 </Util>
