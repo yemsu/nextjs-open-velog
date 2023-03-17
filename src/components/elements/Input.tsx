@@ -14,7 +14,17 @@ interface InputProps {
 }
 
 function Input(props: InputProps) {
-  const { type, id, name, label, placeholder, value, checked, isRequired = true, onChange } = props
+  const { 
+    type,
+    id,
+    name,
+    label,
+    placeholder,
+    value,
+    checked,
+    isRequired = true,
+    onChange
+  } = props
 
   const isBackLabelStyle = ["checkbox", "radio"].includes(type)
   const idStr = id || `input-${name}`
