@@ -28,7 +28,7 @@ function UserBlog() {
   if (userBlogError) return "An userBlogError error has occurred: " + userBlogError.message;
 
   if(!userBlog) return null
-  
+  console.log("userBlog,", userBlog)
   return (
     <ContentWrapper size="narrow" contentType="main">
       {userBlog &&
@@ -36,8 +36,7 @@ function UserBlog() {
           <BlogProfile
             isMine={userInfo?.userId === userBlog.memberUserId}
             profilePosition="top"
-            username={userBlog.memberUserId}
-            introduce={userBlog.introduce}
+            blog={userBlog}
           />
           <BoardList />
         </MainSection>

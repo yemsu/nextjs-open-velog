@@ -1,12 +1,13 @@
 import useInputs from "@/hooks/useInputs"
+import MetaDataList from "../MetaDataList"
+import { BlogResponseData } from "@/types/blog"
 import { useCallback } from "react"
 import styled from "styled-components"
 import EditableText from "../elements/EditableText"
 
 interface BlogProfileProps {
   profilePosition: 'top' | 'bottom'
-  username: string,
-  introduce: string,
+  blog: BlogResponseData
   isMine?: boolean
 }
 
@@ -15,19 +16,30 @@ interface FormDataTypes {
 }
 
 function BlogProfile(props: BlogProfileProps) {
-  const { profilePosition, username, introduce, isMine = false } = props
+  const {
+    profilePosition,
+    blog: { 
+      memberUserId,
+      introduce,
+      wishCountSum,
+      viewCountSum
+    },
+    isMine = false
+  } = props
+  
   const [forms, onChange, reset] = useInputs<FormDataTypes>({
     blogIntroduce: ''
   })
+
   const onSubmitEditableText = useCallback(() => {
     console.log('forms', forms)
   }, [forms])
 
   return (
     <Wrapper className={`pos-${profilePosition}`}>
-      <Profile>{username}</Profile>
+      <Profile>{memberUserId}</Profile>
       <TextWrapper>
-        <BlogTitle>{username}님의 블로그</BlogTitle>
+        <BlogTitle>{memberUserId}님의 블로그</BlogTitle>
         {isMine && !introduce
           ? <EditableText
               defaultText="블로그 소개글을 작성해주세요."
@@ -40,6 +52,10 @@ function BlogProfile(props: BlogProfileProps) {
             />
           : <BlogDescription>{introduce}</BlogDescription> 
         }
+        <MetaDataList
+          viewCount={viewCountSum}
+          wishCount={wishCountSum}
+        />
       </TextWrapper>
     </Wrapper>
   )
