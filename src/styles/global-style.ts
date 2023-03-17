@@ -44,6 +44,12 @@ export default createGlobalStyle`
   input[type="checkbox"] {
     margin: 0;
   }
+  textarea {
+    resize: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+  }
   // only pc, mobile
   .only-pc {
     @include mobile {
