@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from "react"
 import styled, { css } from "styled-components"
 
 interface InputProps {
-  type: string,
+  type: 'text' | 'password' | 'number' | 'email' | 'radio' | 'checkbox' | 'textarea',
   id?: string,
   name: string,
   label?: string,
@@ -10,6 +10,7 @@ interface InputProps {
   placeholder?: string,
   checked?: boolean,
   isRequired?: boolean,
+  size?: 'small' | 'medium' | 'big'
   onChange: (e: SyntheticEvent) => void
 }
 
@@ -23,6 +24,7 @@ function Input(props: InputProps) {
     value,
     checked,
     isRequired = true,
+    size = 'small',
     onChange
   } = props
 
@@ -44,15 +46,17 @@ function Input(props: InputProps) {
         className='wrap-input'
       >
         <InputTag
+          as={type === 'textarea' ? 'textarea' : 'input'}
           type={type}
-          id={idStr}
           name={name}
+          id={idStr}
           placeholder={placeholder}
           value={value}
           checked={checked}
           required={isRequired}
           onChange={onChange}
           onClick={onClick}
+          className={`size-${size}`}
         />
         {isBackLabelStyle && <LabelText>{label}</LabelText>}
       </InputWrapLabel>
@@ -66,7 +70,7 @@ const Wrapper = styled.div<{ type: string }>`
   flex-wrap: wrap;
   gap: 10px;
   ${({type}) => {
-    if(isTextInputStyle(type)) {
+    if(isTextInputStyle(type), ['textarea']) {
       return css`
         width: 100%;
         .wrap-input {
@@ -83,7 +87,7 @@ const CommonLabel = styled.label`
   line-height: 1;
 `
 
-const InputWrapLabel = styled(CommonLabel)`
+const InputWrapLabel = styled.label`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -101,36 +105,58 @@ const Label = styled(CommonLabel)<{ type: string }>`
 `
 
 const InputTag = styled.input<{ type: string }>`
-  font-size: var(--font-size-S);
   ${({type}) => {
     if(isTextInputStyle(type)) {
       return css`
         appearance: none;
         flex: 1;
-        padding: 5px;
         border: none;
         border-bottom: 1px solid var(--border-dark);
+        line-height: 2;
       `
     }
   }}
-  &[type="number"]::-webkit-outer-spin-button,
-  &[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
   &::placeholder {
-    font-size: var(--font-size-XS);
     font-weight: var(--font-weight-thin);
     color: var(--font-light-gray);
   }
+  &[type="number"] {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+  &.size {
+    &-small {
+      font-size: var(--font-size-S);
+      &::placeholder {
+        font-size: var(--font-size-XS);
+      }
+    }
+    &-big {
+      font-size: var(--font-size-title-B);
+    }
+  }
+  &[type="textarea"] {
+    width: 100%;
+    height: 100%;
+    &.size {
+      &-big {
+        font-size: var(--font-size-B);
+      }
+    }
+  }
 `
 
-const LabelText = styled.span`
+const LabelText = styled(CommonLabel).attrs({
+  as: 'span'
+})`
   min-width: 2em;
 `
 
-function isTextInputStyle(inputType: string) {
-  return ["text", "email", "password", "number"].includes(inputType)
+function isTextInputStyle(inputType: string, additionalTypes = []) {
+  return ["text", "email", "password", "number", ...additionalTypes].includes(inputType)
 }
 
 
