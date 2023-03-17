@@ -73,7 +73,11 @@ const ButtonTag = styled(Link)`
       font-size: var(--font-size-S);
     }
     &-large {
-      font-size: var(--font-size-M);
+      min-width: 140px;
+      height: 45px;
+      padding: 0 30px;
+      font-size: var(--font-size-L);
+      font-weight: var(--font-weight-X-bold);
     }
   }
 `
