@@ -3,19 +3,23 @@ import Header from '@/components/layouts/Header'
 import '@/styles/globals/index.scss'
 import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from '@/store'
 
 const store = configureStore({reducer: rootReducer});
+const queryClient = new QueryClient()
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <GlobalStyle />
-      <Provider store={store}>
-        <Header />
-        <Component {...pageProps} />
-      </Provider>
+      <GlobalStyle />      
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <Header />
+          <Component {...pageProps} />
+        </Provider>
+      </QueryClientProvider>
     </>
   )
 }
