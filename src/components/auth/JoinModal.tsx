@@ -116,20 +116,18 @@ function JoinModal(props: JoinModalProps) {
       placeholder: '생년월일 8자리 ex)1991-06-10'
     }],
     [{
-        type: 'radio',
-        id: 'woman',
-        name: 'gender',
-        label: '여',
-        value: 'woman',
-        isForJoin: true
-      },
-      {
-        type: 'radio',
-        id: 'man',
-        name: 'gender',
-        label: '남',
-        value: 'man',
-        isForJoin: true
+      type: 'radio',
+      id: 'woman',
+      name: 'gender',
+      label: '여',
+      value: 'woman'
+    },
+    {
+      type: 'radio',
+      id: 'man',
+      name: 'gender',
+      label: '남',
+      value: 'man'
     }]
   ]
   return (
