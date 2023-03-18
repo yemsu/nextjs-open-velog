@@ -3,9 +3,9 @@ import React, { SyntheticEvent } from "react"
 import styled, { css } from "styled-components"
 
 interface InputProps extends InputCommon {
-  value: string,
-  checked?: boolean,
-  isRequired?: boolean,
+  value: string
+  checked?: boolean
+  isRequired?: boolean
   size?: 'small' | 'medium' | 'big'
   onChange: (e: SyntheticEvent) => void
 }
@@ -24,58 +24,44 @@ function Input(props: InputProps) {
     onChange
   } = props
 
-  const isBackLabelStyle = ["checkbox", "radio"].includes(type)
+  const isBulletStyle = ["checkbox", "radio"].includes(type)
   const idStr = id || `input-${name}`
-
+  
   const onClick = (e: SyntheticEvent) => {
-    if(!isBackLabelStyle) return
+    if(!isBulletStyle) return
     onChange(e)
   }
+
+  const CommonLabelText = (props: {type?: string}) => (
+    label 
+      ? <LabelText className={props.type}>{label}</LabelText>
+      : null
+  )
+
   return (
-    <Wrapper type={type}>
-      {
-        label && !isBackLabelStyle &&
-        <Label htmlFor={idStr} type={type}>{label}</Label>
-      }
-      <InputWrapLabel
-        as={isBackLabelStyle ? 'label' : 'div'}
-        className='wrap-input'
-      >
-        <InputTag
-          as={type === 'textarea' ? 'textarea' : 'input'}
-          type={type}
-          name={name}
-          id={idStr}
-          placeholder={placeholder}
-          value={value}
-          checked={checked}
-          required={isRequired}
-          onChange={onChange}
-          onClick={onClick}
-          className={`size-${size}`}
-        />
-        {isBackLabelStyle && <LabelText>{label}</LabelText>}
-      </InputWrapLabel>
-    </Wrapper>
+    <InputWrapLabel
+      as={label ? 'label' : 'div'}
+      htmlFor={idStr}
+      className='wrap-input'
+    >
+      {!isBulletStyle && <CommonLabelText type="pos-top" />}
+      <InputTag
+        as={type === 'textarea' ? 'textarea' : 'input'}
+        type={type}
+        name={name}
+        id={idStr}
+        placeholder={placeholder}
+        value={value}
+        checked={checked}
+        required={isRequired}
+        onChange={onChange}
+        onClick={onClick}
+        className={`size-${size}`}
+      />
+      {isBulletStyle && <CommonLabelText />}
+    </InputWrapLabel>
   )
 }
-
-const Wrapper = styled.div<{ type: string }>`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  ${({type}) => {
-    if(isTextInputStyle(type), ['textarea']) {
-      return css`
-        width: 100%;
-        .wrap-input {
-          width: 100%;
-        }
-      `
-    }
-  }}
-`
 
 const CommonLabel = styled.label`
   min-width: 30px;
@@ -90,19 +76,9 @@ const InputWrapLabel = styled.label`
   gap: 10px;
 `
 
-const Label = styled(CommonLabel)<{ type: string }>`
-  ${({type}) => {
-    if(isTextInputStyle(type)) {
-      return css`
-        width: 100%;
-      `
-    }
-  }}
-`
-
 const InputTag = styled.input<{ type: string }>`
   ${({type}) => {
-    if(isTextInputStyle(type)) {
+    if(isBasicStyle(type)) {
       return css`
         appearance: none;
         flex: 1;
@@ -149,9 +125,12 @@ const LabelText = styled(CommonLabel).attrs({
   as: 'span'
 })`
   min-width: 2em;
+  &.pos-top {
+    width: 100%
+  }
 `
 
-function isTextInputStyle(inputType: string, additionalTypes = []) {
+function isBasicStyle(inputType: string, additionalTypes = []) {
   return ["text", "email", "password", "number", ...additionalTypes].includes(inputType)
 }
 
