@@ -2,9 +2,11 @@ import Input from "./Input"
 import styled from "styled-components"
 import { SyntheticEvent, useCallback, useState } from "react"
 import EmojiButton from "./EmojiButton"
+import { BUTTON_TITLES } from "@/constants/etc"
 
 interface EditableTextProps {
   defaultText: string
+  text?: string
   inputName: string 
   inputValue?: string
   placeholder?: string
@@ -14,7 +16,16 @@ interface EditableTextProps {
 }
 
 function EditableText(props: EditableTextProps) {
-  const { defaultText, inputName, inputValue, placeholder, onChange, onSubmit, resetInput } = props
+  const {
+    defaultText,
+    text,
+    inputName,
+    inputValue,
+    placeholder,
+    onChange,
+    onSubmit,
+    resetInput
+  } = props
   const [isShowInput, setIsShowInput] = useState(false)
 
   const onClickDefaultText = useCallback(() => {
@@ -33,7 +44,7 @@ function EditableText(props: EditableTextProps) {
             <Input
               type="text"
               name={inputName}
-              value={inputValue}
+              value={inputValue as string}
               placeholder={placeholder}
               onChange={onChange}
             />
@@ -50,9 +61,9 @@ function EditableText(props: EditableTextProps) {
           </InputWrapper>
         : <EditButton
             onClick={onClickDefaultText}
-            title=""
+            title={BUTTON_TITLES.EDIT}
           >
-            {defaultText} ✍️
+            {text || defaultText} ✍️
           </EditButton>
       }
     </div>
@@ -62,11 +73,14 @@ function EditableText(props: EditableTextProps) {
 const InputWrapper = styled.div`
   display: flex;
   gap: 5px;
+  input {
+    width: 250px;
+  }
 `
 
 const EditButton = styled.button`
-  color: var(--font-light-gray);
-  font-style: italic;
+  font-size: var(--font-size-title-XS);
+  color: var(--font-dark-gray);
 `
 
 export default EditableText

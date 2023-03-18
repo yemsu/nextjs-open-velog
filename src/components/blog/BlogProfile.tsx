@@ -28,7 +28,7 @@ function BlogProfile(props: BlogProfileProps) {
   } = props
   
   const [forms, onChange, reset] = useInputs<FormDataTypes>({
-    blogIntroduce: ''
+    blogIntroduce: introduce
   })
 
   const onSubmitEditableText = useCallback(() => {
@@ -40,9 +40,10 @@ function BlogProfile(props: BlogProfileProps) {
       <Profile>{memberUserId}</Profile>
       <TextWrapper>
         <BlogTitle>{memberUserId}님의 블로그</BlogTitle>
-        {isMine && !introduce
+        {isMine
           ? <EditableText
               defaultText="블로그 소개글을 작성해주세요."
+              text={introduce}
               inputName="blogIntroduce"
               inputValue={forms.blogIntroduce}
               placeholder="블로그 소개글"
