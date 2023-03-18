@@ -57,10 +57,10 @@ function JoinModal(props: JoinModalProps) {
   }
 
   const onSubmitLogin = async() => {
-    const { userId, password2 } = forms
+    const { userId, password1 } = forms
     const result = {
       userId,
-      password: password2,
+      password: password1,
     }
     await dispatch(fetchLogin(result) as any)
     reset()
