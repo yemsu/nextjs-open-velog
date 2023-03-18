@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 import { useSelector } from "react-redux"
 import { getUserInfo } from "@/store/auth"
 import { getBlog } from "@/api/blog"
-import useGetQuery from "@/hooks/useCommonQuery"
+import useCommonQuery from "@/hooks/useCommonQuery"
 import { BlogResponseData } from "@/types/blog"
 import { QUERY_KEYS } from "@/constants/queryKeys"
 
@@ -18,7 +18,7 @@ function UserBlog() {
   const {
     error: userBlogError,
     data: userBlog
-  } = useGetQuery<string, BlogResponseData>({
+  } = useCommonQuery<string, BlogResponseData>({
     queryKey: QUERY_KEYS.BLOG,
     params: userId, 
     promiseFn: getBlog, 
