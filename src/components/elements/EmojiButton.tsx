@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
 interface EmojiButtonProps {
-  emojiType: 'save' | 'cancel',
-  size: 'small',
+  emojiType: 'save' | 'cancel' | 'search'
+  size: 'small' | 'medium' | 'large',
   onClick: () => void
 }
 
@@ -14,7 +14,11 @@ const buttonTitles = {
   cancel: {
     text: '취소',
     emoji: '❌'
-  }
+  },
+  search: {
+    text: '검색',
+    emoji: '🔍'
+  },
 }
 
 function EmojiButton(props: EmojiButtonProps) {
@@ -37,6 +41,10 @@ const Button = styled.button`
     &-small {
       padding: 0 5px;
       font-size: var(--font-size-XS);
+    }
+    &-large {
+      padding: 0 5px;
+      font-size: var(--font-size-title-M);
     }
   }
 `
