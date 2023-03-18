@@ -8,7 +8,7 @@ const createAxios = (service: string) => {
 }
 
 const getHeader = () => ({
-  Authorization: Axios.prototype.authToken
+  Authorization: `Bearer ${Axios.prototype.authToken}`
 })
 
 class Axios {
@@ -34,6 +34,7 @@ class Axios {
     url: string,
     payload: PayloadType
   ): Promise<AxiosResponse<ResponseType>> {
+    console.log('url', payload, getHeader())
     return this._axios.post(url, payload, { 
       headers: getHeader()
     }).then((res) => res)
