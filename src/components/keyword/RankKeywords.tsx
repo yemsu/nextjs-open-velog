@@ -34,10 +34,7 @@ const ContentArea = `
 `
 
 const Wrapper = styled.div`
-  width: 250px;
-  padding: 10px;
-  border-radius: var(--border-radius-M);
-  background-color: var(--bg-light-gray);
+  width: 100%;
 `
 
 const TitleWrapper = styled.div`
@@ -48,7 +45,8 @@ const TitleWrapper = styled.div`
 `
 
 const Title = styled.h2`
-  font-weight: var(--font-size-title-S);
+  margin-bottom: 5px;
+  font-size: var(--font-size-title-S);
   font-weight: var(--font-weight-X-bold);
 `
 

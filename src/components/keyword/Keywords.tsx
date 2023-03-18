@@ -10,6 +10,7 @@ interface KeywordsProps {
 
 function Keywords(props: KeywordsProps) {
   const { keywords } = props
+
   return (
     <KeywordListUl>
       {keywords.map(({count, keyword}: RankKeyword, i) => (
@@ -29,15 +30,15 @@ function Keywords(props: KeywordsProps) {
 }
 
 const KeywordListUl = styled.ul`
-  background-color: var(--bg-white);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
   font-size: var(--font-size-MS);
-  border-radius: var(--border-radius-S);
 `
 
 const ListItem = styled.li`
-  & + & {
-    border-top: 1px solid var(--bg-light-gray);
-  }
+  background-color: var(--bg-white);
+  border-radius: var(--border-radius-S);
 `
 
 const ListLink = styled(Link)`
@@ -48,19 +49,20 @@ const ListLink = styled(Link)`
 `
 
 const Ranking = styled.span`
-  width: 10%;
+  width: 1.5em;
   font-family: var(--font-family);
   font-size: var(--font-size-B);
   color: var(--bg-dark-gray);
   line-height: 1;
+  font-style: italic;
 `
 
 const Keyword = styled.span`
-  width: 70%;
+  flex: 1;
 `
 
 const Count = styled.span`
-  width: 20%;
+  min-width: 3em;
   color: hsl(var(--primary-hsl));
   font-size: var(--font-size-S);
   text-align: center;
