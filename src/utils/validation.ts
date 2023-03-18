@@ -7,8 +7,9 @@ interface Messages {
 }
 
 const messages: Messages = {
-  title: '제목을 입력해주세요.',
-  content: '내용을 입력해주세요.'
+  title: '제목을 입력해주세요!',
+  content: '내용을 입력해주세요!',
+  searchKeyword: '검색어를 입력해주세요!',
 }
 
 function checkValidations(category: Category) {
