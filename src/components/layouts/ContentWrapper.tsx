@@ -1,12 +1,13 @@
 import { ReactNode } from "react"
-import styled, { css } from "styled-components"
+import styled from "styled-components"
 
 interface ContentWrapperProps {
-  children: ReactNode,
-  layoutType?: 'basic' | 'flex-row',
-  size?: 'narrow' | 'normal' | 'wide' | 'full',
+  children: ReactNode
+  layoutType?: 'basic' | 'flex-row'
+  size?: 'narrow' | 'normal' | 'wide' | 'full'
   contentType?: 'normal' | 'main'
   title?: string
+  bgColor?: 'primary-pale'
 }
 
 function ContentWrapper(props: ContentWrapperProps) {
@@ -15,7 +16,8 @@ function ContentWrapper(props: ContentWrapperProps) {
     size = 'normal',
     layoutType = 'basic',
     contentType = 'normal',
-    title
+    title,
+    bgColor,
   } = props
   return (
     <Wrapper 
@@ -23,7 +25,8 @@ function ContentWrapper(props: ContentWrapperProps) {
       className={[
         `layout-${layoutType}`,
         `size-${size}`,
-        `type-${contentType}`
+        `type-${contentType}`,
+        bgColor ? `bg-${bgColor}` : '',
       ].join(' ')}
     >
       {title && <h2 className="ir-hidden">{title}</h2>}
@@ -61,7 +64,13 @@ const Wrapper = styled.div`
     }
     &-full {
       width: 100%;
-      padding: 0 64px;
+      padding-left: 64px;
+      padding-right: 64px;
+    }
+  }
+  &.bg {
+    &-primary-pale {
+      background-color: hsla(var(--primary-hsl), .1);
     }
   }
   &:not(.size-full) {
