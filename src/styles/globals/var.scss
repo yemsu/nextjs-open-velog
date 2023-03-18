@@ -38,6 +38,7 @@
   --gray-80: var(--primary-h), 7%, 80%;
   --gray-90: var(--primary-h), 12%, 90%;
   --gray-95: var(--primary-h), 12%, 95%;
+  --gray-97: var(--primary-h), 12%, 97%;
 
   // basic color
   --black: --gray-10;
@@ -64,8 +65,8 @@
   --bg-dark: hsl(var(--gray-60));
   --bg-dark-gray: hsl(var(--gray-70));
   --bg-gray: hsl(var(--gray-80));
-  --bg-light-gray: hsl(var(--gray-90));
-  --bg-light: hsl(var(--gray-95));
+  --bg-light-gray: hsl(var(--gray-95));
+  --bg-light: hsl(var(--gray-97));
   --bg-dimmed: hsla(var(--gray-95), .8);
   --bg-white: var(--white);
 

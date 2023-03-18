@@ -10,6 +10,7 @@ export const SERVICES = {
 export const PAGES = {
   MAIN: '/',
   BLOG: '/blog',
-  USER_BLOG: (userId: string): string => `/${userId}`,
+  USER_BLOG: (userId: string) => `/${userId}`,
   BLOG_WRITE: `/write`,
+  KEYWORD_SEARCH: (keyword: string) => `/search?keyword=${keyword}`,
 }
