@@ -9,16 +9,22 @@ interface ReturnType<Response> {
 
 interface Props<Params, Response> {
   queryKey: string
-  params: Params
+  params?: Params
   promiseFn: (params: Params) => Promise<Response | void>
-  enabledChecker: boolean
+  enabledChecker?: boolean
   successFn?: () => void
 }
 
 function useCommonQuery<Params, Response>(
   props: Props<Params, Response>
 ): ReturnType<Response> {
-  const { queryKey, params, promiseFn, enabledChecker, successFn } = props
+  const {
+    queryKey,
+    params = null as Params,
+    promiseFn,
+    enabledChecker = true,
+    successFn
+  } = props
   const { isLoading, error, data } = useQuery(
     [queryKey, params],
     () => promiseFn(params),
@@ -26,7 +32,7 @@ function useCommonQuery<Params, Response>(
       staleTime: 60 * 1000 * 5,
       enabled: !!enabledChecker,
       refetchOnWindowFocus: false,
-      onSuccess: successFn,
+      onSuccess: successFn
     }
   )
   return { isLoading, error, data }
