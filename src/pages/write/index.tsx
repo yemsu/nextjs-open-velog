@@ -14,9 +14,13 @@ import { ALERTS } from "@/constants/alerts"
 import Head from "next/head"
 import { DESCRIPTION, TITLE } from "@/constants/meta"
 import { getMetaTitle } from "@/utils"
+import { useRouter } from "next/router"
+import { PAGES } from "@/constants/path"
 
 function write() {
+  const route = useRouter()
   const userInfo = useSelector(getUserInfo)
+
   const {
     mutate: registerBoard,
     error
@@ -24,12 +28,17 @@ function write() {
     postBoard, {
     onSuccess: () => {
       alert(ALERTS.POST_BOARD_SUCCESS)
+      reset()
+      if(userInfo) {
+        route.push(PAGES.USER_BLOG(userInfo.userId))
+      }
     },
     onError: () => {
       alert(ALERTS.POST_BOARD_ERROR)
       console.log("글 등록 에러!", error);
     }
   })
+
   const [forms, onChange, reset] = useInputs({
     boardTitle: '',
     boardContent: '',
