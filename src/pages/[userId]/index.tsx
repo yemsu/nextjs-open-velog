@@ -9,6 +9,7 @@ import { getBlog } from "@/api/blog"
 import useCommonQuery from "@/hooks/useCommonQuery"
 import { BlogResponseData } from "@/types/blog"
 import { QUERY_KEYS } from "@/constants/queryKeys"
+import { ALERTS } from "@/constants/alerts"
 
 
 function UserBlog() {
@@ -20,26 +21,26 @@ function UserBlog() {
     data: userBlog
   } = useCommonQuery<string, BlogResponseData>({
     queryKey: QUERY_KEYS.BLOG,
-    params: userId, 
     promiseFn: getBlog, 
+    params: userId, 
     enabledChecker: !!userId
   })
-  
-  if (userBlogError) return "An userBlogError error has occurred: " + userBlogError.message;
 
   if(!userBlog) return null
-  console.log("userBlog,", userBlog)
+
   return (
     <ContentWrapper size="narrow" contentType="main">
-      {userBlog &&
-        <MainSection>
-          <BlogProfile
-            isMine={userInfo?.userId === userBlog.memberUserId}
-            profilePosition="top"
-            blog={userBlog}
-          />
-          <BoardList />
-        </MainSection>
+      {
+        userBlogError
+          ? <p>{ALERTS.GET_BLOG.ERROR}</p>
+          : <MainSection>
+              <BlogProfile
+                isMine={userInfo?.userId === userBlog.memberUserId}
+                profilePosition="top"
+                blog={userBlog}
+              />
+              <BoardList />
+            </MainSection>
       }
     </ContentWrapper>
   )
