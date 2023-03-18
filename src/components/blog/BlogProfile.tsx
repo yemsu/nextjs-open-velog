@@ -25,7 +25,7 @@ function BlogProfile(props: BlogProfileProps) {
     profilePosition,
     blog: { 
       id: blogId,
-      memberUserId,
+      memberUsername,
       introduce,
       wishCountSum,
       viewCountSum
@@ -57,16 +57,16 @@ function BlogProfile(props: BlogProfileProps) {
         introduce: forms.blogIntroduce
       }
     })
-    
+
     queryClient.invalidateQueries(QUERY_KEYS.USER_BLOG)
     queryClient.fetchQuery(QUERY_KEYS.USER_BLOG)
   }, [blogId, forms])
 
   return (
     <Wrapper className={`pos-${profilePosition}`}>
-      <Profile>{memberUserId}</Profile>
+      <Profile>{memberUsername}</Profile>
       <TextWrapper>
-        <BlogTitle>{memberUserId}님의 블로그</BlogTitle>
+        <BlogTitle>{memberUsername}님의 블로그</BlogTitle>
         {isMine
           ? <EditableText
               defaultText="블로그 소개글을 작성해주세요."
