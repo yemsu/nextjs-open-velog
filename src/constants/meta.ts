@@ -2,7 +2,7 @@ import { APP_TITLE } from "./etc"
 
 export const TITLE = {
   COMMON: APP_TITLE,
-  WRITE: `새 글쓰기 | ${APP_TITLE}`
+  WRITE: `새 글쓰기`
 }
 
 export const DESCRIPTION = {

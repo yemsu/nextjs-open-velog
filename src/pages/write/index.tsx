@@ -13,6 +13,7 @@ import checkValidations from "@/utils/validation"
 import { ALERTS } from "@/constants/alerts"
 import Head from "next/head"
 import { DESCRIPTION, TITLE } from "@/constants/meta"
+import { getMetaTitle } from "@/utils"
 
 function write() {
   const userInfo = useSelector(getUserInfo)
@@ -57,7 +58,7 @@ function write() {
   return (
     <>
       <Head>
-        <title>{TITLE.WRITE}</title>
+        <title>{getMetaTitle(TITLE.WRITE)}</title>
         <meta name="description" content={DESCRIPTION.WRITE} />
       </Head>
       <ContentWrapper
