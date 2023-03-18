@@ -7,7 +7,7 @@ interface ContentWrapperProps {
   size?: 'narrow' | 'normal' | 'wide' | 'full'
   contentType?: 'normal' | 'main'
   title?: string
-  bgColor?: 'primary-pale'
+  bgColor?: 'primary-1' | 'primary-2'
 }
 
 function ContentWrapper(props: ContentWrapperProps) {
@@ -69,8 +69,11 @@ const Wrapper = styled.div`
     }
   }
   &.bg {
-    &-primary-pale {
+    &-primary-1 {
       background-color: hsla(var(--primary-hsl), .1);
+    }
+    &-primary-2 {
+      background-color: hsla(var(--primary-hsl), .2);
     }
   }
   &:not(.size-full) {
