@@ -1,6 +1,5 @@
 export interface UserInfo {
   userId: string,
-  blogId: number,
   username: string,
   email: string,
   gender: string,
@@ -18,6 +17,7 @@ export interface SignInPayLoad {
 
 export interface UserResponseData extends UserInfo {
   id: number,
+  blogId: number,
   createdAt: string,
   modifiedAt: string
 }
