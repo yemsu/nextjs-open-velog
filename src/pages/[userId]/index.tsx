@@ -12,6 +12,9 @@ import { QUERY_KEYS } from "@/constants/queryKeys"
 import { ALERTS } from "@/constants/alerts"
 import { BoardResponseData, GetBlogBoardsParams } from "@/types/board"
 import { getBlogBoards } from "@/api/board"
+import Head from "next/head"
+import { getMetaTitle } from "@/utils"
+import { DESCRIPTION, TITLE } from "@/constants/meta"
 
 
 function UserBlog() {
@@ -45,22 +48,28 @@ function UserBlog() {
   if(!userBlog) return null
 
   return (
-    <ContentWrapper size="narrow" contentType="main">
-      {
-        userBlogError
-          ? <p>{ALERTS.GET_BLOG.ERROR}</p>
-          : <MainSection>
-              <BlogProfile
-                isMine={userInfo?.userId === userBlog.memberUserId}
-                profilePosition="top"
-                blog={userBlog}
-              />
-              <BoardList 
-                boards={blogBoards}
-              />
-            </MainSection>
-      }
-    </ContentWrapper>
+    <>
+      <Head>
+        <title>{getMetaTitle(TITLE.BLOG(userId))}</title>
+        <meta name="description" content={DESCRIPTION.BLOG(userId)} />
+      </Head>
+      <ContentWrapper size="narrow" contentType="main">
+        {
+          userBlogError
+            ? <p>{ALERTS.GET_BLOG.ERROR}</p>
+            : <MainSection>
+                <BlogProfile
+                  isMine={userInfo?.userId === userBlog.memberUserId}
+                  profilePosition="top"
+                  blog={userBlog}
+                />
+                <BoardList
+                  boards={blogBoards}
+                />
+              </MainSection>
+        }
+      </ContentWrapper>
+    </>
   )
 }
 
