@@ -6,16 +6,27 @@ interface ContentWrapperProps {
   layoutType?: 'basic' | 'flex-row',
   size?: 'narrow' | 'normal' | 'wide' | 'full',
   contentType?: 'normal' | 'main'
+  title?: string
 }
 
 function ContentWrapper(props: ContentWrapperProps) {
-  const { children, size = 'normal', layoutType = 'basic', contentType = 'normal' } = props
+  const {
+    children,
+    size = 'normal',
+    layoutType = 'basic',
+    contentType = 'normal',
+    title
+  } = props
   return (
-    <Wrapper className={[
-      `layout-${layoutType}`,
-      `size-${size}`,
-      `type-${contentType}`
-    ].join(' ')}>
+    <Wrapper 
+      as={title ? 'section' : 'div'}
+      className={[
+        `layout-${layoutType}`,
+        `size-${size}`,
+        `type-${contentType}`
+      ].join(' ')}
+    >
+      {title && <h2 className="ir-hidden">{title}</h2>}
       {children}
     </Wrapper>
   )

@@ -1,5 +1,6 @@
 export interface UserInfo {
   userId: string,
+  blogId: number,
   username: string,
   email: string,
   gender: string,
