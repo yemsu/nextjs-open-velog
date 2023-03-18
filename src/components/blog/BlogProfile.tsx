@@ -1,9 +1,12 @@
 import useInputs from "@/hooks/useInputs"
 import MetaDataList from "../MetaDataList"
-import { BlogResponseData } from "@/types/blog"
 import { useCallback } from "react"
 import styled from "styled-components"
 import EditableText from "../elements/EditableText"
+import { putBlog } from "@/api/blog"
+import useCommonMutation from "@/hooks/useCommonMutation"
+import { BlogResponseData, PutBlogArgs } from "@/types/blog"
+import { ALERTS } from "@/constants/alerts"
 
 interface BlogProfileProps {
   profilePosition: 'top' | 'bottom'
@@ -19,6 +22,7 @@ function BlogProfile(props: BlogProfileProps) {
   const {
     profilePosition,
     blog: { 
+      id: blogId,
       memberUserId,
       introduce,
       wishCountSum,
@@ -26,13 +30,30 @@ function BlogProfile(props: BlogProfileProps) {
     },
     isMine = false
   } = props
-  
+
+  const {
+    mutate: editIntroduce
+  } = useCommonMutation<BlogResponseData, PutBlogArgs, any>(
+    putBlog, {
+    onSuccess: () => {
+      alert(ALERTS.PUT_BLOG_SUCCESS)
+    },
+    onError: () => {
+      alert(ALERTS.PUT_BLOG_ERROR)
+    },
+  })
+
   const [forms, onChange, reset] = useInputs<FormDataTypes>({
     blogIntroduce: introduce
   })
 
   const onSubmitEditableText = useCallback(() => {
-    console.log('forms', forms)
+    editIntroduce({
+      blogId,
+      payload: {
+        introduce: forms.blogIntroduce
+      }
+    })
   }, [forms])
 
   return (

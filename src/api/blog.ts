@@ -1,19 +1,20 @@
-import { BlogPayload, BlogResponse } from "@/types/blog";
+import { BlogPayload, BlogResponse, PutBlogArgs } from "@/types/blog";
 import Axios from "./Axios";
 
 const $axios = new Axios('blogs')
 
-export const postBlog = (payload: BlogPayload) => {
-  return $axios.post<BlogPayload, BlogResponse>(`/signup`, payload)
-}
+// export const postBlog = (payload: BlogPayload) => {
+//   return $axios.post<BlogPayload, BlogResponse>(`/signup`, payload)
+// }
 
-export const getBlog = async(userId: string) => {
+export const getBlog = (userId: string) => {
   return $axios.get<null, BlogResponse>(`/${userId}`)
     .then(res => res.data.data)
 }
 
-export const putBlog = (blogId: string, payload: BlogPayload) => {
+export const putBlog = ({ blogId, payload }: PutBlogArgs) => {
   return $axios.put<BlogPayload, BlogResponse>(`/${blogId}`, payload)
+    .then(res => res.data.data)
 }
 
 export const deleteBlog = (blogId: string) => {
