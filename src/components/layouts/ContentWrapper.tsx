@@ -41,7 +41,7 @@ const Wrapper = styled.div`
   min-height: 100%;
   &.type {
     &-main {
-      padding-top: 60px;
+      padding-top: calc(60px + 55px);
       padding-bottom: 60px;
     }
   }
