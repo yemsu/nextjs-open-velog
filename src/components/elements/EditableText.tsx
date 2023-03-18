@@ -37,6 +37,11 @@ function EditableText(props: EditableTextProps) {
     resetInput()
   }, [])
 
+  const onClickSubmit = useCallback(() => {
+    onSubmit()
+    setIsShowInput(false)
+  }, [onSubmit])
+
   return (
     <div>
       {isShowInput 
@@ -51,7 +56,7 @@ function EditableText(props: EditableTextProps) {
             <EmojiButton
               emojiType="save"
               size="small"
-              onClick={onSubmit}
+              onClick={onClickSubmit}
             />
             <EmojiButton
               emojiType="cancel"

@@ -7,6 +7,8 @@ import { putBlog } from "@/api/blog"
 import useCommonMutation from "@/hooks/useCommonMutation"
 import { BlogResponseData, PutBlogArgs } from "@/types/blog"
 import { ALERTS } from "@/constants/alerts"
+import { useQueryClient } from "react-query"
+import { QUERY_KEYS } from "@/constants/queryKeys"
 
 interface BlogProfileProps {
   profilePosition: 'top' | 'bottom'
@@ -47,6 +49,7 @@ function BlogProfile(props: BlogProfileProps) {
     blogIntroduce: introduce
   })
 
+  const queryClient = useQueryClient()
   const onSubmitEditableText = useCallback(() => {
     editIntroduce({
       blogId,
@@ -54,7 +57,10 @@ function BlogProfile(props: BlogProfileProps) {
         introduce: forms.blogIntroduce
       }
     })
-  }, [forms])
+    
+    queryClient.invalidateQueries(QUERY_KEYS.USER_BLOG)
+    queryClient.fetchQuery(QUERY_KEYS.USER_BLOG)
+  }, [blogId, forms])
 
   return (
     <Wrapper className={`pos-${profilePosition}`}>
