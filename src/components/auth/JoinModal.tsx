@@ -7,6 +7,7 @@ import useInputs from "@/hooks/useInputs"
 import Button from "@/components/elements/Button"
 import styled from "styled-components"
 import { APP_TITLE } from "@/constants/etc";
+import { InputCommon } from "@/types/form";
 
 interface JoinModalProps {
   modalType: string,
@@ -14,13 +15,7 @@ interface JoinModalProps {
   toggle: () => void,
 }
 
-interface InputCategory {
-  type: string,
-  name: string,
-  label: string,
-  placeholder?: string,
-  id?: string,
-  value?: string,
+interface InputCategory extends InputCommon {
   isForLogin?: boolean,
 }
 

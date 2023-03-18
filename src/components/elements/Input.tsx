@@ -1,13 +1,9 @@
+import { InputCommon } from "@/types/form"
 import React, { SyntheticEvent } from "react"
 import styled, { css } from "styled-components"
 
-interface InputProps {
-  type: 'text' | 'password' | 'number' | 'email' | 'radio' | 'checkbox' | 'textarea',
-  id?: string,
-  name: string,
-  label?: string,
-  value?: string,
-  placeholder?: string,
+interface InputProps extends InputCommon {
+  value: string,
   checked?: boolean,
   isRequired?: boolean,
   size?: 'small' | 'medium' | 'big'
