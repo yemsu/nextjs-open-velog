@@ -1,4 +1,5 @@
 export const QUERY_KEYS = {
-  BLOG: 'blog',
+  USER_BLOG: 'user/blog',
+  BLOG_BOARDS: 'blog/blogs',
   KEYWORD: 'keyword',
 }

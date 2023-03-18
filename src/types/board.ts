@@ -17,19 +17,19 @@ export interface BoardData {
   modifiedAt: string
 }
 
-export interface BoardsByBlogParams {
-  blogId: number
+export interface GetBlogBoardsParams {
+  userId: number
   page: number
   size: number
 }
 
-export interface Sort {
+interface Sort {
   empty: Boolean
   unsorted: Boolean
   sorted: Boolean
 }
 
-export interface Pageable {
+interface Pageable {
   sort: Sort
   offset: number,
   pageSize: number,
@@ -38,7 +38,7 @@ export interface Pageable {
   unpaged: boolean
 }
 
-export interface BoardsByBlogData {
+export interface BoardResponseData {
   totalPages: number
   totalElements: number
   number: number
@@ -51,6 +51,3 @@ export interface BoardsByBlogData {
   last: boolean,
   empty: boolean
 }
-
-
-export type BoardsByBlog = CommonResponse<BoardsByBlogData>

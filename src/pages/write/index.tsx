@@ -16,6 +16,8 @@ import { DESCRIPTION, TITLE } from "@/constants/meta"
 import { getMetaTitle } from "@/utils"
 import { useRouter } from "next/router"
 import { PAGES } from "@/constants/path"
+import { useQueryClient } from "react-query"
+import { QUERY_KEYS } from "@/constants/queryKeys"
 
 function write() {
   const route = useRouter()
@@ -44,6 +46,7 @@ function write() {
     boardContent: '',
   })
 
+  const queryClient = useQueryClient()
   const onClickSave = useCallback(() => {
     if(!userInfo) {
       console.error('onClickSave Error: No userInfo')
@@ -62,6 +65,9 @@ function write() {
       title: boardTitle,
       content: boardContent
     })
+    
+    queryClient.invalidateQueries(QUERY_KEYS.BLOG_BOARDS)
+    queryClient.fetchQuery(QUERY_KEYS.BLOG_BOARDS)
   }, [forms, userInfo])
 
   return (

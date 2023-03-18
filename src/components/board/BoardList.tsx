@@ -1,43 +1,41 @@
 import styled from "styled-components"
 import MetaDataList from "@/components/MetaDataList"
+import { BoardResponseData } from "@/types/board"
 interface ListItemProps {
-
+  boards: BoardResponseData | void
 }
 
+
 function BoardList(props: ListItemProps) {
+  const {
+    boards
+  } = props
+  
+  if(!boards) return null
+  
   return (
     <section>
       <TextReferWrapper>
-        <TextRefer><span className="ir-hidden">김말순님이 등록한 글</span>  99개</TextRefer>
+        <TextRefer><span className="ir-hidden">김말순님이 등록한 글</span> {boards.content.length}개</TextRefer>
       </TextReferWrapper>
       <List>
-        <ListItem>
-          <BoardTitle>React로 결제 페이지 개발하기 (ft. 결제위젯)</BoardTitle>
-          <BoardContents>안녕하세요! 결제 페이지 개발하기 포스트에서 받은 뜨거운 반응에 힘을 입어 React 버전으로 돌아왔어요. 이번에도 많은 관심 부탁드려요. 🤗 오늘은 결제 연동을 쉽게 풀어 주는 결제위젯 React 프로젝트를 소개해요! 결제위젯은 한 번 연동하면 다양한 결제 수단과 커스텀 디자인을 노코드(No-code)로 제공하는 서비스입니다.결제위젯은 한 번 연동하면 다양한 결제 수단과 커스텀 디자인을 노코드(No-code)로 제공하는 서비스입니다.</BoardContents>
-          <MetaDataList 
-            viewCount={5}
-            wishCount={3}
-            createdAt="2023-03-06"
-          />
-        </ListItem>
-        <ListItem>
-          <BoardTitle>React로 결제 페이지 개발하기 (ft. 결제위젯)</BoardTitle>
-          <BoardContents>안녕하세요! 결제 페이지 개발하기 포스트에서 받은 뜨거운 반응에 힘을 입어 React 버전으로 돌아왔어요. 이번에도 많은 관심 부탁드려요. 🤗 오늘은 결제 연동을 쉽게 풀어 주는 결제위젯 React 프로젝트를 소개해요! 결제위젯은 한 번 연동하면 다양한 결제 수단과 커스텀 디자인을 노코드(No-code)로 제공하는 서비스입니다.</BoardContents>
-          <MetaDataList 
-            viewCount={5}
-            wishCount={3}
-            createdAt="2023-03-06"
-          />
-        </ListItem>
-        <ListItem>
-          <BoardTitle>React로 결제 페이지 개발하기 (ft. 결제위젯)</BoardTitle>
-          <BoardContents>안녕하세요! 결제 페이지 개발하기 포스트에서 받은 뜨거운 반응에 힘을 입어 React 버전으로 돌아왔어요. 이번에도 많은 관심 부탁드려요. 🤗 오늘은 결제 연동을 쉽게 풀어 주는 결제위젯 React 프로젝트를 소개해요! 결제위젯은 한 번 연동하면 다양한 결제 수단과 커스텀 디자인을 노코드(No-code)로 제공하는 서비스입니다.</BoardContents>
-          <MetaDataList 
-            viewCount={5}
-            wishCount={3}
-            createdAt="2023-03-06"
-          />
-        </ListItem>
+        {boards.content.map(({
+          title,
+          content,
+          viewCount,
+          wishCount,
+          createdAt
+        }) => (
+          <ListItem>
+            <BoardTitle>{title}</BoardTitle>
+            <BoardContents>{content}</BoardContents>
+            <MetaDataList 
+              viewCount={viewCount}
+              wishCount={wishCount}
+              createdAt={createdAt}
+            />
+          </ListItem>
+        ))}
       </List>
     </section>
   )
@@ -59,7 +57,7 @@ const List = styled.ul`
 `
 
 const ListItem = styled.li`
-  padding: 40px 0;
+  padding: 30px 0 40px;
   border-top: 1px solid var(--border-light);
 `
 

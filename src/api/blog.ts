@@ -7,7 +7,7 @@ const $axios = new Axios('blogs')
 //   return $axios.post<BlogPayload, BlogResponse>(`/signup`, payload)
 // }
 
-export const getBlog = (userId: string) => {
+export const getBlog = (userId: number) => {
   return $axios.get<null, BlogResponse>(`/${userId}`)
     .then(res => res.data.data)
 }

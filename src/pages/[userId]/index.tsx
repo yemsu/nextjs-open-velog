@@ -10,19 +10,35 @@ import useCommonQuery from "@/hooks/useCommonQuery"
 import { BlogResponseData } from "@/types/blog"
 import { QUERY_KEYS } from "@/constants/queryKeys"
 import { ALERTS } from "@/constants/alerts"
+import { BoardResponseData, GetBlogBoardsParams } from "@/types/board"
+import { getBlogBoards } from "@/api/board"
 
 
 function UserBlog() {
   const userInfo = useSelector(getUserInfo)
   const router = useRouter()
-  const userId = router.query.userId as string
+  const userId = router.query.userId as any as number
   const {
     error: userBlogError,
     data: userBlog
-  } = useCommonQuery<string, BlogResponseData>({
-    queryKey: QUERY_KEYS.BLOG,
+  } = useCommonQuery<number, BlogResponseData>({
+    queryKey: QUERY_KEYS.USER_BLOG,
     promiseFn: getBlog, 
     params: userId, 
+    enabledChecker: !!userId
+  })
+
+  const {
+    error: blogBoardsError,
+    data: blogBoards
+  } = useCommonQuery<GetBlogBoardsParams, BoardResponseData>({
+    queryKey: QUERY_KEYS.BLOG_BOARDS,
+    promiseFn: getBlogBoards, 
+    params: {
+      userId,
+      page: 1,
+      size: 10
+    }, 
     enabledChecker: !!userId
   })
 
@@ -39,7 +55,9 @@ function UserBlog() {
                 profilePosition="top"
                 blog={userBlog}
               />
-              <BoardList />
+              <BoardList 
+                boards={blogBoards}
+              />
             </MainSection>
       }
     </ContentWrapper>
