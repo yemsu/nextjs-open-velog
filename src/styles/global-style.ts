@@ -19,7 +19,7 @@ export default createGlobalStyle`
     padding: 0;
     border: none;
     background-color: transparent;
-    color: inherit;
+    font: inherit;
     letter-spacing: inherit;
     cursor: pointer;
   }
