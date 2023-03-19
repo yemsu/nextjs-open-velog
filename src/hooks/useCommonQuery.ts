@@ -1,5 +1,4 @@
-import { AxiosResponse } from "axios"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 
 interface ReturnType<Response> {
   isLoading: boolean

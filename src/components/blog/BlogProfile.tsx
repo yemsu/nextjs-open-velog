@@ -7,7 +7,7 @@ import { putBlog } from "@/api/blog"
 import useCommonMutation from "@/hooks/useCommonMutation"
 import { BlogResponseData, PutBlogArgs } from "@/types/blog"
 import { ALERTS } from "@/constants/alerts"
-import { useQueryClient } from "react-query"
+import { useQueryClient } from "@tanstack/react-query"
 import { QUERY_KEYS } from "@/constants/queryKeys"
 
 interface BlogProfileProps {
@@ -21,6 +21,7 @@ interface FormDataTypes {
 }
 
 function BlogProfile(props: BlogProfileProps) {
+  const queryClient = useQueryClient()
   const {
     profilePosition,
     blog: { 
@@ -39,6 +40,7 @@ function BlogProfile(props: BlogProfileProps) {
     putBlog, {
     onSuccess: () => {
       alert(ALERTS.PUT_BLOG_SUCCESS)
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_BLOG] })
     },
     onError: () => {
       alert(ALERTS.PUT_BLOG_ERROR)
@@ -49,7 +51,6 @@ function BlogProfile(props: BlogProfileProps) {
     blogIntroduce: introduce
   })
 
-  const queryClient = useQueryClient()
   const onSubmitEditableText = useCallback(() => {
     editIntroduce({
       blogId,
@@ -57,9 +58,6 @@ function BlogProfile(props: BlogProfileProps) {
         introduce: forms.blogIntroduce
       }
     })
-
-    queryClient.invalidateQueries(QUERY_KEYS.USER_BLOG)
-    queryClient.fetchQuery(QUERY_KEYS.USER_BLOG)
   }, [blogId, forms])
 
   return (

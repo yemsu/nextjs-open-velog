@@ -16,13 +16,13 @@ import { DESCRIPTION, TITLE } from "@/constants/meta"
 import { getMetaTitle } from "@/utils"
 import { useRouter } from "next/router"
 import { PAGES } from "@/constants/path"
-import { useQueryClient } from "react-query"
+import { useQueryClient } from "@tanstack/react-query"
 import { QUERY_KEYS } from "@/constants/queryKeys"
 
 function write() {
   const route = useRouter()
   const userInfo = useSelector(getUserInfo)
-
+  const queryClient = useQueryClient()
   const {
     mutate: registerBoard,
     error
@@ -34,6 +34,7 @@ function write() {
       if(userInfo) {
         route.push(PAGES.USER_BLOG(userInfo.userId))
       }
+      queryClient.invalidateQueries({queryKey: [QUERY_KEYS.BLOG_BOARDS]})
     },
     onError: () => {
       alert(ALERTS.POST_BOARD_ERROR)
@@ -46,7 +47,6 @@ function write() {
     boardContent: '',
   })
 
-  const queryClient = useQueryClient()
   const onClickSave = useCallback(() => {
     if(!userInfo) {
       console.error('onClickSave Error: No userInfo')
@@ -64,10 +64,7 @@ function write() {
       blogId: userInfo.blogId,
       title: boardTitle,
       content: boardContent
-    })
-    
-    queryClient.invalidateQueries(QUERY_KEYS.BLOG_BOARDS)
-    queryClient.fetchQuery(QUERY_KEYS.BLOG_BOARDS)
+    })    
   }, [forms, userInfo])
 
   return (
