@@ -1,23 +1,33 @@
 import styled from "styled-components"
 import MetaDataList from "@/components/MetaDataList"
 import { BoardData } from "@/types/board"
+import Link from "next/link"
+import { PAGES } from "@/constants/path"
 interface ListItemProps {
-  boards: BoardData[] | void
+  boards: BoardData[] | void,
+  boardTitle?: string,
+  totalLength?: number
 }
 
 
 function BoardList(props: ListItemProps) {
   const {
-    boards
+    boards,
+    boardTitle,
+    totalLength
   } = props
   
   if(!boards) return null
   
   return (
     <section>
-      <TextReferWrapper>
-        <TextRefer><span className="ir-hidden">김말순님이 등록한 글</span> {boards.length}개</TextRefer>
-      </TextReferWrapper>
+      {boardTitle && <h2 className="ir-hidden">{boardTitle}</h2>}
+      {
+        totalLength && 
+          <TextReferWrapper>
+            <TextRefer>{totalLength || boards.length}개</TextRefer>
+          </TextReferWrapper>
+      }
       <List>
         {boards.map(({
           id,
@@ -28,13 +38,15 @@ function BoardList(props: ListItemProps) {
           createdAt
         }) => (
           <ListItem key={id}>
-            <BoardTitle>{title}</BoardTitle>
-            <BoardContents>{content}</BoardContents>
-            <MetaDataList 
-              viewCount={viewCount}
-              wishCount={wishCount}
-              createdAt={createdAt}
-            />
+            <Link href={PAGES.BOARD(id)}>
+              <BoardTitle>{title}</BoardTitle>
+              <BoardContents>{content}</BoardContents>
+              <MetaDataList
+                viewCount={viewCount}
+                wishCount={wishCount}
+                createdAt={createdAt}
+              />
+            </Link>
           </ListItem>
         ))}
       </List>

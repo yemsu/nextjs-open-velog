@@ -58,7 +58,7 @@ function UserBlog() {
   })
 
   if(!userBlog) return null
-
+  
   return (
     <>
       <Head>
@@ -80,6 +80,8 @@ function UserBlog() {
                     ? <>
                         <BoardList
                           boards={blogBoards?.pages?.flatMap(({content}) => content)}
+                          boardTitle={`${userInfo?.username}님이 등록한 게시글`}
+                          totalLength={blogBoards?.pages[0].totalElements}
                         />
                         <p ref={ref}>
                           {
