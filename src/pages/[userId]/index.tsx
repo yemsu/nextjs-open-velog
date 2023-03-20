@@ -64,7 +64,7 @@ function UserBlog() {
                   blog={userBlog}
                 />
                 <BoardList
-                  boards={blogBoards}
+                  boards={blogBoards?.content}
                 />
               </MainSection>
         }
