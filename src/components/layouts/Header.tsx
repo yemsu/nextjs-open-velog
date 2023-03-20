@@ -50,6 +50,9 @@ export default function Header() {
               <Link href="/">{APP_TITLE}</Link>
             </Logo>
             <GnbNav>
+              <h2 className="ir-hidden">
+                사이트 글로벌 메뉴
+              </h2>
               <GnbList>
                 <GnbItem>
                   <Link href="/">실시간 블로그 순위</Link>
