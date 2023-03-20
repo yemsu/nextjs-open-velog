@@ -25,4 +25,4 @@ export interface GetBoardSearchParams extends CommonPagingRequestParams {
   keyword: string
 }
 
-export type BoardResponseData = CommonPagingResponseData<BoardData>
+export type BoardResponseData = CommonPagingResponseData<BoardData[]>

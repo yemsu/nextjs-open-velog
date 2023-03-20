@@ -31,7 +31,7 @@ export interface CommonPagingResponseData<Content> {
   number: number
   sort: Sort
   size: number
-  content: Content[]
+  content: Content
   numberOfElements: 0
   pageable: Pageable
   first: boolean,
