@@ -18,7 +18,7 @@ function Home() {
     error: rankKeywordsError,
     data: rankKeywords
   } = useCommonQuery<null, RankKeyword[]>({
-    queryKey: QUERY_KEYS.KEYWORD,
+    queryKey: QUERY_KEYS.RANK_KEYWORD,
     promiseFn: getRankKeywords24Hour
   })
   
