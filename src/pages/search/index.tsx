@@ -13,7 +13,7 @@ import BoardList from "@/components/board/BoardList"
 import styled from "styled-components"
 import { useQueryClient } from "@tanstack/react-query"
 
-function index() {
+function Search() {
   const { ref, inView } = useInView()
   const route = useRouter()
   const keyword = route.query.keyword as string
@@ -84,4 +84,4 @@ function index() {
   )
 }
 
-export default index
+export default Search

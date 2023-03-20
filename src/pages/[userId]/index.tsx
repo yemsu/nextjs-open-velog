@@ -15,9 +15,13 @@ import { getBlogBoards } from "@/api/board"
 import Head from "next/head"
 import { getMetaTitle } from "@/utils"
 import { DESCRIPTION, TITLE } from "@/constants/meta"
+import { useInView } from "react-intersection-observer"
+import useInfiniteScroll from "@/hooks/useInfiniteScroll"
+import { useEffect } from "react"
 
 
 function UserBlog() {
+  const { ref, inView } = useInView()
   const userInfo = useSelector(getUserInfo)
   const router = useRouter()
   const userId = router.query.userId as any as number
@@ -30,19 +34,27 @@ function UserBlog() {
     params: userId, 
     enabledChecker: !!userId
   })
-
+  
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage()
+    }
+  }, [userId, inView])
+  
   const {
     error: blogBoardsError,
-    data: blogBoards
-  } = useCommonQuery<GetBlogBoardsParams, BoardResponseData>({
+    data: blogBoards,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  } = useInfiniteScroll<GetBlogBoardsParams, BoardResponseData, any>({
     queryKey: QUERY_KEYS.BLOG_BOARDS,
-    promiseFn: getBlogBoards, 
+    promiseFn: getBlogBoards,
     params: {
       userId,
-      page: 1,
-      size: 10
-    }, 
-    enabledChecker: !!userId
+      size: 10,
+      page: 1
+    }
   })
 
   if(!userBlog) return null
@@ -63,9 +75,24 @@ function UserBlog() {
                   profilePosition="top"
                   blog={userBlog}
                 />
-                <BoardList
-                  boards={blogBoards?.content}
-                />
+                {
+                  blogBoards
+                    ? <>
+                        <BoardList
+                          boards={blogBoards?.pages?.flatMap(({content}) => content)}
+                        />
+                        <p ref={ref}>
+                          {
+                            isFetchingNextPage
+                              ? 'Loading more...'
+                              : hasNextPage
+                                ? 'Load Newer'
+                                : 'Nothing more to load'
+                          }
+                        </p>
+                      </>
+                    : null
+                }
               </MainSection>
         }
       </ContentWrapper>

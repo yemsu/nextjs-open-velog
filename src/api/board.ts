@@ -22,6 +22,7 @@ export const postBoard = (
 export const getBlogBoards = (
   params : GetBlogBoardsParams
 ): Promise<BoardResponseData> => {
+  if(!params.userId) return Promise.reject("Invalid params")
   return $axios
     .get<GetBlogBoardsParams, CommonResponse<BoardResponseData>>(
       `/byBlog/userId`, params
