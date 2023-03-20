@@ -20,6 +20,7 @@ function InputWrapper(props: InputWrapperProps) {
 }
 
 const Wrapper = styled.div<{ multipleChildren: boolean }>`
+  position: relative;
   & + & {
     margin-top: 30px;
   }
@@ -45,7 +46,7 @@ const Inputs = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 5px 15px;
 `
 
 export default InputWrapper

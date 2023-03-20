@@ -1,5 +1,5 @@
 import { InputCommon } from "@/types/form"
-import React, { KeyboardEventHandler, SyntheticEvent } from "react"
+import React, { KeyboardEventHandler, SyntheticEvent, useCallback } from "react"
 import styled, { css } from "styled-components"
 
 interface InputProps extends InputCommon {
@@ -41,6 +41,7 @@ function Input(props: InputProps) {
     }
   }
 
+
   const CommonLabelText = (props: {type?: string}) => (
     label 
       ? <LabelText className={props.type}>{label}</LabelText>
@@ -52,6 +53,7 @@ function Input(props: InputProps) {
       as={label ? 'label' : 'div'}
       htmlFor={idStr}
       className='wrap-input'
+      type={type}
     >
       {!isBulletStyle && <CommonLabelText type="pos-top" />}
       <InputTag
@@ -79,11 +81,18 @@ const CommonLabel = styled.label`
   line-height: 1;
 `
 
-const InputWrapLabel = styled.label`
+const InputWrapLabel = styled.label<{ type: string }>`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
+  ${({type}) => {
+    if(isBasicStyle(type)) {
+      return css`
+        width: 100%;
+      `
+    }
+  }}
 `
 
 const InputTag = styled.input<{ type: string }>`
