@@ -1,3 +1,4 @@
+import { ALERTS } from "@/constants/alerts"
 import { ReactNode, useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import styled from "styled-components"
@@ -27,7 +28,7 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
   }, [inView])
 
   if(isError) {
-    return <p>데이터 호출에 실패하였습니다. 😥</p>
+    return <FailedText>{ALERTS.FETCH_FAIL}</FailedText>
   }
 
   return (
@@ -46,14 +47,21 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
   )
 }
 
-const LoadingText = styled.p`
+const Text = styled.p`
   margin: 10px 0;
-  padding: 10px;
   border-radius: var(--border-radius-S);
   background-color: var(--bg-light-gray);
   text-align: center;
   font-size: var(--font-size-MS);
   color: var(--font-dark-gray);
+`
+
+const FailedText = styled(Text)`
+  padding: 100px 0;
+`
+
+const LoadingText = styled(Text)`
+  padding: 10px;
 `
 const emojiWidthEm = 0.5
 const EmojiWrapper = styled.span`
