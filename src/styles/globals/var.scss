@@ -1,6 +1,15 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css");
 @import url('https://fonts.googleapis.com/css2?family=Labrada:wght@100;300;500&display=swap');
 :root {
+  // content size
+  --content-wrap-narrow: 768px;
+  --content-wrap-normal: 1000px;
+  --content-wrap-wide: 1200px;
+  --content-wrap-hrz-padding: 20px;
+  
+  // z index
+  --header-z: 99;
+
   --font-family: 'Pretendard Variable', -apple-system,"Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", 나눔고딕, "Nanum Gothic", "Noto Sans KR", "Noto Sans CJK KR", arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
   --font-family-eng-title: 'Labrada', -apple-system, "Apple SD Gothic Neo", 'Pretendard Variable', "Malgun Gothic", "맑은 고딕", 나눔고딕, "Nanum Gothic", "Noto Sans KR", "Noto Sans CJK KR", arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
   
@@ -43,6 +52,7 @@
   // basic color
   --black: --gray-10;
   --white: #fff;
+  --white-hsl: 0, 0%, 100%;
 
   // common darker
   --darker-10: hsla(var(--gray-10), 8%);

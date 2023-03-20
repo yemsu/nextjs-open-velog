@@ -54,13 +54,13 @@ const Wrapper = styled.div`
   /* size */
   &.size {
     &-narrow {
-      width: 768px;
+      width: var(--content-wrap-narrow);
     }
     &-normal {
-      width: 1000px;
+      width: var(--content-wrap-normal);
     }
     &-wide {
-      width: 1200px;
+      width: var(--content-wrap-wide);
     }
     &-full {
       width: 100%;
@@ -80,7 +80,7 @@ const Wrapper = styled.div`
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: var(--content-wrap-hrz-padding);
+    padding-right: var(--content-wrap-hrz-padding);
   }
 `
