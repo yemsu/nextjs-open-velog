@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { RankKeyword } from '@/types/keyword'
 import Keywords from "./Keywords"
+import { ALERTS } from "@/constants/alerts"
 
 interface RankKeywordsProps {
   rankKeywords: RankKeyword[] | void
@@ -18,7 +19,7 @@ function RankKeywords(props: RankKeywordsProps) {
       </TitleWrapper>
       {
         isError
-          ? <ErrorText>키워드 랭킹 호출에 <br />에러가 발생했습니다..! 😥</ErrorText>
+          ? <ErrorText>{ALERTS.FETCH_FAIL}</ErrorText>
           : rankKeywords
             ? <Keywords keywords={rankKeywords} />
             : null
