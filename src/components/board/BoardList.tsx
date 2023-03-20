@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import MetaDataList from "@/components/MetaDataList"
-import { BoardResponseData } from "@/types/board"
+import { BoardData } from "@/types/board"
 interface ListItemProps {
-  boards: BoardResponseData | void
+  boards: BoardData[] | void
 }
 
 
@@ -16,17 +16,18 @@ function BoardList(props: ListItemProps) {
   return (
     <section>
       <TextReferWrapper>
-        <TextRefer><span className="ir-hidden">김말순님이 등록한 글</span> {boards.content.length}개</TextRefer>
+        <TextRefer><span className="ir-hidden">김말순님이 등록한 글</span> {boards.length}개</TextRefer>
       </TextReferWrapper>
       <List>
-        {boards.content.map(({
+        {boards.map(({
+          id,
           title,
           content,
           viewCount,
           wishCount,
           createdAt
         }) => (
-          <ListItem>
+          <ListItem key={id}>
             <BoardTitle>{title}</BoardTitle>
             <BoardContents>{content}</BoardContents>
             <MetaDataList 

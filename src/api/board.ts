@@ -1,14 +1,39 @@
-import { PostBoardPayload, BoardData, BoardResponseData, GetBlogBoardsParams } from "@/types/board";
+import { CommonResponse } from "@/types/api";
+import {
+  PostBoardPayload,
+  BoardData,
+  BoardResponseData,
+  GetBlogBoardsParams,
+  GetBoardSearchParams
+} from "@/types/board";
 import Axios from "./Axios";
 
 const $axios = new Axios('boards')
 
-export const postBoard = (payload: PostBoardPayload) => {
-  return $axios.post<PostBoardPayload, {data: BoardData}>(``, payload)
-    .then(res => res.data.data)
+export const postBoard = (
+  payload: PostBoardPayload
+): Promise<BoardData> => {
+  return $axios
+    .post<PostBoardPayload, CommonResponse<BoardData>>(
+      ``, payload
+    ).then(res => res.data.data)
 }
 
-export const getBlogBoards = (params : GetBlogBoardsParams) => {
-  return $axios.get<GetBlogBoardsParams, {data: BoardResponseData}>(`/byBlog/userId`, params)
-    .then(res => res.data.data)
+export const getBlogBoards = (
+  params : GetBlogBoardsParams
+): Promise<BoardResponseData> => {
+  return $axios
+    .get<GetBlogBoardsParams, CommonResponse<BoardResponseData>>(
+      `/byBlog/userId`, params
+    ).then(({ data }) => data.data)
+}
+
+export const getBoardSearch = (
+  params: GetBoardSearchParams
+): Promise<BoardResponseData> => {
+  if(!params.keyword) return Promise.reject("Invalid params")
+  return $axios
+    .get<GetBoardSearchParams, CommonResponse<BoardResponseData>>(
+      `/search`, params
+    ).then(({ data }) => data.data)
 }
