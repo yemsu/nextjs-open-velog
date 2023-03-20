@@ -8,13 +8,12 @@ import { getMetaTitle } from "@/utils"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
-import { useInView } from 'react-intersection-observer'
 import BoardList from "@/components/board/BoardList"
 import styled from "styled-components"
 import { useQueryClient } from "@tanstack/react-query"
+import InfiniteScrollContent from "@/components/InfiniteScrollContent"
 
 function Search() {
-  const { ref, inView } = useInView()
   const route = useRouter()
   const keyword = route.query.keyword as string
   const queryClient = useQueryClient()
@@ -22,7 +21,6 @@ function Search() {
     error: searchResultError,
     data: searchResult,
     fetchNextPage,
-    hasNextPage,
     isFetchingNextPage
   } = useInfiniteScroll<GetBoardSearchParams, BoardResponseData, any>({
     queryKey: QUERY_KEYS.BOARDS_SEARCH,
@@ -40,16 +38,6 @@ function Search() {
     })
   }, [keyword])
 
-  useEffect(() => {
-    if (inView) {
-      fetchNextPage()
-    }
-  }, [keyword, inView])
-
-  if(searchResultError) {
-    return <p>검색 결과 에러</p>
-  }
-
   return (
     <>
       <Head>
@@ -62,22 +50,16 @@ function Search() {
       >
         <h2>{keyword}에 대한 {searchResult?.pages[0].totalElements}개의 검색결과</h2>
         {
-          searchResult
-            ? <>
-                <BoardList
-                  boards={searchResult?.pages.flatMap(({content}) => content)}
-                />
-                <p ref={ref}>
-                  {
-                    isFetchingNextPage
-                      ? 'Loading more...'
-                      : hasNextPage 
-                        ? 'Load Newer'
-                        : 'Nothing more to load'
-                  }
-                </p>
-              </>
-            : null
+          <InfiniteScrollContent
+            isDataFetched={!!searchResult}
+            isFetchingNextPage={isFetchingNextPage}
+            isError={!!searchResultError}
+            fetchNextPage={fetchNextPage}
+          >
+            <BoardList
+              boards={searchResult?.pages.flatMap(({content}) => content)}
+            />
+          </InfiniteScrollContent>
         }
       </ContentWrapper>
     </>

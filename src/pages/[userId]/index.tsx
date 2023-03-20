@@ -18,6 +18,7 @@ import { DESCRIPTION, TITLE } from "@/constants/meta"
 import { useInView } from "react-intersection-observer"
 import useInfiniteScroll from "@/hooks/useInfiniteScroll"
 import { useEffect } from "react"
+import InfiniteScrollContent from "@/components/InfiniteScrollContent"
 
 
 function UserBlog() {
@@ -45,7 +46,6 @@ function UserBlog() {
     error: blogBoardsError,
     data: blogBoards,
     fetchNextPage,
-    hasNextPage,
     isFetchingNextPage
   } = useInfiniteScroll<GetBlogBoardsParams, BoardResponseData, any>({
     queryKey: QUERY_KEYS.BLOG_BOARDS,
@@ -76,24 +76,16 @@ function UserBlog() {
                   blog={userBlog}
                 />
                 {
-                  blogBoards
-                    ? <>
-                        <BoardList
-                          boards={blogBoards?.pages?.flatMap(({content}) => content)}
-                          boardTitle={`${userInfo?.username}님이 등록한 게시글`}
-                          totalLength={blogBoards?.pages[0].totalElements}
-                        />
-                        <p ref={ref}>
-                          {
-                            isFetchingNextPage
-                              ? 'Loading more...'
-                              : hasNextPage
-                                ? 'Load Newer'
-                                : 'Nothing more to load'
-                          }
-                        </p>
-                      </>
-                    : null
+                  <InfiniteScrollContent
+                    isDataFetched={!!blogBoards}
+                    isFetchingNextPage={isFetchingNextPage}
+                    isError={!!blogBoardsError}
+                    fetchNextPage={fetchNextPage}
+                  >
+                    <BoardList
+                      boards={blogBoards?.pages.flatMap(({content}) => content)}
+                    />
+                  </InfiniteScrollContent>
                 }
               </MainSection>
         }
