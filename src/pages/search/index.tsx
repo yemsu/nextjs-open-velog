@@ -60,13 +60,13 @@ function Search() {
         size="narrow"
         contentType="main"
       >
-        <h2>{keyword}에 대한 검색결과</h2>
+        <h2>{keyword}에 대한 {searchResult?.pages[0].totalElements}개의 검색결과</h2>
         {
           searchResult
             ? <>
                 <BoardList
-                    boards={searchResult?.pages.flatMap(({content}) => content)}
-                  />
+                  boards={searchResult?.pages.flatMap(({content}) => content)}
+                />
                 <p ref={ref}>
                   {
                     isFetchingNextPage
