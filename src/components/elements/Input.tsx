@@ -1,5 +1,5 @@
 import { InputCommon } from "@/types/form"
-import React, { SyntheticEvent } from "react"
+import React, { KeyboardEventHandler, SyntheticEvent } from "react"
 import styled, { css } from "styled-components"
 
 interface InputProps extends InputCommon {
@@ -7,7 +7,8 @@ interface InputProps extends InputCommon {
   checked?: boolean
   isRequired?: boolean
   size?: 'small' | 'medium' | 'big'
-  onChange: (e: SyntheticEvent) => void
+  onChange: (e: SyntheticEvent) => void,
+  onEnter?: () => void,
 }
 
 function Input(props: InputProps) {
@@ -21,7 +22,8 @@ function Input(props: InputProps) {
     checked,
     isRequired = true,
     size = 'small',
-    onChange
+    onChange,
+    onEnter
   } = props
 
   const isBulletStyle = ["checkbox", "radio"].includes(type)
@@ -30,6 +32,13 @@ function Input(props: InputProps) {
   const onClick = (e: SyntheticEvent) => {
     if(!isBulletStyle) return
     onChange(e)
+  }
+
+  const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if(!onEnter) return
+    if(e.key === "Enter") {
+      onEnter()
+    }
   }
 
   const CommonLabelText = (props: {type?: string}) => (
@@ -56,6 +65,7 @@ function Input(props: InputProps) {
         required={isRequired}
         onChange={onChange}
         onClick={onClick}
+        onKeyDown={onKeyDown}
         className={`size-${size}`}
       />
       {isBulletStyle && <CommonLabelText />}

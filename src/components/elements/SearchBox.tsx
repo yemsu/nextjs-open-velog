@@ -38,6 +38,7 @@ function SearchBox(props: SearchBoxProps) {
           value={forms.searchKeyword}
           size="big"
           onChange={onChange}
+          onEnter={onClickSearch}
         />
       </SearchInput>
       <SearchButtonBox>
