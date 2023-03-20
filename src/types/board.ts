@@ -1,4 +1,4 @@
-import { CommonResponse } from "./api"
+import { CommonPagingRequestParams, CommonPagingResponseData } from "./api"
 
 export interface PostBoardPayload {
   blogId: number
@@ -17,37 +17,12 @@ export interface BoardData {
   modifiedAt: string
 }
 
-export interface GetBlogBoardsParams {
+export interface GetBlogBoardsParams extends CommonPagingRequestParams {
   userId: number
-  page: number
-  size: number
 }
 
-interface Sort {
-  empty: Boolean
-  unsorted: Boolean
-  sorted: Boolean
+export interface GetBoardSearchParams extends CommonPagingRequestParams {
+  keyword: string
 }
 
-interface Pageable {
-  sort: Sort
-  offset: number,
-  pageSize: number,
-  paged: boolean,
-  pageNumber: number,
-  unpaged: boolean
-}
-
-export interface BoardResponseData {
-  totalPages: number
-  totalElements: number
-  number: number
-  sort: Sort
-  size: number
-  content: BoardData[]
-  numberOfElements: 0
-  pageable: Pageable
-  first: boolean,
-  last: boolean,
-  empty: boolean
-}
+export type BoardResponseData = CommonPagingResponseData<BoardData>
