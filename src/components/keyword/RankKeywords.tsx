@@ -14,7 +14,7 @@ function RankKeywords(props: RankKeywordsProps) {
   return (
     <Wrapper>
       <TitleWrapper>
-        <Title>키워드 검색 순위 🧐</Title>
+        <Title>키워드 검색 순위 📈</Title>
         <TitleDesc>최근 24시간 기준</TitleDesc>
       </TitleWrapper>
       {
