@@ -9,6 +9,7 @@ interface ContentWrapperProps {
   contentType?: 'normal' | 'main'
   title?: string
   bgColor?: 'primary-1' | 'primary-2'
+  isFullHeight?: boolean
 }
 
 function ContentWrapper(props: ContentWrapperProps) {
@@ -19,6 +20,7 @@ function ContentWrapper(props: ContentWrapperProps) {
     contentType = 'normal',
     title,
     bgColor,
+    isFullHeight
   } = props
   return (
     <Wrapper 
@@ -28,6 +30,7 @@ function ContentWrapper(props: ContentWrapperProps) {
         `size-${size}`,
         `type-${contentType}`,
         bgColor ? `bg-${bgColor}` : '',
+        isFullHeight ? 'full-height' : ''
       ].join(' ')}
     >
       {title && <IrText text={title} />}
@@ -83,5 +86,8 @@ const Wrapper = styled.div`
     margin-right: auto;
     padding-left: var(--content-wrap-hrz-padding);
     padding-right: var(--content-wrap-hrz-padding);
+  }
+  &.full-height {
+    height: calc(100vh - (60px * 2) - 44px);
   }
 `
