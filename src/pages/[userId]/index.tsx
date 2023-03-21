@@ -75,6 +75,7 @@ function UserBlog() {
                   >
                     <BoardList
                       boards={blogBoards?.pages.flatMap(({content}) => content)}
+                      boardTitle={`${userInfo?.username}님이 작성한 게시글 리스트`}
                     />
                   </InfiniteScrollContent>
                 }

@@ -63,6 +63,7 @@ function Search() {
           >
             <BoardList
               boards={searchResult?.pages.flatMap(({content}) => content)}
+              boardTitle={`${keyword}와 관련된 게시글 리스트`}
             />
           </InfiniteScrollContent>
         }
