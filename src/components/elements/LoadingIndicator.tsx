@@ -35,7 +35,7 @@ const EmojiWrapper = styled.span`
   }
 `
 
-const Loader = styled.div`
+const Loader = styled.span`
   span:nth-child(3) {
     opacity: 0;
     animation: curtain 3s infinite;
