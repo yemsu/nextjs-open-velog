@@ -28,7 +28,9 @@ function useInfiniteScroll<
       getNextPageParam: (lastPage: any) => {
         const { totalPages } = lastPage
         const pageNumber = lastPage.pageable?.pageNumber || lastPage.pageNumber
-        const nextPage = pageNumber + 2
+        const addNumber = pageNumber === 0 ? 2 : 1
+        const nextPage = pageNumber + addNumber
+
         return nextPage <= totalPages ? nextPage : undefined
       },
     },
