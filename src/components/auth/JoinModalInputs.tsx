@@ -66,7 +66,7 @@ const inputCategories: InputCategory[][] = [
     type: 'number',
     name: 'birthday',
     label: '생년월일',
-    placeholder: '생년월일 8자리 ex)19910610',
+    placeholder: '생년월일 8자리 ex)yyyymmdd',
     reg: /^[0-9]{8}$/,
   }],
   [{
