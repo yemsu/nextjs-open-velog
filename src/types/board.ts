@@ -25,4 +25,10 @@ export interface GetBoardSearchParams extends PagingRequestParams {
   keyword: string
 }
 
-export type BoardResponseData = PagesResponseData<BoardData[]>
+export interface BoardResponseData {
+  content: BoardData[]
+  totalPages: number
+  pageNumber: number
+  totalElements: number
+  last: true
+}
