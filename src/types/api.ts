@@ -25,7 +25,7 @@ interface Pageable {
   unpaged: boolean
 }
 
-export interface CommonPagingResponseData<Content> {
+export interface PagesResponseData<Content> {
   totalPages: number
   totalElements: number
   number: number
@@ -39,7 +39,7 @@ export interface CommonPagingResponseData<Content> {
   empty: boolean
 }
 
-export interface CommonPagingRequestParams {
+export interface PagingRequestParams {
   page: number
   size: number
 }

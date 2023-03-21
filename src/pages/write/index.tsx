@@ -18,6 +18,7 @@ import { useRouter } from "next/router"
 import { PAGES } from "@/constants/path"
 import { useQueryClient } from "@tanstack/react-query"
 import { QUERY_KEYS } from "@/constants/queryKeys"
+import LoadingIndicator from "@/components/elements/LoadingIndicator"
 
 function Write() {
   const route = useRouter()
@@ -25,6 +26,7 @@ function Write() {
   const queryClient = useQueryClient()
   const {
     mutate: registerBoard,
+    isLoading,
     error
   } = useCommonMutation<BoardData, PostBoardPayload, any>(
     postBoard, {
@@ -77,6 +79,7 @@ function Write() {
         size="narrow"
         contentType="main"
         title={TITLE.WRITE}
+        isFullHeight={true}
       >
         <Input
           type="text"
@@ -106,6 +109,7 @@ function Write() {
           />
         </BottomFixBar>
       </ContentWrapper>
+      {isLoading && <LoadingIndicator size="full" />}
     </>
   )
 }

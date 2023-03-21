@@ -45,6 +45,7 @@ export default function Header() {
     dispatch(SET_IS_LOGIN(false))
     dispatch(SET_USER_INFO(null))
     Axios.prototype.authToken = null
+    alert('로그아웃이 완료되었습니다.')
   }
   
   return (

@@ -7,5 +7,8 @@ export const ALERTS = {
   PUT_BLOG_ERROR: `블로그 소개글 변경에 실패하였습니다. ${COMMON_ERROR_ALERTS}`,
   GET_BLOG: {
     ERROR: `블로그 데이터 호출에 실패하였습니다.  ${COMMON_ERROR_ALERTS}`,
+  },
+  GET_BOARD: {
+    ERROR: `게시글 데이터 호출에 실패하였습니다.  ${COMMON_ERROR_ALERTS}`,
   }
 }

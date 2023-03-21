@@ -1,4 +1,4 @@
-import { CommonPagingRequestParams, CommonPagingResponseData } from "@/types/api";
+import { PagingRequestParams, PagesResponseData } from "@/types/api";
 import { BlogPayload, BlogResponse, PutBlogArgs, BlogResponseData } from "@/types/blog";
 import Axios from "./Axios";
 
@@ -18,16 +18,16 @@ export const deleteBlog = (blogId: string) => {
   return $axios.delete<BlogResponse>(`/${blogId}`)
 }
 
-export const getBlogViewCountRank = (params: CommonPagingRequestParams) => {
+export const getBlogViewCountRank = (params: PagingRequestParams) => {
   return $axios
-    .get<CommonPagingRequestParams, CommonPagingResponseData<BlogResponseData>>(
+    .get<PagingRequestParams, PagesResponseData<BlogResponseData>>(
       `/viewCounts`, params
     ).then(res => res.data)
 }
 
-export const getBlogBoardLikeRank = (params: CommonPagingRequestParams) => {
+export const getBlogBoardLikeRank = (params: PagingRequestParams) => {
   return $axios
-    .get<CommonPagingRequestParams, CommonPagingResponseData<BlogResponseData>>(
+    .get<PagingRequestParams, PagesResponseData<BlogResponseData>>(
       `/boardWishes`, params
     ).then(res => res.data)
 }
