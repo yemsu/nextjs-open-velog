@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import styled from "styled-components"
+import IrText from "../elements/IrText"
 
 interface ContentWrapperProps {
   children: ReactNode
@@ -29,7 +30,7 @@ function ContentWrapper(props: ContentWrapperProps) {
         bgColor ? `bg-${bgColor}` : '',
       ].join(' ')}
     >
-      {title && <h2 className="ir-hidden">{title}</h2>}
+      {title && <IrText text={title} />}
       {children}
     </Wrapper>
   )

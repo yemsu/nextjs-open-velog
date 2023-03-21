@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import Input from "@/components/elements/Input"
+import IrText from "./IrText"
 import useInputs from "@/hooks/useInputs"
 import EmojiButton from "./EmojiButton"
 import { useCallback } from "react"
@@ -30,7 +31,7 @@ function SearchBox(props: SearchBoxProps) {
 
   return (
     <SearchBoxSection>
-      <h2 className="ir-hidden">키워드 검색</h2>
+      <IrText text="키워드 검색" />
       <SearchInput>
         <Input
           type="text"

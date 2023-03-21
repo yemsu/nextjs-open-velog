@@ -11,7 +11,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import { QUERY_KEYS } from "@/constants/queryKeys"
 
 interface BlogProfileProps {
-  profilePosition: 'top' | 'bottom'
+  profilePosition?: 'top' | 'bottom'
   blog: BlogResponseData
   isMine?: boolean
 }
@@ -61,7 +61,7 @@ function BlogProfile(props: BlogProfileProps) {
   }, [blogId, forms])
 
   return (
-    <Wrapper className={`pos-${profilePosition}`}>
+    <Wrapper className={profilePosition ? `pos-${profilePosition}` : ''}>
       <Profile>{memberUsername}</Profile>
       <TextWrapper>
         <BlogTitle>{memberUsername}님의 블로그</BlogTitle>

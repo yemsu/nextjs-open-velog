@@ -23,6 +23,7 @@ function Search() {
     error: searchResultError,
     data: searchResult,
     fetchNextPage,
+    isFetching,
     isFetchingNextPage
   } = useInfiniteScroll<GetBoardSearchParams, BoardResponseData, any>({
     queryKey: QUERY_KEYS.BOARDS_SEARCH,
@@ -58,11 +59,13 @@ function Search() {
           <InfiniteScrollContent
             isDataFetched={!!searchResult}
             isFetchingNextPage={isFetchingNextPage}
-            isError={!!searchResultError}
+            isFetching={isFetching}
+            error={searchResultError as Error}
             fetchNextPage={fetchNextPage}
           >
             <BoardList
               boards={searchResult?.pages.flatMap(({content}) => content)}
+              boardTitle={`${keyword}와 관련된 게시글 리스트`}
             />
           </InfiniteScrollContent>
         }

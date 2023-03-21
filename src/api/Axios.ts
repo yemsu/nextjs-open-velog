@@ -3,7 +3,7 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios'
 const createAxios = (service: string) => {
   return axios.create({
     baseURL: `http://test-api.sparta99.shop/api/${service}`,
-    timeout: 5000
+    // timeout: 5000
   })
 }
 

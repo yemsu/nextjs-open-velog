@@ -37,6 +37,7 @@ function UserBlog() {
     error: blogBoardsError,
     data: blogBoards,
     fetchNextPage,
+    isFetching,
     isFetchingNextPage
   } = useInfiniteScroll<GetBlogBoardsParams, BoardResponseData, any>({
     queryKey: QUERY_KEYS.BLOG_BOARDS,
@@ -70,11 +71,13 @@ function UserBlog() {
                   <InfiniteScrollContent
                     isDataFetched={!!blogBoards}
                     isFetchingNextPage={isFetchingNextPage}
-                    isError={!!blogBoardsError}
+                    isFetching={isFetching}
+                    error={blogBoardsError as Error}
                     fetchNextPage={fetchNextPage}
                   >
                     <BoardList
                       boards={blogBoards?.pages.flatMap(({content}) => content)}
+                      boardTitle={`${userInfo?.username}님이 작성한 게시글 리스트`}
                     />
                   </InfiniteScrollContent>
                 }

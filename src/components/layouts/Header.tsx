@@ -2,9 +2,10 @@ import Link from "next/link"
 import { useSelector, useDispatch  } from "react-redux";
 import { getIsLogin, getUserInfo, SET_IS_LOGIN, SET_USER_INFO } from "@/store/auth";
 import Axios from "@/api/Axios";
-import { APP_TITLE, AUTH_TOKEN, USER_INFO } from "@/constants/etc";
+import { APP_TITLE, USER_INFO } from "@/constants/etc";
 import JoinModal from "@/components/auth/JoinModal"
 import ContentWrapper from "@/components/layouts/ContentWrapper"
+import IrText from "../elements/IrText";
 import useModal from "@/hooks/useModal"
 import styled from "styled-components"
 import { useEffect, useState } from "react"
@@ -55,12 +56,10 @@ export default function Header() {
               <Link href="/">{APP_TITLE}</Link>
             </Logo>
             <GnbNav>
-              <h2 className="ir-hidden">
-                사이트 글로벌 메뉴
-              </h2>
+              <IrText text="사이트 글로벌 메뉴" />
               <GnbList>
                 <GnbItem>
-                  <Link href="/">실시간 블로그 순위</Link>
+                  <Link href="/blogs/view-count">실시간 블로그 순위</Link>
                 </GnbItem>
                 <GnbItem>
                   <Link href="/">인기 검색어</Link>
