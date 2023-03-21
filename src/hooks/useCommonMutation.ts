@@ -10,7 +10,11 @@ function useCommonMutation<Response, Payload, TError = unknown>(
   mutationFn: (payload: Payload) => Promise<Response>,
   options?: Options<Response, Payload, TError>
 ) {
-  const { onSuccess, onError, onSettled } = options || {};
+  const {
+    onSuccess,
+    onError,
+    onSettled
+  } = options || {};
   return useMutation(
     mutationFn,
     {
