@@ -1,5 +1,5 @@
 import { ALERTS } from "@/constants/alerts"
-import { ReactNode, useEffect } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { useInView } from "react-intersection-observer"
 import styled from "styled-components"
 
@@ -42,7 +42,10 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
       {
         isFetchingNextPage || isFetching
           ? <LoadingText>
-              데이터를 가져오는 중이예요 <EmojiWrapper>🏃‍♂️ 🏃‍♂️ 🏃‍♂️</EmojiWrapper>
+              데이터를 가져오는 중이예요
+              <EmojiWrapper>
+                <span>🏃‍♂️</span> <span>🏃‍♂️</span> <span>🏃‍♂️</span>
+              </EmojiWrapper>
             </LoadingText>
           : <div ref={ref}></div>
       }
@@ -68,23 +71,63 @@ const LoadingText = styled(Text)`
 `
 const emojiWidthEm = 0.6
 const EmojiWrapper = styled.span`
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
-
-  &:after {
-    position: absolute;
-    top: 0;
-    left: 10px;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    transform: translateX(${emojiWidthEm}em);
-    background-color: var(--bg-light-gray);
-    content: '';
-    animation: curtain 2s infinite linear;
+  margin-left: 10px;
+  font-size: 18px;
+  span:nth-child(3) {
+    opacity: 0;
+    animation: curtain 3s infinite;
+    @keyframes curtain {
+      0% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(-6px);
+      }
+    }
   }
-
-  @keyframes curtain {
+  span:nth-child(2) {
+    opacity: 0;
+    animation: curtain 3s infinite;
+    animation-delay: 0.8s;
+    @keyframes curtain {
+      32% {
+        opacity: 0;
+      }
+      33% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(-6px);
+      }
+    }
+  }
+  span:nth-child(1) {
+    opacity: 0;
+    animation: curtain 3s infinite;
+    animation-delay: 1.6s;
+    @keyframes curtain {
+      65% {
+        opacity: 0;
+      }
+      66% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(-6px);
+      }
+    }
+  }
+  /* @keyframes curtain {
     0% {
       transform: translateX(${emojiWidthEm}em);
     }
@@ -103,7 +146,7 @@ const EmojiWrapper = styled.span`
     100% {
       transform: translateX(${emojiWidthEm * 6}em);
     }
-  }
+  } */
 `
 
 export default InfiniteScrollContent
