@@ -1,10 +1,11 @@
 export const SERVICES = {
   MEMBER: 'members',
   BLOG: 'blogs',
+  BLOG_VIEW_COUNT: '/blogs/view-count',
   BOARD: 'boards',
   BOARD_WISH: 'board/wished',
   RANK: 'rank/keyword',
-  KEYWORD: 'keywords'
+  KEYWORD: 'keywords',
 }
 
 export const PAGES = {
