@@ -25,6 +25,7 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
   const { ref, inView } = useInView()
 
   useEffect(() => {
+    console.log('inView', inView)
     if (inView) {
       fetchNextPage()
     }
@@ -41,7 +42,7 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
     <>
       {isDataFetched ? children : null}
       {
-        <div ref={ref}>
+        <RefElement ref={ref}>
           {
             isFetchingNextPage || isFetching
               ? <LoadingText>
@@ -50,7 +51,7 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
                 </LoadingText>
               : null
           }
-        </div> 
+        </RefElement> 
       }
     </>
   )
@@ -63,6 +64,10 @@ const Text = styled.p`
   text-align: center;
   font-size: var(--font-size-MS);
   color: var(--font-dark-gray);
+`
+
+const RefElement = styled.div`
+  height: 100px;
 `
 
 const FailedText = styled(Text)`
