@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 interface LoadingIndicatorProps {
-  size: 'normal' | 'full'
+  size?: 'normal' | 'full'
 }
 
 function LoadingIndicator(props: LoadingIndicatorProps) {
