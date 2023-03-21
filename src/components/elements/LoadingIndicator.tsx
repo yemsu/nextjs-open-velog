@@ -36,8 +36,10 @@ const EmojiWrapper = styled.span`
 `
 
 const Loader = styled.span`
+  display: flex;
   span:nth-child(3) {
-    animation: curtain 3s infinite;
+    opacity: 0;
+    animation: curtain 2s infinite;
     @keyframes curtain {
       0% {
         opacity: 1;
@@ -58,7 +60,7 @@ const Loader = styled.span`
   }
   span:nth-child(2) {
     opacity: 0;
-    animation: curtain 3s infinite;
+    animation: curtain 2s infinite;
     animation-delay: 0.8s;
     @keyframes curtain {
       32% {
@@ -83,7 +85,7 @@ const Loader = styled.span`
   }
   span:nth-child(1) {
     opacity: 0;
-    animation: curtain 3s infinite;
+    animation: curtain 2s infinite;
     animation-delay: 1.6s;
     @keyframes curtain {
       65% {
