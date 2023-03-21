@@ -6,7 +6,10 @@ type useInputs<T> = [
   () => void
 ]
 
-function useInputs<T>(initialForm: T): useInputs<T> {
+function useInputs<T>(
+  initialForm: T,
+  onChangeCb?: (name: string, value: string) => void
+): useInputs<T> {
   const [forms, setForms] = useState(initialForm)
 
   const onChange = useCallback((e: SyntheticEvent) => {

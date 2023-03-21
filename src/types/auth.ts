@@ -24,3 +24,10 @@ export interface UserResponseData extends UserInfo {
 export interface UserResponse extends UserInfo {
   data: UserResponseData
 }
+
+export interface ValidationsState {
+  [key: string]: {
+    text: string,
+    isValid: boolean
+  }
+}

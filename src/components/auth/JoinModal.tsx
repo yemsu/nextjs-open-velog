@@ -1,13 +1,14 @@
 import { useDispatch } from "react-redux";
 import { fetchJoin, fetchLogin } from "@/store/auth"
 import Modal from "@/components/elements/Modal"
-import Input from "@/components/elements/Input";
-import WrapInputs from "@/components/elements/InputWrapper";
 import useInputs from "@/hooks/useInputs"
 import Button from "@/components/elements/Button"
+import JoinModalInputs from "./JoinModalInputs";
 import styled from "styled-components"
 import { APP_TITLE } from "@/constants/etc";
-import { InputCommon } from "@/types/form";
+import { useCallback, useState } from "react";
+import { ValidationsState } from "@/types/auth";
+import checkValidations from "@/utils/validation";
 
 interface JoinModalProps {
   modalType: string,
@@ -15,9 +16,6 @@ interface JoinModalProps {
   toggle: () => void,
 }
 
-interface InputCategory extends InputCommon {
-  isForLogin?: boolean,
-}
 
 interface FormDataTypes {
   [key: string]: string
@@ -34,22 +32,44 @@ function JoinModal(props: JoinModalProps) {
     gender: '',
     birthday: '',
   })
+  const [validations, setValidations] = useState<ValidationsState>({
+    userId: { text: '', isValid: false },
+    email: { text: '', isValid: false },
+    password1: { text: '', isValid: false },
+    password2: { text: '', isValid: false },
+    username: { text: '', isValid: false },
+    birthday: { text: '', isValid: false },
+  })
+
   const dispatch = useDispatch()
 
   const onSubmitJoin = async() => {
     const { userId, username, password2, email, gender, birthday } = forms
+    const birthdayResult = birthday && `${birthday.slice(0, 4)}-${birthday.slice(4, 6)}-${birthday.slice(4, 6)}`
     const result = {
       userId,
       username,
       password: password2,
       email,
       gender,
-      birthday
+      birthday: birthdayResult
     }
+    const validationResults = isValidList(Object.keys(validations))
+    const hasInvalidData = checkValidations(validationResults)
+    if(hasInvalidData) return
     await dispatch(fetchJoin(result) as any)
     reset()
     toggle()
   }
+
+  const isValidList = useCallback((names: string[]) => {
+    return names.reduce((result: any, key: string) => {
+      return Object.assign(
+        result,
+        {[key]: validations[key].isValid}
+      )
+    }, {})
+  }, [])
 
   const onSubmitLogin = async() => {
     const { userId, password1 } = forms
@@ -57,6 +77,8 @@ function JoinModal(props: JoinModalProps) {
       userId,
       password: password1,
     }
+    const hasInvalidData = checkValidations(result)
+    if(hasInvalidData) return
     await dispatch(fetchLogin(result) as any)
     reset()
     toggle()
@@ -72,64 +94,7 @@ function JoinModal(props: JoinModalProps) {
   const submitButtonText = isLogin ? '로그인' : '가입' 
   const onSubmitEvent = isLogin ? onSubmitLogin : onSubmitJoin 
   const SubmitButton = <Button styleType="round" bgColor="primary" size="medium" buttonText={submitButtonText} onClick={onSubmitEvent} />
-  const isInputForLogin = (inputs: InputCategory[]) => (
-    ['userId', 'password1'].includes(inputs[0].name)
-  )
-  const isVisibleCategory = (inputs: InputCategory[]) => (
-    !isLogin || (isLogin && isInputForLogin(inputs))
-    )
-  const inputCategories = [
-    [{
-      type: 'text',
-      name: 'userId',
-      label: '아이디',
-      placeholder: '영문, 숫자(6~16자)'
-    }],
-    [{
-      type: 'password',
-      name: 'password1',
-      label: '비밀번호',
-      placeholder: '영문, 숫자, 특수문자 포함(8~15자)'
-    }],
-    [{
-      type: 'password',
-      name: 'password2',
-      label: '비밀번호 확인',
-      placeholder: '영문, 숫자, 특수문자 포함(8자 이상)'
-    }],
-    [{
-      type: 'email',
-      name: 'email',
-      label: '이메일',
-      placeholder: 'ex) abcde@gmail.com'
-    }],
-    [{
-      type: 'text',
-      name: 'username',
-      label: '닉네임',
-      placeholder: '한글, 영문, 숫자(3~10자)'
-    }],
-    [{
-      type: 'text',
-      name: 'birthday',
-      label: '생년월일',
-      placeholder: '생년월일 8자리 ex)1991-06-10'
-    }],
-    [{
-      type: 'radio',
-      id: 'woman',
-      name: 'gender',
-      label: '여',
-      value: 'woman'
-    },
-    {
-      type: 'radio',
-      id: 'man',
-      name: 'gender',
-      label: '남',
-      value: 'man'
-    }]
-  ]
+
   return (
     <Modal
       isOpen={isOpen}
@@ -139,30 +104,13 @@ function JoinModal(props: JoinModalProps) {
       submitButton={SubmitButton}
     >
       <WrapForm>
-        {inputCategories.map((inputs, i) => {
-          return (
-            isVisibleCategory(inputs) &&
-            <WrapInputs key={`category${i}`}>
-              {inputs.map(({ type, id, name, label, value, placeholder }: InputCategory, i) => {
-                const defaultFirstCheck = !forms[name] && type === 'radio' && i === 0
-                const isChecked = (defaultFirstCheck || forms[name] === value)
-                return (
-                  <Input
-                    type={type}
-                    id={id}
-                    name={name}
-                    label={label}
-                    value={value || forms[name]}
-                    checked={isChecked}
-                    placeholder={placeholder}
-                    onChange={onChange}
-                    key={name + id}
-                  />
-                )
-              })}
-            </WrapInputs>
-          )
-          })}
+        <JoinModalInputs
+          isLogin={isLogin}
+          forms={forms}
+          onChange={onChange}
+          validations={validations}
+          setValidations={setValidations}
+        />
       </WrapForm>
     </Modal>
   )

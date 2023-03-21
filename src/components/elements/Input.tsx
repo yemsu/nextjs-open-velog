@@ -52,6 +52,7 @@ function Input(props: InputProps) {
       as={label ? 'label' : 'div'}
       htmlFor={idStr}
       className='wrap-input'
+      type={type}
     >
       {!isBulletStyle && <CommonLabelText type="pos-top" />}
       <InputTag
@@ -79,11 +80,18 @@ const CommonLabel = styled.label`
   line-height: 1;
 `
 
-const InputWrapLabel = styled.label`
+const InputWrapLabel = styled.label<{ type: string }>`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
+  ${({type}) => {
+    if(isBasicStyle(type)) {
+      return css`
+        width: 100%;
+      `
+    }
+  }}
 `
 
 const InputTag = styled.input<{ type: string }>`
