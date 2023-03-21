@@ -15,14 +15,11 @@ import { getBlogBoards } from "@/api/board"
 import Head from "next/head"
 import { getMetaTitle } from "@/utils"
 import { DESCRIPTION, TITLE } from "@/constants/meta"
-import { useInView } from "react-intersection-observer"
 import useInfiniteScroll from "@/hooks/useInfiniteScroll"
-import { useEffect } from "react"
 import InfiniteScrollContent from "@/components/InfiniteScrollContent"
 
 
 function UserBlog() {
-  const { ref, inView } = useInView()
   const userInfo = useSelector(getUserInfo)
   const router = useRouter()
   const userId = router.query.userId as any as number
@@ -35,12 +32,6 @@ function UserBlog() {
     params: userId, 
     enabledChecker: !!userId
   })
-  
-  useEffect(() => {
-    if (inView) {
-      fetchNextPage()
-    }
-  }, [userId, inView])
   
   const {
     error: blogBoardsError,
