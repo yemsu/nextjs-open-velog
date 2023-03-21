@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { AUTH_TOKEN, USER_INFO } from '@/constants/etc'
+import { USER_INFO } from '@/constants/etc'
 import Axios from '@/api/Axios'
 import { SignupPayLoad, SignInPayLoad, UserResponse, UserResponseData } from '@/types/auth'
 import { ErrorResponse } from '@/types/api'
@@ -76,6 +76,7 @@ const authSlide = createSlice({
       // 성공
         console.log('회원가입 성공!!!', action.payload)
         state.isLogin = true
+        state.userInfo = action.payload.data
         alert('회원가입 완료')
       })
       .addCase(fetchJoin.rejected, (state, action) => {
@@ -91,7 +92,8 @@ const authSlide = createSlice({
       .addCase(fetchLogin.rejected, (state, action) => {
         // 실패
         console.log('로그인 실패', action.payload)
-        alert('로그인 실패')
+        const payload = action.payload as ErrorResponse
+        alert(payload.message)
       })
   }
 })

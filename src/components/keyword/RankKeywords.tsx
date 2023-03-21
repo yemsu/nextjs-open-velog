@@ -2,14 +2,16 @@ import styled from "styled-components"
 import { RankKeyword } from '@/types/keyword'
 import Keywords from "./Keywords"
 import { ALERTS } from "@/constants/alerts"
+import LoadingIndicator from "@/components/elements/LoadingIndicator"
 
 interface RankKeywordsProps {
   rankKeywords: RankKeyword[] | void
   isError: boolean
+  isLoading: boolean
 }
 
 function RankKeywords(props: RankKeywordsProps) {
-  const { rankKeywords, isError } = props
+  const { rankKeywords, isError, isLoading } = props
 
   return (
     <Wrapper>
@@ -20,9 +22,11 @@ function RankKeywords(props: RankKeywordsProps) {
       {
         isError
           ? <ErrorText>{ALERTS.FETCH_FAIL}</ErrorText>
-          : rankKeywords
-            ? <Keywords keywords={rankKeywords} />
-            : null
+          : isLoading
+            ? <LoadingIndicator />
+            : rankKeywords
+              ? <Keywords keywords={rankKeywords} />
+              : null
       }
     </Wrapper>
   )

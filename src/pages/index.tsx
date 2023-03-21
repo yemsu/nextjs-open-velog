@@ -15,7 +15,8 @@ import TextDeco from "@/components/elements/TextDeco"
 function Home() {
   const {
     error: rankKeywordsError,
-    data: rankKeywords
+    data: rankKeywords,
+    isLoading
   } = useCommonQuery<null, RankKeyword[]>({
     queryKey: QUERY_KEYS.RANK_KEYWORD,
     promiseFn: getRankKeywords24Hour
@@ -51,6 +52,7 @@ function Home() {
             <RankKeywords
               rankKeywords={rankKeywords}
               isError={!!rankKeywordsError}
+              isLoading={isLoading}
             />
           </RankKeywordsArea>
         </ContentWrapper>
