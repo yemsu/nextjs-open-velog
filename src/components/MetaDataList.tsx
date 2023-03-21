@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import IrText from "./elements/IrText"
 
 interface MetaDataListProps {
   [key: string]: string | number
@@ -18,7 +19,10 @@ function MetaDataList(props: MetaDataListProps) {
         props[key] !== undefined
         ? <ListItem key={key}>
             <Title title={title}>
-              <span className="ir-hidden">{title}</span>
+              <IrText
+                text={title}
+                tagName="span"
+              />
               {emoji}
             </Title>
             <Desc>{props[key]}</Desc>

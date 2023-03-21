@@ -3,6 +3,7 @@ import MetaDataList from "@/components/MetaDataList"
 import { BoardData } from "@/types/board"
 import Link from "next/link"
 import { PAGES } from "@/constants/path"
+import IrText from "../elements/IrText"
 interface ListItemProps {
   boards: BoardData[] | void,
   boardTitle?: string,
@@ -21,7 +22,7 @@ function BoardList(props: ListItemProps) {
   
   return (
     <section>
-      {boardTitle && <h2 className="ir-hidden">{boardTitle}</h2>}
+      {boardTitle && <IrText text={boardTitle} />}
       {
         totalLength && 
           <TextReferWrapper>

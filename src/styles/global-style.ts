@@ -61,12 +61,4 @@ export default createGlobalStyle`
       display: none !important;
     }
   }
-  // ir
-  .ir-hidden {
-    position: absolute;
-    overflow: hidden;
-    width: 1px;
-    height: 1px;
-    font-size: 1px;
-  }
 `;
