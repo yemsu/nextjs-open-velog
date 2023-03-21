@@ -7,7 +7,8 @@ interface InfiniteScrollContentProps {
   children: ReactNode
   isDataFetched: boolean
   isFetchingNextPage: boolean
-  isError: boolean
+  isFetching: boolean
+  error: {message: string}
   fetchNextPage: () => void
 }
 
@@ -16,7 +17,8 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
     children,
     isDataFetched,
     isFetchingNextPage,
-    isError,
+    isFetching,
+    error,
     fetchNextPage
   } = props
   const { ref, inView } = useInView()
@@ -27,22 +29,23 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
     }
   }, [inView])
 
-  if(isError) {
-    return <FailedText>{ALERTS.FETCH_FAIL}</FailedText>
+  if(error) {
+    return <FailedText>
+      {ALERTS.FETCH_FAIL}
+      <br /> {error.message}
+    </FailedText>
   }
 
   return (
     <>
       {isDataFetched ? children : null}
-      <div ref={ref}>
-        {
-          isFetchingNextPage
-            ? <LoadingText>
-                데이터를 가져오는 중이예요 <EmojiWrapper>🏃‍♂️ 🏃‍♂️ 🏃‍♂️</EmojiWrapper>
-              </LoadingText>
-            : ''
-        }
-      </div>
+      {
+        isFetchingNextPage || isFetching
+          ? <LoadingText>
+              데이터를 가져오는 중이예요 <EmojiWrapper>🏃‍♂️ 🏃‍♂️ 🏃‍♂️</EmojiWrapper>
+            </LoadingText>
+          : <div ref={ref}></div>
+      }
     </>
   )
 }
@@ -63,7 +66,7 @@ const FailedText = styled(Text)`
 const LoadingText = styled(Text)`
   padding: 10px;
 `
-const emojiWidthEm = 0.5
+const emojiWidthEm = 0.6
 const EmojiWrapper = styled.span`
   overflow: hidden;
   position: relative;

@@ -37,6 +37,7 @@ function UserBlog() {
     error: blogBoardsError,
     data: blogBoards,
     fetchNextPage,
+    isFetching,
     isFetchingNextPage
   } = useInfiniteScroll<GetBlogBoardsParams, BoardResponseData, any>({
     queryKey: QUERY_KEYS.BLOG_BOARDS,
@@ -70,7 +71,8 @@ function UserBlog() {
                   <InfiniteScrollContent
                     isDataFetched={!!blogBoards}
                     isFetchingNextPage={isFetchingNextPage}
-                    isError={!!blogBoardsError}
+                    isFetching={isFetching}
+                    error={blogBoardsError as Error}
                     fetchNextPage={fetchNextPage}
                   >
                     <BoardList

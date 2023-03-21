@@ -23,6 +23,7 @@ function Search() {
     error: searchResultError,
     data: searchResult,
     fetchNextPage,
+    isFetching,
     isFetchingNextPage
   } = useInfiniteScroll<GetBoardSearchParams, BoardResponseData, any>({
     queryKey: QUERY_KEYS.BOARDS_SEARCH,
@@ -58,7 +59,8 @@ function Search() {
           <InfiniteScrollContent
             isDataFetched={!!searchResult}
             isFetchingNextPage={isFetchingNextPage}
-            isError={!!searchResultError}
+            isFetching={isFetching}
+            error={searchResultError as Error}
             fetchNextPage={fetchNextPage}
           >
             <BoardList
