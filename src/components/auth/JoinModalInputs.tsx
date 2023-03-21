@@ -153,7 +153,7 @@ function JoinModalInputs(props: JoinModalInputsProps) {
     placeholder: string,
     isValidRegexp: boolean
   ) => {
-    setValidations(prev => ({
+    setValidations((prev: ValidityState) => ({
       ...prev,
       [name]: {
         text: placeholder,
