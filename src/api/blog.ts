@@ -1,11 +1,8 @@
-import { BlogPayload, BlogResponse, PutBlogArgs } from "@/types/blog";
+import { CommonPagingRequestParams, CommonPagingResponseData } from "@/types/api";
+import { BlogPayload, BlogResponse, PutBlogArgs, BlogResponseData } from "@/types/blog";
 import Axios from "./Axios";
 
 const $axios = new Axios('blogs')
-
-// export const postBlog = (payload: BlogPayload) => {
-//   return $axios.post<BlogPayload, BlogResponse>(`/signup`, payload)
-// }
 
 export const getBlog = (userId: number) => {
   return $axios.get<null, BlogResponse>(`/${userId}`)
@@ -19,4 +16,11 @@ export const putBlog = ({ blogId, payload }: PutBlogArgs) => {
 
 export const deleteBlog = (blogId: string) => {
   return $axios.delete<BlogResponse>(`/${blogId}`)
+}
+
+export const getBlogViewCounts = (params: CommonPagingRequestParams) => {
+  return $axios
+    .get<CommonPagingRequestParams, CommonPagingResponseData<BlogResponseData>>(
+      `/viewCounts`, params
+    ).then(res => res.data)
 }
