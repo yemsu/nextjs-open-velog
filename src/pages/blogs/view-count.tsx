@@ -3,7 +3,7 @@ import ContentWrapper from "@/components/layouts/ContentWrapper"
 import BlogProfile from "@/components/blog/BlogProfile"
 import { QUERY_KEYS } from "@/constants/queryKeys"
 import useInfiniteScroll from "@/hooks/useInfiniteScroll"
-import { CommonPagingRequestParams, CommonPagingResponseData } from "@/types/api"
+import { PagingRequestParams, PagesResponseData } from "@/types/api"
 import { BlogResponseData } from "@/types/blog"
 import InfiniteScrollContent from "@/components/InfiniteScrollContent"
 import styled from "styled-components"
@@ -15,7 +15,7 @@ function BlogViewCount() {
     fetchNextPage,
     isFetching,
     isFetchingNextPage
-  } = useInfiniteScroll<CommonPagingRequestParams, CommonPagingResponseData<BlogResponseData>, any> ({
+  } = useInfiniteScroll<PagingRequestParams, PagesResponseData<BlogResponseData>, any> ({
     queryKey: QUERY_KEYS.USER_BLOG,
     promiseFn: getBlogViewCountRank,
     params: {

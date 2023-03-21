@@ -1,4 +1,4 @@
-import { CommonPagingRequestParams, CommonPagingResponseData } from "./api"
+import { PagingRequestParams, PagesResponseData } from "./api"
 
 export interface PostBoardPayload {
   blogId: number
@@ -17,12 +17,12 @@ export interface BoardData {
   modifiedAt: string
 }
 
-export interface GetBlogBoardsParams extends CommonPagingRequestParams {
+export interface GetBlogBoardsParams extends PagingRequestParams {
   userId: number
 }
 
-export interface GetBoardSearchParams extends CommonPagingRequestParams {
+export interface GetBoardSearchParams extends PagingRequestParams {
   keyword: string
 }
 
-export type BoardResponseData = CommonPagingResponseData<BoardData[]>
+export type BoardResponseData = PagesResponseData<BoardData[]>
