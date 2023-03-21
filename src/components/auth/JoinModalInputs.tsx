@@ -16,7 +16,7 @@ interface JoinModalInputsProps {
   forms: {[key: string]: string}
   onChange: (e: SyntheticEvent) => void
   validations: ValidationsState
-  setValidations: () => void
+  setValidations: (state:any) => void
 }
 
 interface InputCategory {
