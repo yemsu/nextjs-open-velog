@@ -41,12 +41,16 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
     <>
       {isDataFetched ? children : null}
       {
-        isFetchingNextPage || isFetching
-          ? <LoadingText>
-              데이터를 가져오는 중이예요
-              <LoadingIndicator />
-            </LoadingText>
-          : <div ref={ref}></div>
+        <div ref={ref}>
+          {
+            isFetchingNextPage || isFetching
+              ? <LoadingText>
+                  데이터를 가져오는 중이예요
+                  <LoadingIndicator />
+                </LoadingText>
+              : null
+          }
+        </div> 
       }
     </>
   )
