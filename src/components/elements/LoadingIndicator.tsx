@@ -1,13 +1,16 @@
 import styled from "styled-components"
 
 interface LoadingIndicatorProps {
-
+  size: 'normal' | 'full'
 }
 
 function LoadingIndicator(props: LoadingIndicatorProps) {
+  const {
+    size = 'normal'
+  } = props
   return (
-    <EmojiWrapper>
-      <span>🏃‍♂️</span> <span>🏃‍♂️</span> <span>🏃‍♂️</span>
+    <EmojiWrapper className={`size-${size}`}>
+      <Loader><span>🏃‍♂️</span> <span>🏃‍♂️</span> <span>🏃‍♂️</span></Loader>
     </EmojiWrapper>
   )
 }
@@ -19,6 +22,20 @@ const EmojiWrapper = styled.span`
   position: relative;
   margin-left: 10px;
   font-size: 18px;
+  &.size {
+    &-full {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-dimmed);
+      font-size: 30px;
+    }
+  }
+`
+
+const Loader = styled.div`
   span:nth-child(3) {
     opacity: 0;
     animation: curtain 3s infinite;
