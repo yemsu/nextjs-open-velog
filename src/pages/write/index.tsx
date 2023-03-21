@@ -19,7 +19,7 @@ import { PAGES } from "@/constants/path"
 import { useQueryClient } from "@tanstack/react-query"
 import { QUERY_KEYS } from "@/constants/queryKeys"
 
-function write() {
+function Write() {
   const route = useRouter()
   const userInfo = useSelector(getUserInfo)
   const queryClient = useQueryClient()
@@ -129,4 +129,4 @@ const BottomFixBar = styled.div`
   background: linear-gradient(to bottom, transparent, var(--bg-gray));
 `
 
-export default write
+export default Write
