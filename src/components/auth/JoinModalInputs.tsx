@@ -248,7 +248,7 @@ function JoinModalInputs(props: JoinModalInputsProps) {
                       onChange={onChangeValue}
                     />
                     {
-                      validations[name]?.text && 
+                      !isLogin && validations[name]?.text && 
                         <TextValidation className={validations[name].isValid ? 'pass' : ''}>
                           {validations[name].text}
                         </TextValidation>
