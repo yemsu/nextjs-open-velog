@@ -92,7 +92,8 @@ const authSlide = createSlice({
       .addCase(fetchLogin.rejected, (state, action) => {
         // 실패
         console.log('로그인 실패', action.payload)
-        alert('로그인 실패')
+        const payload = action.payload as ErrorResponse
+        alert(payload.message)
       })
   }
 })
