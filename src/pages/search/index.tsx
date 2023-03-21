@@ -88,7 +88,7 @@ function KeyBannerTitleNode(props: {
       <TextDeco color="primary" weight="X-bold">{keyword}</TextDeco>에 대한 
       {
         resultTotalNumber
-          ? <><TextDeco color="primary" weight="X-bold">{resultTotalNumber}</TextDeco>개의 글이 있습니다</>
+          ? <> <TextDeco color="primary" weight="X-bold">{resultTotalNumber}</TextDeco>개의 글이 있습니다</>
           : ' 검색 결과'
       }
     </>
