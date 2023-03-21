@@ -7,6 +7,7 @@ import { postSignup, postSignIn } from '@/api/auth'
 import { getRejectValue } from '@/utils/store'
 import { AxiosError } from 'axios'
 import { RootState } from '.'
+import { setCookie } from '@/utils/cookie'
 
 const name = 'auth'
 
@@ -32,7 +33,7 @@ export const fetchLogin = createAsyncThunk<UserResponse, SignInPayLoad, {rejectV
     try {
       const response = await postSignIn(payload)
       const authToken = response.headers.authorization.replace('Bearer ', '')
-      localStorage.setItem(AUTH_TOKEN, authToken)
+      setCookie('Authorization', authToken, 1)
       localStorage.setItem(USER_INFO, JSON.stringify(response.data.data))
       Axios.prototype.authToken = authToken
       return response.data

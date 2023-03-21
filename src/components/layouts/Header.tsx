@@ -10,6 +10,7 @@ import styled from "styled-components"
 import { useEffect, useState } from "react"
 import { PAGES } from "@/constants/path";
 import Button from "../elements/Button";
+import { getCookie, removeCookie } from "@/utils/cookie";
 
 export default function Header() {
   const [isOpen, toggle] = useModal()
@@ -19,8 +20,12 @@ export default function Header() {
   const userInfo = useSelector(getUserInfo);
 
   useEffect(() => {
-    const savedToken = localStorage.getItem(AUTH_TOKEN)
+    const savedToken = getCookie('Authorization')
     const userInfoStr = localStorage.getItem(USER_INFO)
+    if(!savedToken && userInfoStr) {
+      localStorage.removeItem(USER_INFO)
+      return
+    }
     if(savedToken && userInfoStr) {
       dispatch(SET_IS_LOGIN(true))
       dispatch(SET_USER_INFO(JSON.parse(userInfoStr)))
@@ -34,7 +39,7 @@ export default function Header() {
   }
 
   const onClickLogout = () => {
-    localStorage.removeItem(AUTH_TOKEN)
+    removeCookie('Authorization')
     localStorage.removeItem(USER_INFO)
     dispatch(SET_IS_LOGIN(false))
     dispatch(SET_USER_INFO(null))
