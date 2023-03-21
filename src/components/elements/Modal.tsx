@@ -96,7 +96,6 @@ const WrapContent = styled.div`
   flex-direction: column;
   align-items: center;
   font-size: var(--font-size-title-M);
-  font-weight: var(--font-weight-X-bold);
   line-height: 1.2;
 `
 
