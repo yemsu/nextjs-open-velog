@@ -1,8 +1,9 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
 
 const createAxios = (service: string) => {
+  const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https'
   return axios.create({
-    baseURL: `http://test-api.sparta99.shop/api/${service}`,
+    baseURL: `${protocol}://test-api.sparta99.shop/api/${service}`,
     // timeout: 5000
   })
 }
