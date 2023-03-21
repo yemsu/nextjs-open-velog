@@ -24,10 +24,10 @@ interface FormDataTypes {
 function JoinModal(props: JoinModalProps) {
   const { isOpen, toggle, modalType } = props
   const [forms, onChange, reset] = useInputs<FormDataTypes>({
-    userId: 'test1test1',
+    userId: '',
     email: '',
-    password1: 'a123123123!',
-    password2: 'a123123123!',
+    password1: '',
+    password2: '',
     username: '',
     gender: '',
     birthday: '',
@@ -55,7 +55,10 @@ function JoinModal(props: JoinModalProps) {
       birthday: birthdayResult
     }
     const validationResults = isValidList(Object.keys(validations))
-    const hasInvalidData = checkValidations(validationResults)
+    const hasInvalidData = checkValidations({
+      ...validationResults,
+      gender
+    })
     if(hasInvalidData) return
     await dispatch(fetchJoin(result) as any)
     reset()
@@ -69,7 +72,7 @@ function JoinModal(props: JoinModalProps) {
         {[key]: validations[key].isValid}
       )
     }, {})
-  }, [])
+  }, [validations])
 
   const onSubmitLogin = async() => {
     const { userId, password1 } = forms
@@ -80,12 +83,19 @@ function JoinModal(props: JoinModalProps) {
     const hasInvalidData = checkValidations(result)
     if(hasInvalidData) return
     await dispatch(fetchLogin(result) as any)
-    reset()
-    toggle()
+    onClose()
   }
 
   const onClose = () => {
     reset()
+    setValidations({
+      userId: { text: '', isValid: false },
+      email: { text: '', isValid: false },
+      password1: { text: '', isValid: false },
+      password2: { text: '', isValid: false },
+      username: { text: '', isValid: false },
+      birthday: { text: '', isValid: false },
+    })
     toggle()
   }
   
