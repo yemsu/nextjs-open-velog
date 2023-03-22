@@ -50,7 +50,7 @@ const TabList = styled.ul`
   display: flex;
   gap: 5px;
   margin-bottom: 10px;
-  padding-bottom: 10px;
+  padding: 10px 0;
   border-bottom: 1px solid var(--border-light-gray);
   &.align {
     &-center {
