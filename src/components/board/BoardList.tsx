@@ -88,7 +88,6 @@ const BoardContents = styled.p`
   text-overflow: ellipsis;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  white-space: normal;
   word-break: keep-all;
 `
 
