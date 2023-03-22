@@ -57,6 +57,8 @@ function Search() {
         {
           <InfiniteScrollContent
             isDataFetched={!!searchResult}
+            hasNodata={searchResult?.pages[0]?.content.length === 0}
+            hasNodataMessage="검색 결과가 없습니다."
             isFetchingNextPage={isFetchingNextPage}
             isFetching={isFetching}
             error={searchResultError as Error}

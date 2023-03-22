@@ -70,6 +70,8 @@ function UserBlog() {
                 {
                   <InfiniteScrollContent
                     isDataFetched={!!blogBoards}
+                    hasNodata={blogBoards?.pages[0]?.content.length === 0}
+                    hasNodataMessage="게시글이 없습니다."
                     isFetchingNextPage={isFetchingNextPage}
                     isFetching={isFetching}
                     error={blogBoardsError as Error}
