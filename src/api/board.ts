@@ -26,6 +26,7 @@ export const getBlogBoards = (
 export const getBoardSearch = (
   params: GetBoardSearchParams
 ) => {
+  console.log('getBoardSearch', params)
   if(!params.keyword) return Promise.reject("getBoardSearch Invalid params")
   
   return $axios
