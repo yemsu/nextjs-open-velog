@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import Background from "@/components/elements/Background";
 import ContentWrapper from "@/components/layouts/ContentWrapper";
 import TrendingOptions from "@/components/trending/TrendingOptions";
 import useInputs from "@/hooks/useInputs";
@@ -51,18 +52,25 @@ function TrendingKeyword() {
         <title>{getMetaTitle(META.TREND_KEYWORD.TITLE)}</title>
         <meta name="description" content={META.TREND_KEYWORD.DESC} />
       </Head>
+      <IrText text="인기 검색어" />
+      <Background bgColor="primary-1">
+        <ContentWrapper
+          size="narrow"
+          contentType="main"
+        >
+          <TrendingOptions
+            forms={forms}
+            onChange={onChange}
+            date={date}
+            setDate={setDate}
+            onSubmit={onSubmit}
+          />
+        </ContentWrapper>
+      </Background>
       <ContentWrapper
         size="narrow"
-        contentType="main"
-        title="인기 검색어"
+        contentType="last-content"
       >
-        <TrendingOptions
-          forms={forms}
-          onChange={onChange}
-          date={date}
-          setDate={setDate}
-          onSubmit={onSubmit}
-        />
         <StatusHandleContent
           isDataFetched={!!keywords}
           isLoading={isLoading}
