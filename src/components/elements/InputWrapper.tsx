@@ -5,14 +5,23 @@ interface InputWrapperProps {
   label?: string,
   labelFor?: string,
   children: ReactNode
+  wrapperStyle?: 'normal' | 'compact' | 'row'
 }
 
 function InputWrapper(props: InputWrapperProps) {
-  const { children, label, labelFor } = props
+  const {
+    children,
+    label,
+    labelFor,
+    wrapperStyle = 'normal'
+  } = props
   
   const childrenCount = React.Children.count(children)
   return (
-    <Wrapper multipleChildren={childrenCount > 1}>
+    <Wrapper 
+      multipleChildren={childrenCount > 1}
+      className={`type-${wrapperStyle}`}
+    >
       {label && <Label htmlFor={labelFor}>{label}</Label>}
       <Inputs>{children}</Inputs>
     </Wrapper>
@@ -21,8 +30,19 @@ function InputWrapper(props: InputWrapperProps) {
 
 const Wrapper = styled.div<{ multipleChildren: boolean }>`
   position: relative;
-  & + & {
-    margin-top: 30px;
+  &.type {
+    &-normal {
+      & + & {
+        margin-top: 30px;
+      }
+    }
+    &-compact {
+      & + & {
+        margin-top: 5px;
+      }
+    }
+    &-row {
+    }
   }
   ${({multipleChildren}) => {
     if(multipleChildren) {

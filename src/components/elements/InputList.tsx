@@ -10,6 +10,7 @@ interface InputListProps {
   forms: Forms
   onChange: (e: SyntheticEvent) => void
   validations?: ValidationsState
+  wrapperStyle?: 'normal' | 'compact' | 'row'
 }
 
 function InputList(props: InputListProps) {
@@ -17,11 +18,12 @@ function InputList(props: InputListProps) {
     inputList,
     forms,
     onChange,
-    validations
+    validations,
+    wrapperStyle
   } = props
 
   return (
-    <InputWrapper>
+    <InputWrapper wrapperStyle={wrapperStyle}>
       {inputList.map(({
         type,
         id,

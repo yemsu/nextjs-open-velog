@@ -5,7 +5,6 @@ import React, { SyntheticEvent } from "react";
 import { Forms, InputCategory } from "@/types/form";
 import InputList from "../elements/InputList";
 import IrText from "../elements/IrText";
-import Button from "../elements/Button";
 
 interface TrendingOptionsProps {
   forms: Forms
@@ -77,11 +76,13 @@ function TrendingOptions(props: TrendingOptionsProps) {
   } = props
 
   return (
-    <section>
+    <Section>
       <IrText text="검색 필터" />
       {
         setDate &&
-          <DatePicker selected={date} onChange={setDate} />
+          <DatePickerBox>
+            <DatePickerStyled selected={date} onChange={setDate} />
+          </DatePickerBox>
       }
       {
         inputCategories.map((inputList) => {
@@ -90,13 +91,50 @@ function TrendingOptions(props: TrendingOptionsProps) {
               key={inputList[0].id}
               inputList={inputList}
               forms={forms}
+              wrapperStyle="row"
               onChange={onChange}
             />
           )
         })
       }
-    </section>
+    </Section>
   )
 }
+
+const Section = styled.section`
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-light-gray);
+  > div {
+    padding: 10px 20px;
+    &:nth-child(n+3) {
+      border-left: 1px solid var(--border-light-gray);
+    }
+  }
+`
+
+const DatePickerBox = styled.div`
+  position: relative;
+  &:before {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 25px;
+    font-size: var(--font-size-XS);
+    transform: translateY(-50%);
+    content: '📅';
+  }  
+`
+const DatePickerStyled = styled(DatePicker)`
+  width: 120px;
+  height: auto;
+  padding: 6px 10px 6px 30px;
+  border: 1px solid var(--border-light-gray);
+  border-radius: var(--border-radius-S);
+  font-size: var(--font-size-S);
+  color: inherit;
+  cursor: pointer;
+`
 
 export default TrendingOptions
