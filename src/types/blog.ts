@@ -1,5 +1,3 @@
-import { CommonResponse } from "./api"
-
 export interface BlogPayload {
   introduce: string
 }
@@ -19,5 +17,3 @@ export interface BlogResponseData {
   createdAt: string,
   modifiedAt: string
 }
-
-export type BlogResponse = CommonResponse<BlogResponseData>
