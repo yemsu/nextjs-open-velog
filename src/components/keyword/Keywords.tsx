@@ -17,7 +17,7 @@ function Keywords(props: KeywordsProps) {
         <ListItem key={keyword}>
           <ListLink
             href={PAGES.KEYWORD_SEARCH(keyword)}
-            title={BUTTON_TITLES.KEYWORD_LINK}
+            title={`'${keyword}' ${BUTTON_TITLES.KEYWORD_LINK}`}
           >
             <Ranking>{i+1}</Ranking>
             <Keyword>{keyword}</Keyword>
@@ -30,6 +30,7 @@ function Keywords(props: KeywordsProps) {
 }
 
 const KeywordListUl = styled.ul`
+  overflow: hidden;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
@@ -45,24 +46,32 @@ const ListLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 8px 15px;
+  height: 100%;
+  padding: 8px 0;
 `
 
 const Ranking = styled.span`
-  width: 1.5em;
+  width: 2em;
   font-family: var(--font-family);
   font-size: var(--font-size-B);
   color: var(--bg-dark-gray);
   line-height: 1;
   font-style: italic;
+  text-align: center;
 `
 
 const Keyword = styled.span`
+  overflow: hidden;
+  display: -webkit-box;
   flex: 1;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
 `
 
 const Count = styled.span`
-  min-width: 3em;
+  min-width: 4em;
   color: hsl(var(--primary-hsl));
   font-size: var(--font-size-S);
   text-align: center;
