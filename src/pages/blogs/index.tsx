@@ -8,7 +8,7 @@ import { PagingRequestParams, PagesResponseData } from "@/types/api"
 import { BlogResponseData } from "@/types/blog"
 import InfiniteScrollContent from "@/components/InfiniteScrollContent"
 import BlogProfileList from "@/components/blog/BlogProfileList"
-import { DESCRIPTION, TITLE } from "@/constants/meta"
+import { META } from "@/constants/meta"
 import { useRouter } from "next/router"
 import { PAGES } from "@/constants/path"
 import { useEffect } from "react"
@@ -80,11 +80,11 @@ function Blogs() {
   return (
     <>
       <Head>
-        <title>{TITLE.BLOG_RANK}</title>
-        <meta name="description" content={DESCRIPTION.BLOG_RANK} />
+        <title>{META.BLOG_RANK.TITLE}</title>
+        <meta name="description" content={META.BLOG_RANK.DESC} />
       </Head>
       <KeyBanner
-        titleNode={`🔥 ${TITLE.BLOG_RANK}`}
+        titleNode={`🔥 ${META.BLOG_RANK.TITLE}`}
         subTitleNode={KeyBannerSubTitle}
         size="small"
       />

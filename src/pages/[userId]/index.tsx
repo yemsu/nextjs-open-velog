@@ -14,7 +14,7 @@ import { BoardResponseData, GetBlogBoardsParams } from "@/types/board"
 import { getBlogBoards } from "@/api/board"
 import Head from "next/head"
 import { getMetaTitle } from "@/utils"
-import { DESCRIPTION, TITLE } from "@/constants/meta"
+import { META } from "@/constants/meta"
 import useInfiniteScroll from "@/hooks/useInfiniteScroll"
 import InfiniteScrollContent from "@/components/InfiniteScrollContent"
 
@@ -54,8 +54,8 @@ function UserBlog() {
   return (
     <>
       <Head>
-        <title>{getMetaTitle(TITLE.BLOG(userId))}</title>
-        <meta name="description" content={DESCRIPTION.BLOG(userId)} />
+        <title>{getMetaTitle(META.BLOG.TITLE(userId))}</title>
+        <meta name="description" content={META.BLOG.DESC(userId)} />
       </Head>
       <ContentWrapper size="narrow" contentType="main">
         {

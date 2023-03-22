@@ -12,7 +12,7 @@ import { useEffect, useState } from "react"
 import { PAGES } from "@/constants/path";
 import Button from "../elements/Button";
 import { getCookie, removeCookie } from "@/utils/cookie";
-import { TITLE } from "@/constants/meta";
+import { META } from "@/constants/meta";
 
 export default function Header() {
   const [isOpen, toggle] = useModal()
@@ -62,7 +62,7 @@ export default function Header() {
               <GnbList>
                 <GnbItem>
                   <Link href={PAGES.BLOG_VIEW_COUNT}>
-                    {TITLE.BLOG_RANK}
+                    {META.BLOG_RANK.TITLE}
                   </Link>
                 </GnbItem>
                 <GnbItem>

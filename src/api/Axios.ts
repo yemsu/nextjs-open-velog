@@ -25,45 +25,55 @@ class Axios {
   get<ParamsType, ResponseType>(
     url: string,
     params?: ParamsType
+  ): Promise<ResponseType> {
+    return this._axios.get(url, { 
+      params: { ...params },
+      headers: getHeader()
+    }).then(({data}) => data.data)
+  }
+
+  postFullRes<ParamsType, ResponseType>(
+    url: string,
+    params?: ParamsType
   ): Promise<AxiosResponse<ResponseType>> {
     return this._axios.get(url, { 
       params: { ...params },
       headers: getHeader()
     }).then((res) => res)
   }
+
   post<PayloadType, ResponseType>(
     url: string,
     payload: PayloadType
-  ): Promise<AxiosResponse<ResponseType>> {
-    console.log('url', payload, getHeader())
+  ): Promise<ResponseType> {
     return this._axios.post(url, payload, { 
       headers: getHeader()
-    }).then((res) => res)
+    }).then(({data}) => data.data)
   }
   delete<ResponseType>(
     url: string
-  ): Promise<AxiosResponse<ResponseType>> {
+  ): Promise<ResponseType> {
     // console.log('deleteApi', url)
     return this._axios.delete(url, { 
       headers: getHeader()
-    }).then((res) => res)
+    }).then(({data}) => data.data)
   }
   patch<PayloadType, ResponseType>(
     url: string,
     payload: PayloadType
-  ): Promise<AxiosResponse<ResponseType>> {
+  ): Promise<ResponseType> {
     // console.log('patchApi', payload)
     return this._axios.patch(url, payload, { 
       headers: getHeader()
-    }).then((res) => res)
+    }).then(({data}) => data.data)
   }
   put<PayloadType, ResponseType>(
     url: string, payload: PayloadType
-  ): Promise<AxiosResponse<ResponseType>> {
+  ): Promise<ResponseType> {
     // console.log('putApi', payload)
     return this._axios.put(url, payload, { 
       headers: getHeader() 
-    }).then((res) => res)
+    }).then(({data}) => data.data)
   }
 }
 

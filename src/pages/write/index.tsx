@@ -12,7 +12,7 @@ import { getUserInfo } from "@/store/auth"
 import checkValidations from "@/utils/validation"
 import { ALERTS } from "@/constants/alerts"
 import Head from "next/head"
-import { DESCRIPTION, TITLE } from "@/constants/meta"
+import { META } from "@/constants/meta"
 import { getMetaTitle } from "@/utils"
 import { useRouter } from "next/router"
 import { PAGES } from "@/constants/path"
@@ -72,13 +72,13 @@ function Write() {
   return (
     <>
       <Head>
-        <title>{getMetaTitle(TITLE.WRITE)}</title>
-        <meta name="description" content={DESCRIPTION.WRITE} />
+        <title>{getMetaTitle(META.WRITE.TITLE)}</title>
+        <meta name="description" content={META.WRITE.DESC} />
       </Head>
       <ContentWrapper
         size="narrow"
         contentType="main"
-        title={TITLE.WRITE}
+        title={META.WRITE.TITLE}
         isFullHeight={true}
       >
         <Input
