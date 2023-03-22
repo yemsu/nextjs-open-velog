@@ -30,7 +30,7 @@ function Tabs(props: TabsProps) {
           href,
           onClick = undefined,
         }) => (
-          <li>
+          <li key={text}>
             <Button
               styleType="round"
               buttonText={text}
