@@ -51,7 +51,7 @@ function Home() {
           <RankKeywordsArea>
             <RankKeywords
               rankKeywords={rankKeywords}
-              isError={!!rankKeywordsError}
+              error={rankKeywordsError as Error}
               isLoading={isLoading}
             />
           </RankKeywordsArea>

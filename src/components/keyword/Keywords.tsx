@@ -5,11 +5,13 @@ import styled from "styled-components"
 import Link from "next/link"
 
 interface KeywordsProps {
-  keywords: RankKeyword[]
+  keywords: RankKeyword[] | void
 }
 
 function Keywords(props: KeywordsProps) {
   const { keywords } = props
+
+  if(!keywords) return null
 
   return (
     <KeywordListUl>
