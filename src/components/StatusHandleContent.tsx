@@ -3,14 +3,14 @@ import { ReactNode } from "react"
 import LoadingIndicator from "./elements/LoadingIndicator"
 import styled from "styled-components"
 
-interface GetDataContentProps {
+interface StatusHandleContentProps {
   children: ReactNode
   isDataFetched: boolean
   isLoading: boolean
   error: {message: string}
 }
 
-function GetDataContent(props: GetDataContentProps) {
+function StatusHandleContent(props: StatusHandleContentProps) {
   const {
     children,
     isDataFetched,
@@ -57,4 +57,4 @@ const LoadingText = styled(Text)`
   padding: 10px;
 `
 
-export default GetDataContent
+export default StatusHandleContent

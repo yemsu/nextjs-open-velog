@@ -3,7 +3,7 @@ import { RankKeyword } from '@/types/keyword'
 import Keywords from "./Keywords"
 import { ALERTS } from "@/constants/alerts"
 import LoadingIndicator from "@/components/elements/LoadingIndicator"
-import GetDataContent from "@/components/GetDataContent"
+import StatusHandleContent from "@/components/StatusHandleContent"
 
 interface RankKeywordsProps {
   rankKeywords: RankKeyword[] | void
@@ -24,13 +24,13 @@ function RankKeywords(props: RankKeywordsProps) {
         <Title>키워드 검색 순위 📈</Title>
         <TitleDesc>최근 24시간 기준</TitleDesc>
       </TitleWrapper>
-      <GetDataContent
+      <StatusHandleContent
         isDataFetched={!!rankKeywords}
         isLoading={isLoading}
         error={error}
       >
         <Keywords keywords={rankKeywords} />
-      </GetDataContent>
+      </StatusHandleContent>
     </Wrapper>
   )
 }
