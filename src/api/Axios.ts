@@ -35,10 +35,10 @@ class Axios {
   postFullRes<PayloadType, ResponseType>(
     url: string,
     payload: PayloadType
-  ): Promise<ResponseType> {
+  ): Promise<AxiosResponse<ResponseType>> {
     return this._axios.post(url, payload, { 
       headers: getHeader()
-    })
+    }).then((res) => res)
   }
 
   post<PayloadType, ResponseType>(
