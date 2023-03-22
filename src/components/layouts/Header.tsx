@@ -77,7 +77,7 @@ export default function Header() {
                   GnbDataList.map(({text, path}) => (
                     <GnbItem
                       key={path}
-                      className={path.includes(route.pathname) ? 'active' : ''}
+                      className={path === route.asPath ? 'active' : ''}
                     >
                       <Link href={path}>
                         {text}
