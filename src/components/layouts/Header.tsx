@@ -13,6 +13,18 @@ import { PAGES } from "@/constants/path";
 import Button from "../elements/Button";
 import { getCookie, removeCookie } from "@/utils/cookie";
 import { META } from "@/constants/meta";
+import { useRouter } from "next/router";
+
+const GnbDataList = [
+  {
+    text: META.BLOG_RANK.TITLE,
+    path: PAGES.BLOG_VIEW_COUNT,
+  },
+  {
+    text: META.TREND_KEYWORD.TITLE,
+    path: PAGES.TREND_KEYWORD,
+  }
+]
 
 export default function Header() {
   const [isOpen, toggle] = useModal()
@@ -20,6 +32,7 @@ export default function Header() {
   const dispatch = useDispatch()
   const isLogin = useSelector(getIsLogin);
   const userInfo = useSelector(getUserInfo);
+  const route = useRouter()
 
   useEffect(() => {
     const savedToken = getCookie('Authorization')
@@ -60,16 +73,18 @@ export default function Header() {
             <GnbNav>
               <IrText text="사이트 글로벌 메뉴" />
               <GnbList>
-                <GnbItem>
-                  <Link href={PAGES.BLOG_VIEW_COUNT}>
-                    {META.BLOG_RANK.TITLE}
-                  </Link>
-                </GnbItem>
-                <GnbItem>
-                  <Link href={PAGES.TREND_KEYWORD}>
-                    {META.TREND_KEYWORD.TITLE}
-                  </Link>
-                </GnbItem>
+                {
+                  GnbDataList.map(({text, path}) => (
+                    <GnbItem
+                      key={path}
+                      className={path === route.asPath ? 'active' : ''}
+                    >
+                      <Link href={path}>
+                        {text}
+                      </Link>
+                    </GnbItem>
+                  ))
+                }
               </GnbList>
             </GnbNav>
             <Utils>
@@ -157,6 +172,13 @@ const GnbList = styled.ul`
 const GnbItem = styled.li`
   font-size: var(--font-size-M);
   font-weight: var(--font-weight-bold);
+  border: 2px solid transparent;
+  border-left: 0;
+  border-right: 0;
+  &.active {
+    font-weight: var(--font-weight-X-bold);
+    border-bottom-color: hsl(var(--primary-hsl));
+  }
 `
 
 const Utils = styled.ul`

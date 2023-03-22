@@ -51,7 +51,7 @@ function Input(props: InputProps) {
     <InputWrapLabel
       as={label ? 'label' : 'div'}
       htmlFor={idStr}
-      className='wrap-input'
+      className={`wrap-input ${checked ? 'checked' : ''}`}
       type={type}
     >
       {!isBulletStyle && <CommonLabelText type="pos-top" />}
@@ -89,6 +89,22 @@ const InputWrapLabel = styled.label<{ type: string }>`
     if(isBasicStyle(type)) {
       return css`
         width: 100%;
+      `
+    }
+    if(type === 'radio') {
+      return css`
+        gap:0;
+        padding: 6px 10px;
+        background-color: var(--white);
+        border: 1px solid var(--border-light-gray);
+        text-align: center;
+        border-radius: var(--border-radius-F);
+        cursor: pointer;
+        &.checked {
+          background-color: hsl(var(--primary-hsl));
+          border-color: transparent;
+          color: var(--white);          
+        }
       `
     }
   }}
@@ -136,6 +152,9 @@ const InputTag = styled.input<{ type: string }>`
         font-size: var(--font-size-B);
       }
     }
+  }
+  &[type="radio"] {
+    appearance: none;
   }
 `
 

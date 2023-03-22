@@ -1,5 +1,7 @@
 import styled from "styled-components"
+import Background from "@/components/elements/Background";
 import ContentWrapper from "@/components/layouts/ContentWrapper";
+import KeyBanner from "@/components/KeyBanner";
 import TrendingOptions from "@/components/trending/TrendingOptions";
 import useInputs from "@/hooks/useInputs";
 import { useCallback, useState } from "react";
@@ -14,6 +16,7 @@ import Keywords from "@/components/keyword/Keywords";
 import Head from "next/head";
 import { META } from "@/constants/meta";
 import IrText from "@/components/elements/IrText";
+import TextDeco from "@/components/elements/TextDeco";
 
 function TrendingKeyword() {
   const [date, setDate] = useState<Date>(new Date('2023-03-20'))
@@ -45,32 +48,48 @@ function TrendingKeyword() {
     queryClient.refetchQueries([QUERY_KEYS.TREND_KEYWORD])
   }, [queryClient])
 
+  const KeyBannerSubTitle = (<>
+    {
+      keywords
+        ? <>
+            <TextDeco color="primary" weight="X-bold">{keywords.length}</TextDeco>개의 키워드
+          </>
+        : null
+    }
+  </>)
+
   return (
     <>
       <Head>
         <title>{getMetaTitle(META.TREND_KEYWORD.TITLE)}</title>
         <meta name="description" content={META.TREND_KEYWORD.DESC} />
       </Head>
+      <KeyBanner
+        titleNode={META.TREND_KEYWORD.TITLE}
+        subTitleNode={KeyBannerSubTitle}
+        size="small"
+      />
+      <TrendingOptions
+        forms={forms}
+        onChange={onChange}
+        date={date}
+        setDate={setDate}
+        onSubmit={onSubmit}
+      />
       <ContentWrapper
         size="narrow"
-        contentType="main"
-        title="인기 검색어"
+        contentType="last-content"
       >
-        <TrendingOptions
-          forms={forms}
-          onChange={onChange}
-          date={date}
-          setDate={setDate}
-          onSubmit={onSubmit}
-        />
         <StatusHandleContent
           isDataFetched={!!keywords}
+          hasNodata={keywords?.length === 0}
+          hasNodataMessage="조건에 맞는 인기 검색어가 없습니다."
           isLoading={isLoading}
           error={getKeywordError}
         >
           <section>
             <IrText text="인기 검색어 리스트" />
-            <Keywords keywords={keywords} />
+            <Keywords keywords={keywords} listType="rows" />
           </section>
         </StatusHandleContent>
       </ContentWrapper>

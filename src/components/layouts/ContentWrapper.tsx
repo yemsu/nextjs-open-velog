@@ -4,7 +4,6 @@ import IrText from "../elements/IrText"
 
 interface ContentWrapperProps {
   children: ReactNode
-  layoutType?: 'basic' | 'flex-row'
   size?: 'narrow' | 'normal' | 'wide' | 'full'
   contentType?: 'normal' | 'main' | 'last-content'
   title?: string
@@ -17,7 +16,6 @@ function ContentWrapper(props: ContentWrapperProps) {
   const {
     children,
     size = 'normal',
-    layoutType = 'basic',
     contentType = 'normal',
     title,
     bgColor,
@@ -28,7 +26,6 @@ function ContentWrapper(props: ContentWrapperProps) {
     <Wrapper 
       as={title || isSection ? 'section' : 'div'}
       className={[
-        `layout-${layoutType}`,
         `size-${size}`,
         `type-${contentType}`,
         bgColor ? `bg-${bgColor}` : '',
@@ -51,6 +48,7 @@ const Wrapper = styled.div`
       padding-bottom: 60px;
     }
     &-last-content {
+      padding-top: 20px;
       padding-bottom: 60px;
     }
   }

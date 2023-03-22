@@ -6,6 +6,8 @@ import styled from "styled-components"
 interface StatusHandleContentProps {
   children: ReactNode
   isDataFetched: boolean
+  hasNodata?: boolean,
+  hasNodataMessage?: string,
   isLoading: boolean
   error: {message: string}
 }
@@ -14,6 +16,8 @@ function StatusHandleContent(props: StatusHandleContentProps) {
   const {
     children,
     isDataFetched,
+    hasNodata,
+    hasNodataMessage,
     isLoading,
     error
   } = props
@@ -24,7 +28,13 @@ function StatusHandleContent(props: StatusHandleContentProps) {
       <br /> {error.message}
     </FailedText>
   }
-
+  
+  if(isDataFetched && hasNodata) {
+    return <FailedText>
+      {hasNodataMessage || '데이터가 없습니다.'}
+    </FailedText>
+  }
+  
   return (
     <>
       {isDataFetched ? children : null}

@@ -72,7 +72,6 @@ function Blogs() {
           </>
         : null
     }
-    
   </>)
 
   const activeTabIndex = sortBy === 'views' ? 0 : 1
@@ -84,7 +83,7 @@ function Blogs() {
         <meta name="description" content={META.BLOG_RANK.DESC} />
       </Head>
       <KeyBanner
-        titleNode={`🔥 ${META.BLOG_RANK.TITLE}`}
+        titleNode={META.BLOG_RANK.TITLE}
         subTitleNode={KeyBannerSubTitle}
         size="small"
       />

@@ -7,6 +7,8 @@ import styled from "styled-components"
 interface InfiniteScrollContentProps {
   children: ReactNode
   isDataFetched: boolean
+  hasNodata?: boolean,
+  hasNodataMessage?: string,
   isFetchingNextPage: boolean
   isFetching: boolean
   error: {message: string}
@@ -17,6 +19,8 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
   const {
     children,
     isDataFetched,
+    hasNodata,
+    hasNodataMessage,
     isFetchingNextPage,
     isFetching,
     error,
@@ -25,7 +29,6 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
   const { ref, inView } = useInView()
 
   useEffect(() => {
-    console.log('inView', inView)
     if (inView) {
       fetchNextPage()
     }
@@ -38,6 +41,12 @@ function InfiniteScrollContent(props: InfiniteScrollContentProps) {
     </FailedText>
   }
 
+  if(isDataFetched && hasNodata) {
+    return <FailedText>
+      {hasNodataMessage || '데이터가 없습니다.'}
+    </FailedText>
+  }
+  
   return (
     <>
       {isDataFetched ? children : null}
