@@ -5,7 +5,6 @@ import TextTitle from "./elements/TextTitle"
 import ContentWrapper from "./layouts/ContentWrapper"
 
 interface KeyBannerProps {
-  title?: string
   titleNode: ReactNode
   useSearchBox?: boolean
   bgColor?: 'primary-1'
@@ -13,7 +12,6 @@ interface KeyBannerProps {
 
 function KeyBanner(props: KeyBannerProps) {
   const {
-    title,
     titleNode,
     useSearchBox = false,
     bgColor = 'primary-1'
@@ -23,7 +21,6 @@ function KeyBanner(props: KeyBannerProps) {
       size="full"
       contentType="main"
       bgColor={bgColor}
-      title={title}
     >
       <KeyBannerArea>
         <TextTitle titleType="main-kv">
