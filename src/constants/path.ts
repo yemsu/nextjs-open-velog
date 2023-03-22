@@ -17,4 +17,5 @@ export const PAGES = {
   BOARD: (boardId: number) => `/boards/${boardId}`,
   BLOG_VIEW_COUNT: '/blogs?sort=views',
   BLOG_LIKE_COUNT: '/blogs?sort=likes',
+  TREND_KEYWORD: '/trending/keyword',
 }
