@@ -72,7 +72,6 @@ function Blogs() {
           </>
         : null
     }
-    
   </>)
 
   const activeTabIndex = sortBy === 'views' ? 0 : 1
