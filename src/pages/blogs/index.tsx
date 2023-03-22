@@ -11,24 +11,15 @@ import BlogProfileList from "@/components/blog/BlogProfileList"
 import { META } from "@/constants/meta"
 import { useRouter } from "next/router"
 import { PAGES } from "@/constants/path"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import KeyBanner from "@/components/KeyBanner"
 import TextDeco from "@/components/elements/TextDeco"
 
 function Blogs() {
   const route = useRouter()
-  if(!route.query) return null
-  // const [sortBy, setSortBy] = useState(route.query?.sort)
-  const sortBy = route.query?.sort
-  const isSortByView = sortBy === 'views'
-  const isSortByLike = sortBy === 'likes'
-  const promiseFn = isSortByView
-    ? getBlogViewCountRank
-    : getBlogBoardLikeRank
-  const queryKey = isSortByView
-    ? QUERY_KEYS.BLOGS_VIEW_COUNT
-    : QUERY_KEYS.BLOGS_LIKE_COUNT
+  const querySort = route.query?.sort
+  const [sortBy, setSortBy] = useState(querySort)
 
   const {
     error: blogsError,
@@ -37,30 +28,39 @@ function Blogs() {
     isFetching,
     isFetchingNextPage
   } = useInfiniteScroll<PagingRequestParams, PagesResponseData<BlogResponseData>, any> ({
-    queryKey,
-    promiseFn,
+    queryKey: sortBy === 'views' 
+      ? QUERY_KEYS.BLOGS_VIEW_COUNT
+      : QUERY_KEYS.BLOGS_LIKE_COUNT,
+    promiseFn: sortBy === 'views' 
+      ? getBlogViewCountRank
+      : getBlogBoardLikeRank,
     params: {
       size: 10,
       page: 1,
     }
   })
 
+  useEffect(() => {
+    setSortBy(route.query?.sort)
+  }, [route.query?.sort])
+
   const queryClient = useQueryClient()
   useEffect(() => {
-    console.log('useEffect', sortBy)
     queryClient.refetchQueries([QUERY_KEYS.USER_BLOG])
   }, [sortBy])
+
+  if(!querySort) return null
 
   const tabsInfo = [
     {
       text: '조회수 높은순',
       href: PAGES.BLOG_VIEW_COUNT,
-      isActive: isSortByView
+      isActive: sortBy === 'views'
     },
     {
       text: '좋아요 많은순',
       href: PAGES.BLOG_LIKE_COUNT,
-      isActive: isSortByLike
+      isActive: sortBy === 'likes'
     },
   ]
 
@@ -75,7 +75,7 @@ function Blogs() {
     
   </>)
 
-  const activeTabIndex = isSortByView ? 0 : 1
+  const activeTabIndex = sortBy === 'views' ? 0 : 1
   
   return (
     <>
