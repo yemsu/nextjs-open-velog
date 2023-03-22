@@ -35,7 +35,7 @@ function EditableText(props: EditableTextProps) {
   const onCancel = useCallback(() => {
     setIsShowInput(false)
     resetInput()
-  }, [])
+  }, [resetInput])
 
   const onClickSubmit = useCallback(() => {
     onSubmit()

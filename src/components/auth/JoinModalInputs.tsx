@@ -132,7 +132,7 @@ function JoinModalInputs(props: JoinModalInputsProps) {
     }
   }
 
-  const setValidationHandler = useCallback((
+  const setValidationHandler = (
     name: string,
     placeholder: string,
     isValidRegexp: boolean
@@ -144,7 +144,7 @@ function JoinModalInputs(props: JoinModalInputsProps) {
         isValid: isValidRegexp
       }
     }))
-  }, [setValidations])
+  }
 
   const checkUserIDDuplicated = useCallback((value: string) => {
     if (timer) {
@@ -171,7 +171,7 @@ function JoinModalInputs(props: JoinModalInputsProps) {
           'userId', text, !isDuplicatedId
         )
       })
-  }, [timer, setValidations])
+  }, [timer, setValidations, checkUserIDDuplicated, setValidationHandler])
 
   const setValidationPassword2Handler = useCallback((
     name: string,
@@ -186,7 +186,7 @@ function JoinModalInputs(props: JoinModalInputsProps) {
     setValidationHandler(
       'password2', text, isValid
     )
-  }, [forms.password1, forms.password2])
+  }, [forms.password1, forms.password2, setValidationHandler])
 
   const isVisibleCategory = useCallback((inputs: InputCategory[]) => {
     return !isLogin || (isLogin && isInputForLogin(inputs))

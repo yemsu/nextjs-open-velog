@@ -33,7 +33,7 @@ export default function Header() {
       dispatch(SET_USER_INFO(JSON.parse(userInfoStr)))
       Axios.prototype.authToken = savedToken
     }
-  }, [])
+  }, [dispatch])
 
   const onClickUtil = (type: string) => {
     setJoinOrLogin(type)

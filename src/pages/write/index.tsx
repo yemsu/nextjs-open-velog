@@ -67,7 +67,7 @@ function Write() {
       title: boardTitle,
       content: boardContent
     })    
-  }, [forms, userInfo])
+  }, [forms, userInfo, registerBoard])
 
   return (
     <>

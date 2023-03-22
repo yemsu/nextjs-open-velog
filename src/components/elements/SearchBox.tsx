@@ -27,7 +27,7 @@ function SearchBox(props: SearchBoxProps) {
 
     reset()
     router.push(PAGES.KEYWORD_SEARCH(searchKeyword))
-  }, [forms])
+  }, [forms, reset, router])
 
   return (
     <SearchBoxSection>

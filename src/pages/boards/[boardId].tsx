@@ -29,7 +29,7 @@ function BoardView() {
     queryClient.invalidateQueries({
       queryKey: [QUERY_KEYS.BOARD_VIEW]
     })
-  }, [boardId])
+  }, [boardId, queryClient])
 
   return (
     <ContentWrapper size="narrow" contentType="main">
