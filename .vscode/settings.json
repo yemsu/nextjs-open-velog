@@ -3,5 +3,6 @@
   "cSpell.words": [
     "Pageable",
     "Velog"
-  ]
+  ],
+  "svn.ignoreMissingSvnWarning": true
 }

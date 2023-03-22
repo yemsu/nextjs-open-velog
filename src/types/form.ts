@@ -6,3 +6,11 @@ export interface InputCommon {
   value?: string,
   placeholder?: string,
 }
+
+export interface InputCategory extends InputCommon {
+  reg?: RegExp
+}
+
+export interface Forms {
+  [key: string]: string
+}

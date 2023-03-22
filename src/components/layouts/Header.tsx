@@ -66,7 +66,9 @@ export default function Header() {
                   </Link>
                 </GnbItem>
                 <GnbItem>
-                  <Link href="/">인기 검색어</Link>
+                  <Link href={PAGES.TREND_KEYWORD}>
+                    {META.TREND_KEYWORD.TITLE}
+                  </Link>
                 </GnbItem>
               </GnbList>
             </GnbNav>

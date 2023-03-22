@@ -1,31 +1,15 @@
-import styled from "styled-components"
-import Input from "@/components/elements/Input";
-import WrapInputs from "@/components/elements/InputWrapper";
-import { InputCommon } from "@/types/form";
+import { Forms, InputCategory } from "@/types/form";
 import React, { SyntheticEvent, useCallback, useState } from "react";
 import { getIsDuplicatedId } from "@/api/auth";
 import { ValidationsState } from "@/types/auth";
-
-interface InputCategory extends InputCommon {
-  isForLogin?: boolean
-  reg?: RegExp
-}
+import InputList from "@/components/elements/InputList";
 
 interface JoinModalInputsProps {
-  isLogin: boolean,
-  forms: {[key: string]: string}
+  isLogin: boolean
+  forms: Forms
   onChange: (e: SyntheticEvent) => void
   validations: ValidationsState
   setValidations: (state:any) => void
-}
-
-interface InputCategory {
-  type: string
-  name: string
-  label: string
-  value?: string
-  placeholder?: string
-  reg?: RegExp
 }
 
 const inputCategories: InputCategory[][] = [
@@ -208,55 +192,18 @@ function JoinModalInputs(props: JoinModalInputsProps) {
     return !isLogin || (isLogin && isInputForLogin(inputs))
   }, [isLogin])
 
-  const isChecked = (
-    formData: string,
-    type: string,
-    i: number,
-    value?: string,
-  ) => {
-    if(!['radio', 'checkbox'].includes(type)) return undefined
-    // radio 버튼 첫번째 기본 상태 그대로 submit할 가능성 고려하여 default check 제거
-    // const defaultFirstCheck = type === 'radio' && !formData && i === 0
-    return formData === value
-  }
-
   return (
     <>
-      {inputCategories.map((inputs, i) => {
+      {inputCategories.map((inputList) => {
         return (
-          isVisibleCategory(inputs) &&
-            <WrapInputs key={`category${i}`}>
-              {inputs.map(({
-                type,
-                id,
-                name,
-                label,
-                value,
-                placeholder,
-                reg
-              }: InputCategory, i) => {
-                return (
-                  <React.Fragment key={name + id}>
-                    <Input
-                      type={type}
-                      id={id}
-                      name={name}
-                      label={label}
-                      value={value || forms[name]}
-                      checked={isChecked(forms[name], type, i, value)}
-                      placeholder={placeholder}
-                      onChange={onChangeValue}
-                    />
-                    {
-                      !isLogin && validations[name]?.text && 
-                        <TextValidation className={validations[name].isValid ? 'pass' : ''}>
-                          {validations[name].text}
-                        </TextValidation>
-                    }
-                  </React.Fragment>
-                )
-              })}
-            </WrapInputs>
+          !isVisibleCategory(inputList) ? null :
+            <InputList
+              key={inputList[0].name}
+              inputList={inputList}
+              forms={forms}
+              onChange={onChange}
+              validations={!isLogin ? validations : undefined}
+            />
         )
       })}
     </>
@@ -266,26 +213,5 @@ function JoinModalInputs(props: JoinModalInputsProps) {
 function isInputForLogin(inputs: InputCategory[]) {
   return ['userId', 'password1'].includes(inputs[0].name)
 }
-
-
-const TextValidation = styled.p`
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: var(--font-size-XS);
-  &:not(.pass) {
-    color: #f33c5a;
-    font-weight: var(--font-weight-bold);
-    &:before {
-      content: '❗';
-    }
-  }
-  &.pass {
-    color: #21b98c;
-    &:before {
-      content: '✅';
-    }
-  }
-`
 
 export default JoinModalInputs
