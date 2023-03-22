@@ -6,10 +6,11 @@ interface ContentWrapperProps {
   children: ReactNode
   layoutType?: 'basic' | 'flex-row'
   size?: 'narrow' | 'normal' | 'wide' | 'full'
-  contentType?: 'normal' | 'main'
+  contentType?: 'normal' | 'main' | 'last-content'
   title?: string
   bgColor?: 'primary-1' | 'primary-2'
   isFullHeight?: boolean
+  isSection?: boolean
 }
 
 function ContentWrapper(props: ContentWrapperProps) {
@@ -20,11 +21,12 @@ function ContentWrapper(props: ContentWrapperProps) {
     contentType = 'normal',
     title,
     bgColor,
-    isFullHeight
+    isFullHeight,
+    isSection = false
   } = props
   return (
     <Wrapper 
-      as={title ? 'section' : 'div'}
+      as={title || isSection ? 'section' : 'div'}
       className={[
         `layout-${layoutType}`,
         `size-${size}`,
@@ -46,6 +48,9 @@ const Wrapper = styled.div`
   &.type {
     &-main {
       padding-top: calc(60px + 55px);
+      padding-bottom: 60px;
+    }
+    &-last-content {
       padding-bottom: 60px;
     }
   }

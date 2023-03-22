@@ -6,15 +6,19 @@ import ContentWrapper from "./layouts/ContentWrapper"
 
 interface KeyBannerProps {
   titleNode: ReactNode
+  subTitleNode?: ReactNode
   useSearchBox?: boolean
   bgColor?: 'primary-1'
+  size?: 'small' | 'medium' | 'large'
 }
 
 function KeyBanner(props: KeyBannerProps) {
   const {
     titleNode,
+    subTitleNode,
     useSearchBox = false,
-    bgColor = 'primary-1'
+    bgColor = 'primary-1',
+    size = 'medium'
   } = props
   return (
     <ContentWrapper
@@ -22,10 +26,15 @@ function KeyBanner(props: KeyBannerProps) {
       contentType="main"
       bgColor={bgColor}
     >
-      <KeyBannerArea>
+      <KeyBannerArea className={`size-${size}`}>
         <TextTitle titleType="main-kv">
           {titleNode}
         </TextTitle>
+        {
+          subTitleNode
+            ? <SubTitle>{subTitleNode}</SubTitle>
+            : null
+        }
         {
           useSearchBox
           && <AreaSearchBox>
@@ -42,8 +51,21 @@ const KeyBannerArea = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 20vh;
-  min-height: 150px;
+  &.size {
+    &-small {
+      height: 10vh;
+      min-height: 60px;
+    }
+    &-medium {
+      height: 20vh;
+      min-height: 150px;
+    }
+  }
+`
+
+const SubTitle = styled.p`
+  margin-top: 10px;
+  font-size: var(--font-size-title-S);
 `
 
 const AreaSearchBox = styled.div`

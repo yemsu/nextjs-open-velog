@@ -11,8 +11,10 @@ import BlogProfileList from "@/components/blog/BlogProfileList"
 import { DESCRIPTION, TITLE } from "@/constants/meta"
 import { useRouter } from "next/router"
 import { PAGES } from "@/constants/path"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
+import KeyBanner from "@/components/KeyBanner"
+import TextDeco from "@/components/elements/TextDeco"
 
 function Blogs() {
   const route = useRouter()
@@ -61,22 +63,42 @@ function Blogs() {
       isActive: isSortByLike
     },
   ]
+
+  const KeyBannerSubTitle = (<>
+    {
+      blogs?.pages[0]
+        ? <>
+            <TextDeco color="primary" weight="X-bold">{blogs.pages[0].totalElements}</TextDeco>개의 블로그
+          </>
+        : null
+    }
+    
+  </>)
+
+  const activeTabIndex = isSortByView ? 0 : 1
   
   return (
     <>
       <Head>
-        <title>{TITLE.BLOG_VIEW_COUNT}</title>
-        <meta name="description" content={DESCRIPTION.BLOG_VIEW_COUNT} />
+        <title>{TITLE.BLOG_RANK}</title>
+        <meta name="description" content={DESCRIPTION.BLOG_RANK} />
       </Head>
+      <KeyBanner
+        titleNode={`🔥 ${TITLE.BLOG_RANK}`}
+        subTitleNode={KeyBannerSubTitle}
+        size="small"
+      />
+      <Tabs
+        tabs={tabsInfo}
+        align="center"
+        size="small"
+      />
       <ContentWrapper
         size="narrow"
-        contentType="main"
+        contentType="last-content"
+        isSection={true}
+        title={`블로그 리스트 - ${tabsInfo[activeTabIndex].text}`}
       >
-        <Tabs
-          tabs={tabsInfo}
-          align="center"
-          size="small"
-        />
         <InfiniteScrollContent
           isDataFetched={!!blogs}
           isFetchingNextPage={isFetchingNextPage}
