@@ -50,7 +50,7 @@
   --gray-97: var(--primary-h), 12%, 97%;
 
   // basic color
-  --black: --gray-10;
+  --black: hsl(var(--gray-10));
   --white: #fff;
   --white-hsl: 0, 0%, 100%;
 

@@ -14,5 +14,7 @@ export const PAGES = {
   USER_BLOG: (userId: string) => `/${userId}`,
   BLOG_WRITE: `/write`,
   KEYWORD_SEARCH: (keyword: string) => `/search?keyword=${keyword}`,
-  BOARD: (boardId: number) => `/boards/${boardId}`
+  BOARD: (boardId: number) => `/boards/${boardId}`,
+  BLOG_VIEW_COUNT: '/blogs?sort=views',
+  BLOG_LIKE_COUNT: '/blogs?sort=likes',
 }

@@ -60,7 +60,7 @@ export default function Header() {
               <IrText text="사이트 글로벌 메뉴" />
               <GnbList>
                 <GnbItem>
-                  <Link href="/blogs/view-count">실시간 블로그 순위</Link>
+                  <Link href={PAGES.BLOG_VIEW_COUNT}>실시간 블로그 순위</Link>
                 </GnbItem>
                 <GnbItem>
                   <Link href="/">인기 검색어</Link>
