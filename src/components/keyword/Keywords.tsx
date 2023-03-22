@@ -6,26 +6,30 @@ import Link from "next/link"
 
 interface KeywordsProps {
   keywords: RankKeyword[] | void
+  listType?: 'columns' | 'rows'
 }
 
 function Keywords(props: KeywordsProps) {
-  const { keywords } = props
+  const { 
+    keywords,
+    listType = 'columns'
+   } = props
 
   if(!keywords) return null
 
   return (
-    <KeywordListUl>
+    <KeywordListUl className={`list-${listType}`}>
       {keywords.map(({count, keyword}: RankKeyword, i) => (
-        <ListItem key={keyword}>
-          <ListLink
+        <li key={keyword}>
+          <Link
             href={PAGES.KEYWORD_SEARCH(keyword)}
             title={`'${keyword}' ${BUTTON_TITLES.KEYWORD_LINK}`}
           >
-            <Ranking>{i+1}</Ranking>
-            <Keyword>{keyword}</Keyword>
-            <Count>{count}회</Count>
-          </ListLink>
-        </ListItem>
+            <span className="ranking">{i+1}</span>
+            <span className="keyword">{keyword}</span>
+            <span className="count">{count}회</span>
+          </Link>
+        </li>
       ))}
     </KeywordListUl>
   )
@@ -34,49 +38,87 @@ function Keywords(props: KeywordsProps) {
 const KeywordListUl = styled.ul`
   overflow: hidden;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   font-size: var(--font-size-MS);
+  li {
+    overflow: hidden;
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius-S);
+    a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 100%;
+      span {
+        &.ranking {
+          font-family: var(--font-family);
+          color: var(--bg-dark-gray);
+          line-height: 1;
+          font-style: italic;
+          text-align: center;
+        }
+        &.keyword {
+          overflow: hidden;
+          flex: 1;
+          text-overflow: ellipsis;
+          word-break: keep-all;
+        }
+        &.count {
+          color: hsl(var(--primary-hsl));
+          text-align: center;
+        }
+      }
+    }
+  }
+  &.list {
+    &-columns {
+      grid-template-columns: repeat(5, 1fr);
+      a {
+        padding: 8px 0;
+        span {
+          &.ranking {
+            width: 2em;
+            font-size: var(--font-size-B);
+          }
+          &.keyword {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+          }
+          &.count {
+            min-width: 4em;
+            font-size: var(--font-size-S);
+          }
+        }
+      }
+    }
+    &-rows {
+      grid-template-columns: repeat(1, 1fr);
+      li {
+        padding: 10px 0;
+        border: 1px solid var(--border-light-gray);
+        border-radius: var(--border-radius-F);
+      }
+      a {
+        padding: 8px 0;
+        span {
+          &.ranking {
+            width: 4em;
+            font-size: var(--font-size-title-M);
+          }
+          &.keyword {
+            display: block;
+            margin-left: 20px;
+            white-space: nowrap;
+            font-size: var(--font-size-title-S);
+          }
+          &.count {
+            min-width: 8em;
+            font-size: var(--font-size-B);
+          }
+        }
+      }
+    }
+  }
 `
-
-const ListItem = styled.li`
-  background-color: var(--bg-white);
-  border-radius: var(--border-radius-S);
-`
-
-const ListLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  height: 100%;
-  padding: 8px 0;
-`
-
-const Ranking = styled.span`
-  width: 2em;
-  font-family: var(--font-family);
-  font-size: var(--font-size-B);
-  color: var(--bg-dark-gray);
-  line-height: 1;
-  font-style: italic;
-  text-align: center;
-`
-
-const Keyword = styled.span`
-  overflow: hidden;
-  display: -webkit-box;
-  flex: 1;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  word-break: keep-all;
-`
-
-const Count = styled.span`
-  min-width: 4em;
-  color: hsl(var(--primary-hsl));
-  font-size: var(--font-size-S);
-  text-align: center;
-`
-
 export default Keywords

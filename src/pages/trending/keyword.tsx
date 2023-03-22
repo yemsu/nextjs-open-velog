@@ -70,7 +70,7 @@ function TrendingKeyword() {
         >
           <section>
             <IrText text="인기 검색어 리스트" />
-            <Keywords keywords={keywords} />
+            <Keywords keywords={keywords} listType="rows" />
           </section>
         </StatusHandleContent>
       </ContentWrapper>
