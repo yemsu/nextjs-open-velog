@@ -38,7 +38,7 @@ function Search() {
     queryClient.invalidateQueries({
       queryKey: [QUERY_KEYS.RANK_KEYWORD]
     })
-  }, [keyword])
+  }, [keyword, queryClient])
 
   return (
     <>

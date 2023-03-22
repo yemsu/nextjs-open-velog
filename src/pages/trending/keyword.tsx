@@ -43,8 +43,7 @@ function TrendingKeyword() {
   const queryClient = useQueryClient()
   const onSubmit = useCallback(() => {
     queryClient.refetchQueries([QUERY_KEYS.TREND_KEYWORD])
-    console.log('forms', forms, toDateString(date))
-  }, [date, forms])
+  }, [queryClient])
 
   return (
     <>

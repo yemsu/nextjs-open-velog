@@ -47,7 +47,7 @@ function Blogs() {
   const queryClient = useQueryClient()
   useEffect(() => {
     queryClient.refetchQueries([QUERY_KEYS.USER_BLOG])
-  }, [sortBy])
+  }, [sortBy, queryClient])
 
   if(!querySort) return null
 

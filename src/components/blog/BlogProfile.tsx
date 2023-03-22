@@ -58,7 +58,7 @@ function BlogProfile(props: BlogProfileProps) {
         introduce: forms.blogIntroduce
       }
     })
-  }, [blogId, forms])
+  }, [blogId, forms, editIntroduce])
 
   return (
     <Wrapper className={profilePosition ? `pos-${profilePosition}` : ''}>
