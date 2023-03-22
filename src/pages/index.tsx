@@ -6,6 +6,7 @@ import { getRankKeywords24Hour } from '@/api/keyword'
 import ContentWrapper from '@/components/layouts/ContentWrapper'
 import RankKeywords from '@/components/keyword/RankKeywords'
 import KeyBanner from "@/components/KeyBanner"
+import IrText from "@/components/elements/IrText"
 import { RankKeyword } from '@/types/keyword'
 import { DESCRIPTION, TITLE } from '@/constants/meta'
 import { getMetaTitle } from '@/utils'
@@ -36,8 +37,8 @@ function Home() {
         <title>{getMetaTitle(TITLE.INDEX)}</title>
         <meta name="description" content={DESCRIPTION.INDEX} />
       </Head>
+      <IrText text={TITLE.INDEX} />
       <KeyBanner
-        title={TITLE.INDEX}
         titleNode={KeyBannerTitleNode}
         useSearchBox={true}
       />
@@ -51,7 +52,7 @@ function Home() {
           <RankKeywordsArea>
             <RankKeywords
               rankKeywords={rankKeywords}
-              isError={!!rankKeywordsError}
+              error={rankKeywordsError as Error}
               isLoading={isLoading}
             />
           </RankKeywordsArea>

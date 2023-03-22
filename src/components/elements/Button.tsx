@@ -2,8 +2,9 @@ import Link from "next/link"
 import styled, { css } from "styled-components"
 
 type Types = 'square-round' | 'round' | 'x'
-type BgColors = 'primary' | 'border-black'  | 'disabled'
-type Sizes = 'small' | 'medium' | 'large'
+type BgColors = 'primary' | 'border-black' |
+'border-gray' | 'border-primary' | 'black' | 'disabled'
+type Sizes = 'x-small' | 'small' | 'medium' | 'large'
 
 interface ButtonProps {
   styleType: Types
@@ -15,7 +16,14 @@ interface ButtonProps {
 }
 
 export default function Button(props: ButtonProps) {
-  const { styleType, buttonText, bgColor, size, onClick, href } = props
+  const {
+    styleType,
+    buttonText,
+    bgColor,
+    size,
+    onClick,
+    href
+  } = props
 
   const isOutLink = href?.includes('http')
   const tagName = href && isOutLink ? 'a' 
@@ -48,18 +56,41 @@ const ButtonTag = styled(Link)`
     }
   }
   &.bg {
+    &-black {
+      background-color: var(--black);
+      color: var(--white);
+    }
     &-primary {
       background-color: hsl(var(--primary-hsl));
-      color: #fff;
+      color: var(--white);
+    }
+    &-disabled {
+      background-color: var(--bg-light-gray);
+      font-weight: var(--font-weight-bold);
+      color: var(--font-gray);
     }
     &-border {
       &-black {
         border: 1px solid var(--border-dark);
         color: var(--font-dark);
       }
+      &-gray {
+        border: 1px solid var(--border-gray);
+        color: var(--font-gray);
+      }
+      &-primary {
+        border: 1px solid hsl(var(--primary-hsl));
+        color: hsl(var(--primary-hsl));
+      }
     }
   }
   &.size {
+    &-x-small {
+      height: 25px;
+      padding: 0 10px;
+      font-size: var(--font-size-XXS);
+      font-weight: var(--font-weight-bold);
+    }
     &-small {
       min-width: 80px;
       height: 30px;

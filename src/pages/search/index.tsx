@@ -47,7 +47,6 @@ function Search() {
         <meta name="description" content={DESCRIPTION.SEARCH(keyword)} />
       </Head>
       <KeyBanner
-        title={getMetaTitle(TITLE.SEARCH(keyword))}
         titleNode={<KeyBannerTitleNode keyword={keyword}
         resultTotalNumber={searchResult?.pages[0].totalElements} />}
         useSearchBox={true}

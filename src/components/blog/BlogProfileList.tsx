@@ -13,19 +13,21 @@ function BlogProfileList(props: BlogProfileListProps) {
   if(!blogs) return null
   
   return (
-    <ul>
-      {
-        blogs.map((blog: BlogResponseData) => (
-          <li key={blog.id}>
-            <Link href={PAGES.USER_BLOG(blog.memberUserId)}>
-              <BlogProfile
-                blog={blog}
-              ></BlogProfile>
-            </Link>
-          </li>
-        ))
-      }
-    </ul>
+    <section>
+      <ul>
+        {
+          blogs.map((blog: BlogResponseData) => (
+            <li key={blog.id}>
+              <Link href={PAGES.USER_BLOG(blog.memberUserId)}>
+                <BlogProfile
+                  blog={blog}
+                ></BlogProfile>
+              </Link>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
   )
 }
 

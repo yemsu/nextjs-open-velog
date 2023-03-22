@@ -10,7 +10,13 @@ function LoadingIndicator(props: LoadingIndicatorProps) {
   } = props
   return (
     <EmojiWrapper className={`size-${size}`}>
-      <Loader><span>🏃‍♂️</span> <span>🏃‍♂️</span> <span>🏃‍♂️</span></Loader>
+      <Loader>
+        <span>🏃‍♂️</span>
+        <span>🏃‍♂️</span>
+        <span>🏃‍♂️</span>
+        <span>🏃‍♂️</span>
+        <span>🏃‍♂️</span>
+      </Loader>
     </EmojiWrapper>
   )
 }
@@ -35,77 +41,50 @@ const EmojiWrapper = styled.span`
   }
 `
 
+const totalDuration = 2.5
+const emojiNumber = 5
+const eachDuration = totalDuration / emojiNumber
 const Loader = styled.span`
   display: flex;
-  span:nth-child(3) {
+  margin: 5px;
+  padding: 0px 10px;
+  border-radius: var(--border-radius-F);
+  background-color: hsla(var(--white-hsl), .5);
+  span {
     opacity: 0;
-    animation: curtain 2s infinite;
-    @keyframes curtain {
-      0% {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      80% {
-        opacity: 1;
-        transform: translateX(-6px);
-      }
-      90% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 0;
-        transform: translateX(-6px);
-      }
+    animation: curtain ${totalDuration}s infinite;
+    &:nth-child(1) {
+      animation-delay: ${eachDuration * 4}s;
+    }
+    &:nth-child(2) {
+      animation-delay: ${eachDuration * 3}s;
+    }
+    &:nth-child(3) {
+      animation-delay: ${eachDuration * 2}s;
+    }
+    &:nth-child(4) {
+      animation-delay: ${eachDuration}s;
+    }
+    &:nth-child(5) {
+      opacity: 1;
+      animation-fill-mode: forwards;
     }
   }
-  span:nth-child(2) {
-    opacity: 0;
-    animation: curtain 2s infinite;
-    animation-delay: 0.8s;
-    @keyframes curtain {
-      32% {
-        opacity: 0;
-      }
-      33% {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      80% {
-        opacity: 1;
-        transform: translateX(-6px);
-      }
-      90% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 0;
-        transform: translateX(-6px);
-      }
+  @keyframes curtain {
+    0% {
+      opacity: 1;
+      transform: translateX(0);
     }
-  }
-  span:nth-child(1) {
-    opacity: 0;
-    animation: curtain 2s infinite;
-    animation-delay: 1.6s;
-    @keyframes curtain {
-      65% {
-        opacity: 0;
-      }
-      66% {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      80% {
-        opacity: 1;
-        transform: translateX(-6px);
-      }
-      90% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 0;
-        transform: translateX(-6px);
-      }
+    70% {
+      transform: translateX(-5px);
+    }
+    75% {
+      opacity: 0;
+      transform: rotate(-15deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-5px);
     }
   }
 `

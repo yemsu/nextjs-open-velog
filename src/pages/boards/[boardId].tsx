@@ -1,6 +1,6 @@
 import { getBoard } from "@/api/board"
 import ContentWrapper from "@/components/layouts/ContentWrapper"
-import GetDataContent from "@/components/GetDataContent"
+import StatusHandleContent from "@/components/StatusHandleContent"
 import MetaDataList from "@/components/MetaDataList"
 import { QUERY_KEYS } from "@/constants/queryKeys"
 import useCommonQuery from "@/hooks/useCommonQuery"
@@ -33,7 +33,7 @@ function BoardView() {
 
   return (
     <ContentWrapper size="narrow" contentType="main">
-      <GetDataContent
+      <StatusHandleContent
         isDataFetched={!!boardData}
         isLoading={isLoading}
         error={boardDataError as Error}
@@ -51,7 +51,7 @@ function BoardView() {
               </>
             : null
         }
-      </GetDataContent>
+      </StatusHandleContent>
     </ContentWrapper>
   )
 }

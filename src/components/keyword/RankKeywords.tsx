@@ -3,15 +3,20 @@ import { RankKeyword } from '@/types/keyword'
 import Keywords from "./Keywords"
 import { ALERTS } from "@/constants/alerts"
 import LoadingIndicator from "@/components/elements/LoadingIndicator"
+import StatusHandleContent from "@/components/StatusHandleContent"
 
 interface RankKeywordsProps {
   rankKeywords: RankKeyword[] | void
-  isError: boolean
+  error: Error
   isLoading: boolean
 }
 
 function RankKeywords(props: RankKeywordsProps) {
-  const { rankKeywords, isError, isLoading } = props
+  const {
+    rankKeywords,
+    error,
+    isLoading
+  } = props
 
   return (
     <Wrapper>
@@ -19,15 +24,13 @@ function RankKeywords(props: RankKeywordsProps) {
         <Title>키워드 검색 순위 📈</Title>
         <TitleDesc>최근 24시간 기준</TitleDesc>
       </TitleWrapper>
-      {
-        isError
-          ? <ErrorText>{ALERTS.FETCH_FAIL}</ErrorText>
-          : isLoading
-            ? <LoadingIndicator />
-            : rankKeywords
-              ? <Keywords keywords={rankKeywords} />
-              : null
-      }
+      <StatusHandleContent
+        isDataFetched={!!rankKeywords}
+        isLoading={isLoading}
+        error={error}
+      >
+        <Keywords keywords={rankKeywords} />
+      </StatusHandleContent>
     </Wrapper>
   )
 }
