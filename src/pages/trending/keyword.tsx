@@ -73,6 +73,8 @@ function TrendingKeyword() {
       >
         <StatusHandleContent
           isDataFetched={!!keywords}
+          hasNodata={keywords?.length === 0}
+          hasNodataMessage="조건에 맞는 인기 검색어가 없습니다."
           isLoading={isLoading}
           error={getKeywordError}
         >
