@@ -1,6 +1,6 @@
 import { getBoardSearch } from "@/api/board"
 import ContentWrapper from "@/components/layouts/ContentWrapper"
-import { DESCRIPTION, TITLE } from "@/constants/meta"
+import { META } from "@/constants/meta"
 import { QUERY_KEYS } from "@/constants/queryKeys"
 import useInfiniteScroll from "@/hooks/useInfiniteScroll"
 import { BoardResponseData, GetBoardSearchParams } from "@/types/board"
@@ -43,8 +43,8 @@ function Search() {
   return (
     <>
       <Head>
-        <title>{getMetaTitle(TITLE.SEARCH(keyword))}</title>
-        <meta name="description" content={DESCRIPTION.SEARCH(keyword)} />
+        <title>{getMetaTitle(META.SEARCH.TITLE(keyword))}</title>
+        <meta name="description" content={META.SEARCH.DESC(keyword)} />
       </Head>
       <KeyBanner
         titleNode={<KeyBannerTitleNode keyword={keyword}

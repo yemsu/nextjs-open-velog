@@ -8,7 +8,7 @@ import RankKeywords from '@/components/keyword/RankKeywords'
 import KeyBanner from "@/components/KeyBanner"
 import IrText from "@/components/elements/IrText"
 import { RankKeyword } from '@/types/keyword'
-import { DESCRIPTION, TITLE } from '@/constants/meta'
+import { META } from '@/constants/meta'
 import { getMetaTitle } from '@/utils'
 import TextDeco from "@/components/elements/TextDeco"
 
@@ -34,10 +34,10 @@ function Home() {
   return (
     <>
       <Head>
-        <title>{getMetaTitle(TITLE.INDEX)}</title>
-        <meta name="description" content={DESCRIPTION.INDEX} />
+        <title>{getMetaTitle(META.INDEX.TITLE)}</title>
+        <meta name="description" content={META.INDEX.DESC} />
       </Head>
-      <IrText text={TITLE.INDEX} />
+      <IrText text={META.INDEX.TITLE} />
       <KeyBanner
         titleNode={KeyBannerTitleNode}
         useSearchBox={true}
