@@ -46,7 +46,7 @@ const Inputs = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 5px 15px;
+  gap: 5px 5px;
 `
 
 export default InputWrapper
