@@ -1,3 +1,4 @@
+import Head from "next/head"
 import { getBlogViewCountRank } from "@/api/blog"
 import ContentWrapper from "@/components/layouts/ContentWrapper"
 import { QUERY_KEYS } from "@/constants/queryKeys"
@@ -6,6 +7,7 @@ import { PagingRequestParams, PagesResponseData } from "@/types/api"
 import { BlogResponseData } from "@/types/blog"
 import InfiniteScrollContent from "@/components/InfiniteScrollContent"
 import BlogProfileList from "@/components/blog/BlogProfileList"
+import { DESCRIPTION, TITLE } from "@/constants/meta"
 
 function BlogViewCount() {
   const {
@@ -24,22 +26,28 @@ function BlogViewCount() {
   })
   
   return (
-    <ContentWrapper
-      size="narrow"
-      contentType="main"
-    >
-      <InfiniteScrollContent
-        isDataFetched={!!viewCountBlogs}
-        isFetchingNextPage={isFetchingNextPage}
-        isFetching={isFetching}
-        error={blogsError as Error}
-        fetchNextPage={fetchNextPage}
+    <>
+      <Head>
+        <title>{TITLE.BLOG_VIEW_COUNT}</title>
+        <meta name="description" content={DESCRIPTION.BLOG_VIEW_COUNT} />
+      </Head>
+      <ContentWrapper
+        size="narrow"
+        contentType="main"
       >
-        <BlogProfileList 
-          blogs={viewCountBlogs?.pages.flatMap(({content}) => content)}
-        />
-      </InfiniteScrollContent>
-    </ContentWrapper>
+        <InfiniteScrollContent
+          isDataFetched={!!viewCountBlogs}
+          isFetchingNextPage={isFetchingNextPage}
+          isFetching={isFetching}
+          error={blogsError as Error}
+          fetchNextPage={fetchNextPage}
+        >
+          <BlogProfileList
+            blogs={viewCountBlogs?.pages.flatMap(({content}) => content)}
+          />
+        </InfiniteScrollContent>
+      </ContentWrapper>
+    </>
   )
 }
 
