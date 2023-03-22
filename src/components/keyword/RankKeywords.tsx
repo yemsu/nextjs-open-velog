@@ -1,8 +1,6 @@
 import styled from "styled-components"
 import { RankKeyword } from '@/types/keyword'
 import Keywords from "./Keywords"
-import { ALERTS } from "@/constants/alerts"
-import LoadingIndicator from "@/components/elements/LoadingIndicator"
 import StatusHandleContent from "@/components/StatusHandleContent"
 
 interface RankKeywordsProps {
