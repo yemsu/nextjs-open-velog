@@ -1,12 +1,12 @@
-import { InputCategory } from "@/types/form";
+import { Forms, InputCategory } from "@/types/form";
 import React, { SyntheticEvent, useCallback, useState } from "react";
 import { getIsDuplicatedId } from "@/api/auth";
 import { ValidationsState } from "@/types/auth";
 import InputList from "@/components/elements/InputList";
 
 interface JoinModalInputsProps {
-  isLogin: boolean,
-  forms: {[key: string]: string}
+  isLogin: boolean
+  forms: Forms
   onChange: (e: SyntheticEvent) => void
   validations: ValidationsState
   setValidations: (state:any) => void

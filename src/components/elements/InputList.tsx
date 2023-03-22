@@ -1,13 +1,13 @@
 import styled from "styled-components"
 import { ValidationsState } from "@/types/auth"
-import { InputCategory } from "@/types/form"
+import { Forms, InputCategory } from "@/types/form"
 import React, { SyntheticEvent } from "react"
 import Input from "./Input"
 import InputWrapper from "./InputWrapper"
 
 interface InputListProps {
   inputList: InputCategory[]
-  forms: {[key: string]: string}
+  forms: Forms
   onChange: (e: SyntheticEvent) => void
   validations?: ValidationsState
 }
