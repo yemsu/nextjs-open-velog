@@ -12,6 +12,7 @@ import { useEffect, useState } from "react"
 import { PAGES } from "@/constants/path";
 import Button from "../elements/Button";
 import { getCookie, removeCookie } from "@/utils/cookie";
+import { TITLE } from "@/constants/meta";
 
 export default function Header() {
   const [isOpen, toggle] = useModal()
@@ -60,7 +61,9 @@ export default function Header() {
               <IrText text="사이트 글로벌 메뉴" />
               <GnbList>
                 <GnbItem>
-                  <Link href={PAGES.BLOG_VIEW_COUNT}>실시간 블로그 순위</Link>
+                  <Link href={PAGES.BLOG_VIEW_COUNT}>
+                    {TITLE.BLOG_RANK}
+                  </Link>
                 </GnbItem>
                 <GnbItem>
                   <Link href="/">인기 검색어</Link>
