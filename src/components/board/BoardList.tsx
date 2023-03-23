@@ -4,10 +4,13 @@ import { BoardData } from "@/types/board"
 import Link from "next/link"
 import { PAGES } from "@/constants/path"
 import IrText from "../elements/IrText"
+import Button from "../elements/Button"
+import Buttons from "../elements/Buttons"
 interface ListItemProps {
   boards: BoardData[] | void,
   boardTitle?: string,
-  totalLength?: number
+  totalLength?: number,
+  isMine?: boolean
 }
 
 
@@ -15,7 +18,8 @@ function BoardList(props: ListItemProps) {
   const {
     boards,
     boardTitle,
-    totalLength
+    totalLength,
+    isMine
   } = props
   
   if(!boards) return null
@@ -50,12 +54,35 @@ function BoardList(props: ListItemProps) {
                 }}
               />
             </Link>
+            {
+              isMine
+                ? <>
+                    <ButtonsStyled>
+                      <Button
+                        styleType="round"
+                        buttonText="수정"
+                        buttonTitle="게시글 수정하기"
+                        bgColor="border-gray"
+                        size="x-small"
+                      />
+                      <Button
+                        styleType="round"
+                        buttonText="삭제"
+                        buttonTitle="게시글 삭제하기"
+                        bgColor="border-gray"
+                        size="x-small"
+                      />
+                    </ButtonsStyled>
+                  </>
+                : null
+              }
           </ListItem>
         ))}
       </List>
     </section>
   )
 }
+
 
 const TextReferWrapper = styled.div`
   margin-bottom: 10px;
@@ -73,6 +100,7 @@ const List = styled.ul`
 `
 
 const ListItem = styled.li`
+  position: relative;
   padding: 30px 0 40px;
   border-top: 1px solid var(--border-light);
 `
@@ -93,5 +121,10 @@ const BoardContents = styled.p`
   word-break: keep-all;
 `
 
+const ButtonsStyled = styled(Buttons)`
+  position: absolute;
+  right: 40px;
+  bottom: 30px;
+`
 
 export default BoardList

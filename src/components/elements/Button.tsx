@@ -9,6 +9,7 @@ type Sizes = 'x-small' | 'small' | 'medium' | 'large'
 interface ButtonProps {
   styleType: Types
   buttonText: string
+  buttonTitle?: string
   bgColor: BgColors
   size: Sizes
   href?: string
@@ -19,6 +20,7 @@ export default function Button(props: ButtonProps) {
   const {
     styleType,
     buttonText,
+    buttonTitle,
     bgColor,
     size,
     onClick,
@@ -33,7 +35,7 @@ export default function Button(props: ButtonProps) {
       as={tagName}
       href={href}
       className={`type-${styleType} bg-${bgColor} size-${size}`}
-      title={isOutLink ? '새창' : ''}
+      title={buttonTitle || (isOutLink ? '새창' : '')}
       target={isOutLink ? '_blank' : ''}
       onClick={onClick}
     >
@@ -47,6 +49,7 @@ const ButtonTag = styled(Link)`
   align-items: center;
   justify-content: center;
   line-height: 1;
+  color: var(--white);
   &.type {
     &-square-round {
       border-radius: var(--border-radius-M);
@@ -58,11 +61,9 @@ const ButtonTag = styled(Link)`
   &.bg {
     &-black {
       background-color: var(--black);
-      color: var(--white);
     }
     &-primary {
       background-color: hsl(var(--primary-hsl));
-      color: var(--white);
     }
     &-disabled {
       background-color: var(--bg-light-gray);
@@ -86,8 +87,8 @@ const ButtonTag = styled(Link)`
   }
   &.size {
     &-x-small {
-      height: 25px;
-      padding: 0 10px;
+      height: 20px;
+      padding: 0 8px;
       font-size: var(--font-size-XXS);
       font-weight: var(--font-weight-bold);
     }
