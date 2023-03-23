@@ -83,8 +83,10 @@ function BlogProfile(props: BlogProfileProps) {
           : <BlogDescription>{introduce}</BlogDescription> 
         }
         <MetaDataList
-          viewCount={viewCountSum}
-          wishCount={wishCountSum}
+          dataObj={{
+            viewCount: viewCountSum,
+            wishCount: wishCountSum
+          }}
         />
       </TextWrapper>
     </Wrapper>

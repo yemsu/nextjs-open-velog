@@ -43,9 +43,11 @@ function BoardView() {
             ? <>
                 <h2>{boardData.title}</h2>
                 <MetaDataList
-                  viewCount={boardData.viewCount}
-                  wishCount={boardData.wishCount}
-                  createdAt={boardData.createdAt}
+                  dataObj={{
+                    viewCount: boardData.viewCount,
+                    wishCount: boardData.wishCount,
+                    createdAt: boardData.createdAt
+                  }}
                 />
                 <p>{boardData.content}</p>
               </>

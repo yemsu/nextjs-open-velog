@@ -43,9 +43,11 @@ function BoardList(props: ListItemProps) {
               <BoardTitle>{title}</BoardTitle>
               <BoardContents>{content}</BoardContents>
               <MetaDataList
-                viewCount={viewCount}
-                wishCount={wishCount}
-                createdAt={createdAt}
+                dataObj={{
+                  viewCount,
+                  wishCount,
+                  createdAt
+                }}
               />
             </Link>
           </ListItem>
