@@ -41,15 +41,16 @@ function BoardView() {
         {
           boardData
             ? <>
-                <h2>{boardData.title}</h2>
+                <BoardTitle>{boardData.title}</BoardTitle>
                 <MetaDataList
                   dataObj={{
                     viewCount: boardData.viewCount,
                     wishCount: boardData.wishCount,
                     createdAt: boardData.createdAt
                   }}
+                  align="center"
                 />
-                <p>{boardData.content}</p>
+                <BoardContent>{boardData.content}</BoardContent>
               </>
             : null
         }
@@ -57,5 +58,18 @@ function BoardView() {
     </ContentWrapper>
   )
 }
+
+const BoardTitle = styled.h2`
+  padding: 10px 0;
+  text-align: center;
+  font-size: var(--font-size-title-B);
+  word-break: keep-all;
+`
+
+const BoardContent = styled.p`
+  margin-top: 30px;
+  line-height: 1.8;
+  font-size: var(--font-size-M);
+`
 
 export default BoardView
