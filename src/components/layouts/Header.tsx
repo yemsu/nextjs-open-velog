@@ -163,7 +163,9 @@ const GnbNav = styled.nav`
   flex: 1;
   position: absolute;
   left: 50%;
-  transform: translateX(calc(-1 * ((var(--content-wrap-normal) / 2) - var(--content-wrap-hrz-padding))));
+  width: var(--content-wrap-normal);
+  max-width: calc(100vw - (74px * 2) - 300px);
+  transform: translateX(-50%);
 `
 
 const GnbList = styled.ul`
