@@ -12,6 +12,8 @@ import { ALERTS } from "@/constants/alerts"
 import { useQueryClient } from "@tanstack/react-query"
 import { QUERY_KEYS } from "@/constants/queryKeys"
 import useCommonMutation from "@/hooks/useCommonMutation"
+import { useRouter } from "next/router"
+import { STORAGE_NAME } from "@/constants/etc"
 interface ListItemProps {
   boards: BoardData[] | void,
   boardTitle?: string,
@@ -27,7 +29,7 @@ function BoardList(props: ListItemProps) {
     totalLength,
     isMine
   } = props
-
+  const route = useRouter()
   const {
     mutate: onDeleteBoard
   } = useCommonMutation
@@ -51,6 +53,20 @@ function BoardList(props: ListItemProps) {
     onDeleteBoard(boardId)
     queryClient.invalidateQueries([QUERY_KEYS.BLOG_BOARDS])
   }, [onDeleteBoard, queryClient])
+
+  const onClickEdit = useCallback((
+    boardId: number,
+    title: string,
+    content: string,
+  ) => {
+    const boardData = {
+      boardId,
+      title,
+      content
+    }
+    localStorage.setItem(STORAGE_NAME.BOARD_EDIT, JSON.stringify(boardData))
+    route.push(PAGES.BOARD_EDIT)
+  }, [route])
 
   if(!boards) return null
   
@@ -94,6 +110,8 @@ function BoardList(props: ListItemProps) {
                         buttonTitle="게시글 수정하기"
                         bgColor="border-gray"
                         size="x-small"
+                        onClick={() => onClickEdit(id, title,
+                          content)}
                       />
                       <Button
                         styleType="round"

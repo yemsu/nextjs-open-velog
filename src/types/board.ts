@@ -1,9 +1,17 @@
-import { PagingRequestParams, PagesResponseData } from "./api"
+import { PagingRequestParams } from "./api"
 
-export interface PostBoardPayload {
-  blogId: number
+export interface BoardPayload {
   title: string
   content: string
+}
+
+export interface PutBoardArgs {
+  boardId: number
+  payload: BoardPayload
+}
+
+export interface PostBoardPayload extends BoardPayload {
+  blogId: number
 }
 
 export interface BoardData {

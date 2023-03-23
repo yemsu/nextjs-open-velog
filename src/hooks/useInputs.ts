@@ -3,7 +3,8 @@ import { SyntheticEvent, useCallback, useState } from "react";
 type useInputs<T> = [
   T,
   (e: SyntheticEvent) => void,
-  () => void
+  () => void,
+  (state: T) => void
 ]
 
 function useInputs<T>(initialForm: T): useInputs<T> {
@@ -20,7 +21,7 @@ function useInputs<T>(initialForm: T): useInputs<T> {
     setForms(initialForm)
   }, [initialForm])
 
-  return [forms, onChange, reset]
+  return [forms, onChange, reset, setForms]
 }
 
 export default useInputs

@@ -3,7 +3,9 @@ import {
   BoardData,
   BoardResponseData,
   GetBlogBoardsParams,
-  GetBoardSearchParams
+  GetBoardSearchParams,
+  PutBoardArgs,
+  BoardPayload
 } from "@/types/board";
 import Axios from "./Axios";
 
@@ -44,4 +46,9 @@ export const deleteBoard = (
 ) => {
   return $axios
     .delete<BoardData>(`/${boardId}`)
+}
+
+export const putBoard = ({boardId, payload}: PutBoardArgs) => {
+  return $axios
+    .put<BoardPayload, BoardData>(`/${boardId}`, payload)
 }
