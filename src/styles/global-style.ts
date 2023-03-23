@@ -20,6 +20,7 @@ export default createGlobalStyle`
     border: none;
     background-color: transparent;
     font: inherit;
+    color: inherit;
     letter-spacing: inherit;
     cursor: pointer;
   }
