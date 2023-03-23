@@ -12,13 +12,14 @@ interface JoinModalInputsProps {
   setValidations: (state:any) => void
 }
 
-const inputCategories: InputCategory[][] = [
+const inputCategories: (isLogin: boolean) => InputCategory[][] = (isLogin) => ([
   [{
     type: 'text',
     name: 'userId',
     label: '아이디',
     placeholder: '영문, 숫자 포함(6~16자)',
     reg: /^(?=.*?[0-9])(?=.*?[a-z])[0-9a-z]{6,16}$/,
+    autoCompleteName: isLogin ? 'userId' : 'new-userId'
   }],
   [{
     type: 'password',
@@ -26,11 +27,14 @@ const inputCategories: InputCategory[][] = [
     label: '비밀번호',
     placeholder: '영문, 숫자, 특수문자 포함(8자 이상)',
     reg: /^(?=.*[a-z])(?=.*\d)[a-z\d$@$!%*#?&]{8,}$/i,
+    autoCompleteName: isLogin ? 'new-password' : 'password'
   }],
   [{
     type: 'password',
     name: 'password2',
     label: '비밀번호 확인',
+    placeholder: '영문, 숫자, 특수문자 포함(8자 이상)',
+    autoCompleteName: 'new-password'
   }],
   [{
     type: 'email',
@@ -45,6 +49,7 @@ const inputCategories: InputCategory[][] = [
     label: '닉네임',
     placeholder: '한글, 영문, 숫자 사용 가능(3~10자)',
     reg: /^[a-z가-힣0-9]{3,10}$/i,
+    autoCompleteName: 'new-username'
   }],
   [{
     type: 'number',
@@ -67,7 +72,7 @@ const inputCategories: InputCategory[][] = [
     label: '남',
     value: 'man'
   }]
-]
+])
 
 function JoinModalInputs(props: JoinModalInputsProps) {
   const {
@@ -87,7 +92,7 @@ function JoinModalInputs(props: JoinModalInputsProps) {
   }, [isLogin, forms])
 
   const getInputCategoryOf = useCallback((name: string) => {
-    return inputCategories
+    return inputCategories(isLogin)
       .flatMap(category => category)
       .find((category) => category.name === name)
   }, [])
@@ -194,7 +199,7 @@ function JoinModalInputs(props: JoinModalInputsProps) {
 
   return (
     <>
-      {inputCategories.map((inputList) => {
+      {inputCategories(isLogin).map((inputList) => {
         return (
           !isVisibleCategory(inputList) ? null :
             <InputList
