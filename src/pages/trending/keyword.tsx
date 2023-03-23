@@ -19,13 +19,13 @@ import IrText from "@/components/elements/IrText";
 import TextDeco from "@/components/elements/TextDeco";
 
 function TrendingKeyword() {
-  const [date, setDate] = useState<Date>(new Date('2023-03-20'))
+  const [date, setDate] = useState<Date>(new Date())
   const [forms, onChange] = useInputs<{
     ageRange: AgeRanges,
     gender: Genders
   }>({
     ageRange: 'TO19',
-    gender: 'F'
+    gender: 'M'
   })
   const {
     error: getKeywordError,
