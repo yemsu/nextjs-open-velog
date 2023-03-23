@@ -23,9 +23,9 @@ const messages: Messages = {
 function checkValidations(category: Category) {
   const alerts = []
   for(const key in category) {
-    const value = category[key]
+    const value = `${category[key]}`.replace(/ /g, '')
     if(value) continue
-    console.log('messages[key]', key, messages[key])
+    
     alerts.push(messages[key])
   }
   if(alerts.length > 0) {
