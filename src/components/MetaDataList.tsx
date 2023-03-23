@@ -1,3 +1,4 @@
+import { toDateString } from "@/utils"
 import React from "react"
 import styled from "styled-components"
 import IrText from "./elements/IrText"
@@ -25,7 +26,11 @@ function MetaDataList(props: MetaDataListProps) {
               />
               {emoji}
             </Title>
-            <Desc>{props[key]}</Desc>
+            <Desc>{
+              ['createdAt'].includes(key)
+                ? toDateString(props[key] as string)
+                : props[key]
+            }</Desc>
           </ListItem>
         : null
       ))}
