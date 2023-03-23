@@ -3,6 +3,7 @@ import MetaDataList from "../MetaDataList"
 import { useCallback } from "react"
 import styled from "styled-components"
 import EditableText from "../elements/EditableText"
+import UserProfile from "../UserProfile"
 import { putBlog } from "@/api/blog"
 import useCommonMutation from "@/hooks/useCommonMutation"
 import { BlogResponseData, PutBlogArgs } from "@/types/blog"
@@ -62,7 +63,10 @@ function BlogProfile(props: BlogProfileProps) {
 
   return (
     <Wrapper className={profilePosition ? `pos-${profilePosition}` : ''}>
-      <Profile>{memberUsername}</Profile>
+      <UserProfile
+        username={memberUsername}
+        size="large"
+      />
       <TextWrapper>
         <BlogTitle>{memberUsername}님의 블로그</BlogTitle>
         {isMine
@@ -99,20 +103,6 @@ const Wrapper = styled.div`
     }
   }
 `
-
-const Profile = styled.p`
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 90px;
-  height: 90px;
-  border-radius: var(--border-radius-F);
-  background-color: hsl(var(--primary-hsl));
-  color: var(--white);
-  white-space: nowrap;
-`
-
 const TextWrapper = styled.div`
 `
 
