@@ -85,7 +85,7 @@ function Write() {
           type="text"
           name="boardTitle"
           value={forms.boardTitle}
-          placeholder="입력 하세요. 제목."
+          placeholder="제목을 입력하세요"
           size="big"
           onChange={onChange}
         />
@@ -94,7 +94,7 @@ function Write() {
             type="textarea"
             name="boardContent"
             value={forms.boardContent}
-            placeholder="입력 하세요. 내용."
+            placeholder="내용을 입력하세요"
             size="big"
             onChange={onChange}
           />
@@ -102,7 +102,7 @@ function Write() {
         <BottomFixBar>
           <Button
             styleType="square-round"
-            buttonText="다썼다. 📝"
+            buttonText="작성 완료 📝"
             bgColor="primary"
             size="large"
             onClick={onClickSave}
