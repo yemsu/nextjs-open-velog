@@ -10,5 +10,10 @@ export const ALERTS = {
   },
   GET_BOARD: {
     ERROR: `게시글 데이터 호출에 실패하였습니다.  ${COMMON_ERROR_ALERTS}`,
-  }
+  },
+  DELETE_BOARD: {
+    CONFIRM: `게시글을 삭제하시겠어요?`,
+    SUCCESS: `게시글이 삭제되었습니다.`,
+    ERROR: `게시글 삭제에 실패하였습니다. ${COMMON_ERROR_ALERTS}`,
+  },
 }

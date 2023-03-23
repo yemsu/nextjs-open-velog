@@ -6,6 +6,12 @@ import { PAGES } from "@/constants/path"
 import IrText from "../elements/IrText"
 import Button from "../elements/Button"
 import Buttons from "../elements/Buttons"
+import { useCallback } from "react"
+import { deleteBoard } from "@/api/board"
+import { ALERTS } from "@/constants/alerts"
+import { useQueryClient } from "@tanstack/react-query"
+import { QUERY_KEYS } from "@/constants/queryKeys"
+import useCommonMutation from "@/hooks/useCommonMutation"
 interface ListItemProps {
   boards: BoardData[] | void,
   boardTitle?: string,
@@ -21,7 +27,31 @@ function BoardList(props: ListItemProps) {
     totalLength,
     isMine
   } = props
-  
+
+  const {
+    mutate: onDeleteBoard
+  } = useCommonMutation
+  <BoardData, number, any>(
+    deleteBoard, {
+    onSuccess: () => {
+      alert(ALERTS.DELETE_BOARD.SUCCESS)
+      queryClient.invalidateQueries({ 
+        queryKey: [QUERY_KEYS.USER_BLOG]
+      })
+    },
+    onError: () => {
+      alert(ALERTS.DELETE_BOARD.ERROR)
+    },
+  })
+
+  const queryClient = useQueryClient()
+  const onClickDelete = useCallback((boardId: number) => {
+    const confirmDelete = confirm(ALERTS.DELETE_BOARD.CONFIRM) 
+    if(!confirmDelete) return
+    onDeleteBoard(boardId)
+    queryClient.invalidateQueries([QUERY_KEYS.BLOG_BOARDS])
+  }, [onDeleteBoard, queryClient])
+
   if(!boards) return null
   
   return (
@@ -71,6 +101,7 @@ function BoardList(props: ListItemProps) {
                         buttonTitle="게시글 삭제하기"
                         bgColor="border-gray"
                         size="x-small"
+                        onClick={() => onClickDelete(id)}
                       />
                     </ButtonsStyled>
                   </>
