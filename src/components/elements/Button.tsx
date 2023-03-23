@@ -7,6 +7,7 @@ type BgColors = 'primary' | 'border-black' |
 type Sizes = 'x-small' | 'small' | 'medium' | 'large'
 
 interface ButtonProps {
+  buttonType?: 'submit' 
   styleType: Types
   buttonText: string
   buttonTitle?: string
@@ -18,6 +19,7 @@ interface ButtonProps {
 
 export default function Button(props: ButtonProps) {
   const {
+    buttonType,
     styleType,
     buttonText,
     buttonTitle,
@@ -32,6 +34,7 @@ export default function Button(props: ButtonProps) {
     : !href ? 'button' : Link
   return (
     <ButtonTag
+      type={buttonType}
       as={tagName}
       href={href}
       className={`type-${styleType} bg-${bgColor} size-${size}`}
