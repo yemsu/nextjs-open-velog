@@ -30,6 +30,7 @@ function InputList(props: InputListProps) {
         name,
         label,
         value,
+        autoCompleteName,
         placeholder
       }: InputCategory, i) => {
         return (
@@ -42,6 +43,7 @@ function InputList(props: InputListProps) {
               value={value || forms[name]}
               checked={forms[name] === value}
               placeholder={placeholder}
+              autoCompleteName={autoCompleteName}
               onChange={onChange}
             />
             {

@@ -11,11 +11,12 @@ export const SERVICES = {
 export const PAGES = {
   MAIN: '/',
   BLOG: '/blog',
-  USER_BLOG: (userId: string) => `/${userId}`,
-  BLOG_WRITE: `/write`,
-  KEYWORD_SEARCH: (keyword: string) => `/search?keyword=${keyword}`,
-  BOARD: (boardId: number) => `/boards/${boardId}`,
   BLOG_VIEW_COUNT: '/blogs?sort=views',
   BLOG_LIKE_COUNT: '/blogs?sort=likes',
+  USER_BLOG: (userId: string) => `/${userId}`,
+  BLOG_WRITE: `/write`,
+  BOARD_EDIT: `/write?type=edit`,
+  KEYWORD_SEARCH: (keyword: string) => `/search?keyword=${keyword}`,
+  BOARD: (boardId: number) => `/boards/${boardId}`,
   TREND_KEYWORD: '/trending/keyword',
 }

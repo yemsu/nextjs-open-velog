@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
-import { ReactNode } from 'react'
+import { ReactNode, SyntheticEvent } from 'react'
+import IrText from './IrText'
 
 type Sizes = 'small' | 'medium' | 'large'
 
@@ -9,19 +10,30 @@ interface ModalProps {
   toggle: () => void,
   children: ReactNode,
   submitButton: ReactNode,
+  submitEvent?: (e: SyntheticEvent) => void,
   size?: Sizes
 };
 
 function Modal (props: ModalProps) {
-  const { isOpen, title, toggle, children, submitButton, size = 'medium' } = props
+  const {
+    isOpen,
+    title,
+    toggle,
+    children,
+    submitButton,
+    submitEvent,
+    size = 'medium'
+  } = props
   
   return (
     <>
       {isOpen && (
         <Wrapper onClick={toggle}>
           <ModalBox
+            as={submitEvent ? 'form' : 'div'}
             size={size}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e: SyntheticEvent) => e.stopPropagation()}
+            onSubmit={submitEvent}
           >
             <WrapTitle>
               <Title>{title}</Title>
@@ -30,8 +42,8 @@ function Modal (props: ModalProps) {
             <WrapButtons>
               { submitButton }
             </WrapButtons>
-            <ButtonClose onClick={toggle}>
-              닫기
+            <ButtonClose onClick={toggle} title="팝업 닫기">
+              <IrText text="닫기" />
             </ButtonClose>
           </ModalBox>
         </Wrapper>
@@ -110,6 +122,30 @@ const ButtonClose = styled.button`
   position: absolute;
   top: 20px;
   right: 20px;
+  width: 20px;
+  height: 20px;
+  transition: transform .3s;
+  &:hover {
+    transform: rotate(90deg);
+    transition: transform .3s;
+  }
+  &:before,
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--bg-dark);
+    content: '';
+  }
+  &:before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  &:after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
 `
 
 export default Modal

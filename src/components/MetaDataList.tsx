@@ -1,33 +1,69 @@
+import { toDateString } from "@/utils"
 import React from "react"
 import styled from "styled-components"
 import IrText from "./elements/IrText"
 
+type MetaTitles = 'createdAt' | 'viewCount' | 'wishCount'
+
 interface MetaDataListProps {
-  [key: string]: string | number
+  dataObj: {
+    createdAt?: string
+    viewCount?: number
+    wishCount?: number
+  }
+  align?: 'left' | 'center' | 'right'
 }
 
-const mapTitles = [
-  ['createdAt', '작성일', '📅'],
-  ['viewCount', '조회수', '👀'],
-  ['wishCount', '좋아요', '❤️']
-]
+interface InfoObj {
+  [key: string]: {
+    title: string,
+    emoji: string
+  }
+}
+
+const infoObj: InfoObj = {
+  createdAt: {
+    title: '작성일',
+    emoji: '📅'
+  },
+  viewCount: {
+    title: '조회수',
+    emoji: '👀'
+  },
+  wishCount: {
+    title: '좋아요',
+    emoji: '❤️'
+  },
+}
+
+const infoSeq: MetaTitles[] = ['createdAt', 'viewCount', 'wishCount']
 
 function MetaDataList(props: MetaDataListProps) {
+  const {
+    dataObj,
+    align = 'left'
+  } = props
+  
+  if(!dataObj) return null
+
   return (
-    <MetaDataListDl>
-      {mapTitles.map(([key, title, emoji]) => (
-        props[key] !== undefined
-        ? <ListItem key={key}>
-            <Title title={title}>
-              <IrText
-                text={title}
-                tagName="span"
-              />
-              {emoji}
-            </Title>
-            <Desc>{props[key]}</Desc>
-          </ListItem>
-        : null
+    <MetaDataListDl className={`align-${align}`}>
+      {infoSeq.map((key) => (
+        dataObj[key] === undefined ? null
+          : <ListItem key={key}>
+              <Title title={infoObj[key].title}>
+                <IrText
+                  text={infoObj[key].title}
+                  tagName="span"
+                />
+                {infoObj[key].emoji}
+              </Title>
+              <Desc>{
+                ['createdAt'].includes(key)
+                  ? toDateString(dataObj[key] as string)
+                  : dataObj[key]
+              }</Desc>
+            </ListItem>
       ))}
     </MetaDataListDl>
   )
@@ -40,6 +76,14 @@ const MetaDataListDl = styled.dl`
   font-size: var(--font-size-S);
   color: var(--font-gray);
   line-height: 1;
+  &.align {
+    &-center {
+      justify-content: center;
+    }
+    &-right {
+      justify-content: flex-end;
+    }
+  }
 `
 
 const ListItem = styled.div`

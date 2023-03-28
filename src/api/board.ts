@@ -3,7 +3,9 @@ import {
   BoardData,
   BoardResponseData,
   GetBlogBoardsParams,
-  GetBoardSearchParams
+  GetBoardSearchParams,
+  PutBoardArgs,
+  BoardPayload
 } from "@/types/board";
 import Axios from "./Axios";
 
@@ -26,8 +28,7 @@ export const getBlogBoards = (
 export const getBoardSearch = (
   params: GetBoardSearchParams
 ) => {
-  if(!params.keyword) return Promise.reject("getBoardSearch Invalid params")
-  
+  if(!params.keyword) return Promise.reject("getBoardSearch Invalid params")  
   return $axios
     .get<GetBoardSearchParams, BoardResponseData>(`/search`, params)
 }
@@ -36,7 +37,18 @@ export const getBoard = (
   boardId: string
 ) => {
   if(!boardId) return Promise.reject("getBoard Invalid boardId")
-
   return $axios
     .get<null, BoardData>(`/${boardId}`)
+}
+
+export const deleteBoard = (
+  boardId: number
+) => {
+  return $axios
+    .delete<BoardData>(`/${boardId}`)
+}
+
+export const putBoard = ({boardId, payload}: PutBoardArgs) => {
+  return $axios
+    .put<BoardPayload, BoardData>(`/${boardId}`, payload)
 }

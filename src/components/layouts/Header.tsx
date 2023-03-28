@@ -14,6 +14,7 @@ import Button from "../elements/Button";
 import { getCookie, removeCookie } from "@/utils/cookie";
 import { META } from "@/constants/meta";
 import { useRouter } from "next/router";
+import UserProfile from "../UserProfile";
 
 const GnbDataList = [
   {
@@ -109,9 +110,11 @@ export default function Header() {
                   </Util>
                   <Util>{
                     userInfo &&
-                      <UtilLink href={PAGES.USER_BLOG(userInfo?.userId)}>
-                        {userInfo.username} Velog
-                      </UtilLink>
+                      <UserProfile
+                        username={userInfo.username}
+                        userIdForLInk={userInfo?.userId}
+                        size="small"
+                      />
                   }</Util>
                   <Util>
                     <UtilButton onClick={onClickLogout}>로그아웃</UtilButton>
@@ -160,7 +163,9 @@ const GnbNav = styled.nav`
   flex: 1;
   position: absolute;
   left: 50%;
-  transform: translateX(calc(-1 * ((var(--content-wrap-normal) / 2) - var(--content-wrap-hrz-padding))));
+  width: var(--content-wrap-normal);
+  max-width: calc(100vw - (74px * 2) - 300px);
+  transform: translateX(-50%);
 `
 
 const GnbList = styled.ul`
@@ -185,11 +190,11 @@ const Utils = styled.ul`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 `
 
 const Util = styled.li`
-  font-size: var(--font-size-S);
+  font-size: var(--font-size-XS);
   color: var(--font-gray);
 `
 

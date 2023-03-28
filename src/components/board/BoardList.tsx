@@ -4,10 +4,21 @@ import { BoardData } from "@/types/board"
 import Link from "next/link"
 import { PAGES } from "@/constants/path"
 import IrText from "../elements/IrText"
+import Button from "../elements/Button"
+import Buttons from "../elements/Buttons"
+import { useCallback } from "react"
+import { deleteBoard } from "@/api/board"
+import { ALERTS } from "@/constants/alerts"
+import { useQueryClient } from "@tanstack/react-query"
+import { QUERY_KEYS } from "@/constants/queryKeys"
+import useCommonMutation from "@/hooks/useCommonMutation"
+import { useRouter } from "next/router"
+import { STORAGE_NAME } from "@/constants/etc"
 interface ListItemProps {
   boards: BoardData[] | void,
   boardTitle?: string,
-  totalLength?: number
+  totalLength?: number,
+  isMine?: boolean
 }
 
 
@@ -15,9 +26,48 @@ function BoardList(props: ListItemProps) {
   const {
     boards,
     boardTitle,
-    totalLength
+    totalLength,
+    isMine
   } = props
-  
+  const route = useRouter()
+  const {
+    mutate: onDeleteBoard
+  } = useCommonMutation
+  <BoardData, number, any>(
+    deleteBoard, {
+    onSuccess: () => {
+      alert(ALERTS.DELETE_BOARD.SUCCESS)
+      queryClient.invalidateQueries({ 
+        queryKey: [QUERY_KEYS.USER_BLOG]
+      })
+    },
+    onError: () => {
+      alert(ALERTS.DELETE_BOARD.ERROR)
+    },
+  })
+
+  const queryClient = useQueryClient()
+  const onClickDelete = useCallback((boardId: number) => {
+    const confirmDelete = confirm(ALERTS.DELETE_BOARD.CONFIRM) 
+    if(!confirmDelete) return
+    onDeleteBoard(boardId)
+    queryClient.invalidateQueries([QUERY_KEYS.BLOG_BOARDS])
+  }, [onDeleteBoard, queryClient])
+
+  const onClickEdit = useCallback((
+    boardId: number,
+    title: string,
+    content: string,
+  ) => {
+    const boardData = {
+      boardId,
+      title,
+      content
+    }
+    localStorage.setItem(STORAGE_NAME.BOARD_EDIT, JSON.stringify(boardData))
+    route.push(PAGES.BOARD_EDIT)
+  }, [route])
+
   if(!boards) return null
   
   return (
@@ -43,17 +93,45 @@ function BoardList(props: ListItemProps) {
               <BoardTitle>{title}</BoardTitle>
               <BoardContents>{content}</BoardContents>
               <MetaDataList
-                viewCount={viewCount}
-                wishCount={wishCount}
-                createdAt={createdAt}
+                dataObj={{
+                  viewCount,
+                  wishCount,
+                  createdAt
+                }}
               />
             </Link>
+            {
+              isMine
+                ? <>
+                    <ButtonsStyled>
+                      <Button
+                        styleType="round"
+                        buttonText="수정"
+                        buttonTitle="게시글 수정하기"
+                        bgColor="border-gray"
+                        size="x-small"
+                        onClick={() => onClickEdit(id, title,
+                          content)}
+                      />
+                      <Button
+                        styleType="round"
+                        buttonText="삭제"
+                        buttonTitle="게시글 삭제하기"
+                        bgColor="border-gray"
+                        size="x-small"
+                        onClick={() => onClickDelete(id)}
+                      />
+                    </ButtonsStyled>
+                  </>
+                : null
+              }
           </ListItem>
         ))}
       </List>
     </section>
   )
 }
+
 
 const TextReferWrapper = styled.div`
   margin-bottom: 10px;
@@ -71,6 +149,7 @@ const List = styled.ul`
 `
 
 const ListItem = styled.li`
+  position: relative;
   padding: 30px 0 40px;
   border-top: 1px solid var(--border-light);
 `
@@ -91,5 +170,10 @@ const BoardContents = styled.p`
   word-break: keep-all;
 `
 
+const ButtonsStyled = styled(Buttons)`
+  position: absolute;
+  right: 40px;
+  bottom: 30px;
+`
 
 export default BoardList

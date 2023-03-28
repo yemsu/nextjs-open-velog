@@ -6,7 +6,7 @@ import Button from "@/components/elements/Button"
 import JoinModalInputs from "./JoinModalInputs";
 import styled from "styled-components"
 import { APP_TITLE } from "@/constants/etc";
-import { useCallback, useState } from "react";
+import { SyntheticEvent, useCallback, useState } from "react";
 import { ValidationsState } from "@/types/auth";
 import checkValidations from "@/utils/validation";
 
@@ -43,7 +43,8 @@ function JoinModal(props: JoinModalProps) {
 
   const dispatch = useDispatch()
 
-  const onSubmitJoin = async() => {
+  const onSubmitJoin = async(e: SyntheticEvent) => {
+    e.preventDefault()
     const { userId, username, password2, email, gender, birthday } = forms
     const birthdayResult = birthday && `${birthday.slice(0, 4)}-${birthday.slice(4, 6)}-${birthday.slice(4, 6)}`
     const result = {
@@ -74,7 +75,8 @@ function JoinModal(props: JoinModalProps) {
     }, {})
   }, [validations])
 
-  const onSubmitLogin = async() => {
+  const onSubmitLogin = async(e: SyntheticEvent) => {
+    e.preventDefault()
     const { userId, password1 } = forms
     const result = {
       userId,
@@ -102,8 +104,8 @@ function JoinModal(props: JoinModalProps) {
   const isLogin = modalType === 'login'
   const modalTitle = isLogin ? 'Welcome back ' : `Join ${APP_TITLE} 🐣` 
   const submitButtonText = isLogin ? '로그인' : '가입' 
-  const onSubmitEvent = isLogin ? onSubmitLogin : onSubmitJoin 
-  const SubmitButton = <Button styleType="round" bgColor="primary" size="medium" buttonText={submitButtonText} onClick={onSubmitEvent} />
+  const onSubmitEvent = isLogin ? onSubmitLogin : onSubmitJoin
+  const SubmitButton = <Button buttonType="submit" styleType="round" bgColor="primary" size="medium" buttonText={submitButtonText} />
 
   return (
     <Modal
@@ -112,6 +114,7 @@ function JoinModal(props: JoinModalProps) {
       toggle={onClose}
       size="large"
       submitButton={SubmitButton}
+      submitEvent={onSubmitEvent}
     >
       <WrapForm>
         <JoinModalInputs

@@ -4,9 +4,6 @@ import styled, { css } from "styled-components"
 
 interface InputProps extends InputCommon {
   value: string
-  checked?: boolean
-  isRequired?: boolean
-  size?: 'small' | 'medium' | 'big'
   onChange: (e: SyntheticEvent) => void,
   onEnter?: () => void,
 }
@@ -22,6 +19,9 @@ function Input(props: InputProps) {
     checked,
     isRequired = true,
     size = 'small',
+    maxLength,
+    minLength,
+    autoCompleteName,
     onChange,
     onEnter
   } = props
@@ -64,6 +64,9 @@ function Input(props: InputProps) {
         value={value}
         checked={checked}
         required={isRequired}
+        maxLength={maxLength}
+        minLength={minLength}
+        autoComplete={autoCompleteName}
         onChange={onChange}
         onClick={onClick}
         onKeyDown={onKeyDown}

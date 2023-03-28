@@ -51,6 +51,8 @@ function UserBlog() {
 
   if(!userBlog) return null
   
+  const isMyBlog = userInfo?.userId === userBlog.memberUserId
+
   return (
     <>
       <Head>
@@ -63,7 +65,7 @@ function UserBlog() {
             ? <p>{ALERTS.GET_BLOG.ERROR}</p>
             : <MainSection>
                 <BlogProfile
-                  isMine={userInfo?.userId === userBlog.memberUserId}
+                  isMine={isMyBlog}
                   profilePosition="top"
                   blog={userBlog}
                 />
@@ -80,6 +82,7 @@ function UserBlog() {
                     <BoardList
                       boards={blogBoards?.pages.flatMap(({content}) => content)}
                       boardTitle={`${userInfo?.username}님이 작성한 게시글 리스트`}
+                      isMine={isMyBlog}
                     />
                   </InfiniteScrollContent>
                 }

@@ -26,7 +26,7 @@ function SearchBox(props: SearchBoxProps) {
     if(hasInvalidData) return
 
     reset()
-    router.push(PAGES.KEYWORD_SEARCH(searchKeyword))
+    router.push(PAGES.KEYWORD_SEARCH(searchKeyword.trim()))
   }, [forms, reset, router])
 
   return (
