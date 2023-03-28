@@ -104,7 +104,7 @@ function JoinModal(props: JoinModalProps) {
   const isLogin = modalType === 'login'
   const modalTitle = isLogin ? 'Welcome back ' : `Join ${APP_TITLE} 🐣` 
   const submitButtonText = isLogin ? '로그인' : '가입' 
-  const onSubmitEvent = isLogin ? onSubmitLogin : onSubmitJoin 
+  const onSubmitEvent = isLogin ? onSubmitLogin : onSubmitJoin
   const SubmitButton = <Button buttonType="submit" styleType="round" bgColor="primary" size="medium" buttonText={submitButtonText} />
 
   return (
@@ -114,8 +114,9 @@ function JoinModal(props: JoinModalProps) {
       toggle={onClose}
       size="large"
       submitButton={SubmitButton}
+      submitEvent={onSubmitEvent}
     >
-      <WrapForm onSubmit={onSubmitEvent}>
+      <WrapForm>
         <JoinModalInputs
           isLogin={isLogin}
           forms={forms}
@@ -128,7 +129,7 @@ function JoinModal(props: JoinModalProps) {
   )
 }
 
-const WrapForm = styled.form`
+const WrapForm = styled.div`
   width: 250px;
 `
 

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { ReactNode } from 'react'
+import { ReactNode, SyntheticEvent } from 'react'
 import IrText from './IrText'
 
 type Sizes = 'small' | 'medium' | 'large'
@@ -10,19 +10,30 @@ interface ModalProps {
   toggle: () => void,
   children: ReactNode,
   submitButton: ReactNode,
+  submitEvent?: (e: SyntheticEvent) => void,
   size?: Sizes
 };
 
 function Modal (props: ModalProps) {
-  const { isOpen, title, toggle, children, submitButton, size = 'medium' } = props
+  const {
+    isOpen,
+    title,
+    toggle,
+    children,
+    submitButton,
+    submitEvent,
+    size = 'medium'
+  } = props
   
   return (
     <>
       {isOpen && (
         <Wrapper onClick={toggle}>
           <ModalBox
+            as={submitEvent ? 'form' : 'div'}
             size={size}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e: SyntheticEvent) => e.stopPropagation()}
+            onSubmit={submitEvent}
           >
             <WrapTitle>
               <Title>{title}</Title>
