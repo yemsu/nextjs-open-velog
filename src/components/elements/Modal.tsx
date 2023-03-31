@@ -65,7 +65,8 @@ const Wrapper = styled.div`
   background-color: var(--bg-dimmed);
 `
 
-const ModalBox = styled.section<{ size: string }>`
+const ModalBoxSection = styled.section``
+const ModalBox = styled(ModalBoxSection)<{ size: string }>`
   position: relative;
   min-width: 400px;
   padding: 60px 30px 40px;
