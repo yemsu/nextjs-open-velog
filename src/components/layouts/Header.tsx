@@ -76,14 +76,14 @@ export default function Header() {
               <GnbList>
                 {
                   GnbDataList.map(({text, path}) => (
-                    <GnbItem
+                    <GnbListItem
                       key={path}
                       className={path === route.asPath ? 'active' : ''}
                     >
                       <Link href={path}>
                         {text}
                       </Link>
-                    </GnbItem>
+                    </GnbListItem>
                   ))
                 }
               </GnbList>
@@ -174,7 +174,7 @@ const GnbList = styled.ul`
   gap: 40px;
 `
 
-const GnbItem = styled.li`
+const GnbListItem = styled.li`
   font-size: var(--font-size-M);
   font-weight: var(--font-weight-bold);
   border: 2px solid transparent;

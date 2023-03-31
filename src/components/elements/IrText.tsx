@@ -6,24 +6,24 @@ interface IrTextProps {
 }
 
 function IrText(props: IrTextProps) {
-  const { text, tagName = 'h2' } = props
+  const {
+    text,
+    tagName = 'h2'
+  } = props
 
   return (
-    <IrTextStyle
+    <IrTextStyled
       as={tagName}
-    >{text}</IrTextStyle>
+    >{text}</IrTextStyled>
   )
 }
 
-const IrStyle = styled.h2`
+const IrTextStyled = styled.h2`
   position: absolute;
   overflow: hidden;
   width: 1px;
   height: 1px;
   font-size: 1px;
-`
-
-const IrTextStyle = styled(IrStyle)`
 `
 
 export default IrText

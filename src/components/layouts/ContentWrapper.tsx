@@ -40,7 +40,8 @@ function ContentWrapper(props: ContentWrapperProps) {
 
 export default ContentWrapper
 
-const Wrapper = styled.div`
+const WrapperDiv = styled.div``
+const Wrapper = styled(WrapperDiv)`
   min-height: 100%;
   &.type {
     &-main {

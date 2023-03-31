@@ -48,14 +48,14 @@ function Input(props: InputProps) {
   )
 
   return (
-    <InputWrapLabel
+    <InputWrap
       as={label ? 'label' : 'div'}
       htmlFor={idStr}
       className={`wrap-input ${checked ? 'checked' : ''}`}
       type={type}
     >
       {!isBulletStyle && <CommonLabelText type="pos-top" />}
-      <InputTag
+      <InputStyled
         as={type === 'textarea' ? 'textarea' : 'input'}
         type={type}
         name={name}
@@ -73,7 +73,7 @@ function Input(props: InputProps) {
         className={`size-${size}`}
       />
       {isBulletStyle && <CommonLabelText />}
-    </InputWrapLabel>
+    </InputWrap>
   )
 }
 
@@ -83,7 +83,8 @@ const CommonLabel = styled.label`
   line-height: 1;
 `
 
-const InputWrapLabel = styled.label<{ type: string }>`
+const InputWrapLabel = styled.label``
+const InputWrap = styled(InputWrapLabel)<{ type: string }>`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -113,7 +114,8 @@ const InputWrapLabel = styled.label<{ type: string }>`
   }}
 `
 
-const InputTag = styled.input<{ type: string }>`
+const InputStyledAs = styled.input``
+const InputStyled = styled(InputStyledAs)<{ type: string }>`
   ${({type}) => {
     if(isBasicStyle(type)) {
       return css`
