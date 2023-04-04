@@ -18,7 +18,8 @@ function IrText(props: IrTextProps) {
   )
 }
 
-const IrTextStyled = styled.h2`
+const IrTextH2 = styled.h2``
+const IrTextStyled = styled(IrTextH2)`
   position: absolute;
   overflow: hidden;
   width: 1px;
