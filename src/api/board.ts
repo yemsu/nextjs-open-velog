@@ -25,13 +25,14 @@ export const getBlogBoards = (
     .get<GetBlogBoardsParams, BoardResponseData>(`/byBlog/userId`, params)
 }
 
-export const getBoardSearch = (
-  params: GetBoardSearchParams
-) => {
-  if(!params.keyword) return Promise.reject("getBoardSearch Invalid params")  
-  return $axios
-    .get<GetBoardSearchParams, BoardResponseData>(`/search`, params)
-}
+// opensearch api로 변경됨 2304076
+// export const getBoardSearch = (
+//   params: GetBoardSearchParams
+// ) => {
+//   if(!params.keyword) return Promise.reject("getBoardSearch Invalid params")  
+//   return $axios
+//     .get<GetBoardSearchParams, BoardResponseData>(`/search`, params)
+// }
 
 export const getBoard = (
   boardId: string

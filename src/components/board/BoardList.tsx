@@ -70,6 +70,7 @@ function BoardList(props: ListItemProps) {
 
   if(!boards) return null
   
+  console.log('boards', boards)
   return (
     <section>
       {boardTitle && <IrText text={boardTitle} />}
@@ -92,13 +93,15 @@ function BoardList(props: ListItemProps) {
             <Link href={PAGES.BOARD(id)}>
               <BoardTitle>{title}</BoardTitle>
               <BoardContents>{content}</BoardContents>
-              <MetaDataList
-                dataObj={{
-                  viewCount,
-                  wishCount,
-                  createdAt
-                }}
-              />
+              {(viewCount || wishCount || createdAt) &&
+                <MetaDataList
+                  dataObj={{
+                    viewCount,
+                    wishCount,
+                    createdAt
+                  }}
+                />
+              }
             </Link>
             {
               isMine
