@@ -1,4 +1,4 @@
-import { getBoardSearch } from "@/api/board"
+import { getBoardSearch } from "@/api/openSearch"
 import ContentWrapper from "@/components/layouts/ContentWrapper"
 import { META } from "@/constants/meta"
 import { QUERY_KEYS } from "@/constants/queryKeys"
