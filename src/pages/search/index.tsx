@@ -17,7 +17,6 @@ import TextDeco from "@/components/elements/TextDeco"
 function Search() {
   const route = useRouter()
   const keyword = route.query.keyword as string
-  const keywordParam = `+${`${keyword}`.replace(/ /g, ' +')}`
   const queryClient = useQueryClient()
   const {
     error: searchResultError,
@@ -29,7 +28,7 @@ function Search() {
     queryKey: QUERY_KEYS.BOARDS_SEARCH,
     promiseFn: getBoardSearch,
     params: {
-      keyword: keywordParam,
+      keyword: keyword,
       size: 10,
       page: 1
     }
