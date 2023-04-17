@@ -1,8 +1,9 @@
 import styled from "styled-components"
 
 interface EmojiButtonProps {
-  emojiType: 'save' | 'cancel' | 'search'
+  emojiType: 'save' | 'cancel' | 'search' | 'like' | 'unlike'
   size: 'small' | 'medium' | 'large',
+  styleType?: 'none' | 'round',
   onClick: () => void
 }
 
@@ -19,15 +20,28 @@ const buttonTitles = {
     text: '검색',
     emoji: '🔍'
   },
+  like: {
+    text: '좋아요',
+    emoji: '🤍'
+  },
+  unlike: {
+    text: '좋아요 취소',
+    emoji: '💚'
+  },
 }
 
 function EmojiButton(props: EmojiButtonProps) {
-  const { emojiType, size, onClick } = props
+  const {
+    emojiType,
+    size,
+    styleType = 'none',
+    onClick
+  } = props
 
   const { text, emoji } =  buttonTitles[emojiType]
   return (
     <Button
-      className={`size-${size}`}
+      className={`size-${size} style-${styleType}`}
       title={text}
       onClick={onClick}
     >
@@ -45,6 +59,19 @@ const Button = styled.button`
     &-large {
       padding: 0 5px;
       font-size: var(--font-size-title-M);
+    }
+  }
+  &.style {
+    &-none {
+    }
+    &-round {
+      border: 1px solid var(--border-gray);
+      border-radius: var(--border-radius-F);
+      background-color: var(--bg-white);
+      &.size-large {
+        width: 50px;
+        height: 50px;
+      }
     }
   }
 `

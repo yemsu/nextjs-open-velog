@@ -30,4 +30,7 @@ export const ALERTS: Alerts = {
     SUCCESS: `게시글이 삭제되었습니다.`,
     ERROR: `게시글 삭제에 실패하였습니다. ${COMMON_ERROR_ALERTS}`,
   },
+  LIKE_BOARD: {
+    ERROR: `게시글 좋아요 설정에 실패하였습니다. ${COMMON_ERROR_ALERTS}`,
+  },
 }
