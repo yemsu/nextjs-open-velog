@@ -5,6 +5,9 @@ interface Alerts {
 }
 
 export const ALERTS: Alerts = {
+  AUTH: {
+    NEED_LOGIN: '로그인이 필요한 기능입니다.'
+  },
   FETCH_FAIL: `데이터 호출에 실패하였습니다. ${COMMON_ERROR_ALERTS}`,
   POST_BOARD_SUCCESS: '글이 등록 되었습니다! 🎉',
   POST_BOARD_ERROR: `글 등록에 실패하였습니다. ${COMMON_ERROR_ALERTS}`,
@@ -19,7 +22,6 @@ export const ALERTS: Alerts = {
   PUT_BOARD: {
     SUCCESS: '게시글 수정이 완료되었습니다.',
     ERROR: `게시글 수정에 실패하였습니다. ${COMMON_ERROR_ALERTS}`,
-    BLOCK: `게시글 수정은 로그인 후 가능합니다.`
   },
   POST_BOARD: {
     SUCCESS: '글이 등록 되었습니다! 🎉',

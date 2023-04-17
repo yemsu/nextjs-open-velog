@@ -63,7 +63,7 @@ function Write() {
 
   useEffect(() => {
     if(isEdit && !userInfo) {
-      alert(ALERTS.PUT_BOARD.BLOCK)
+      alert(ALERTS.AUTH.NEED_LOGIN)
       route.push(PAGES.MAIN)
     }
   }, [route.query.type, userInfo])

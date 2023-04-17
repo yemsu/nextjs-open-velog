@@ -9,14 +9,17 @@ import useCommonQuery from "@/hooks/useCommonQuery"
 import { BoardData } from "@/types/board"
 import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/router"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import styled from "styled-components"
 import useCommonMutation from "@/hooks/useCommonMutation"
 import { ALERTS } from "@/constants/alerts"
+import { useSelector } from "react-redux"
+import { getIsLogin } from "@/store/auth"
 
 function BoardView() {
   const route = useRouter()
   const boardId = route.query.boardId as string
+  const isLogin = useSelector(getIsLogin)
   const queryClient = useQueryClient()
   const {
     error: boardDataError,
@@ -49,6 +52,14 @@ function BoardView() {
       queryKey: [QUERY_KEYS.BOARD_VIEW]
     })
   }, [boardId, queryClient])
+
+  const onClickLikeButton = useCallback((boardId: number) => {
+    if(!isLogin) {
+      alert(ALERTS.AUTH.NEED_LOGIN) 
+      return
+    }
+    toggleBoardLike(boardId)
+  }, [isLogin])
 
   return (
     <>
@@ -83,7 +94,7 @@ function BoardView() {
               emojiType={boardData.isLike ? 'unlike' : 'like'}
               size="large"
               styleType="round"
-              onClick={() => toggleBoardLike(boardData.id)}
+              onClick={() => onClickLikeButton(boardData.id)}
             />
             <FloatingWishCount>{boardData.wishCount}</FloatingWishCount>
           </FloatingArea>
