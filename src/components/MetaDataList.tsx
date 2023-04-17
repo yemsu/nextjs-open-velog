@@ -32,7 +32,7 @@ const infoObj: InfoObj = {
   },
   wishCount: {
     title: '좋아요',
-    emoji: '❤️'
+    emoji: '🤍'
   },
 }
 

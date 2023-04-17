@@ -43,7 +43,7 @@ class Axios {
 
   post<PayloadType, ResponseType>(
     url: string,
-    payload: PayloadType
+    payload?: PayloadType
   ): Promise<ResponseType> {
     return this._axios.post(url, payload, { 
       headers: getHeader()

@@ -53,3 +53,8 @@ export const putBoard = ({boardId, payload}: PutBoardArgs) => {
   return $axios
     .put<BoardPayload, BoardData>(`/${boardId}`, payload)
 }
+
+export const postWish = (boardId: number) => {
+  return $axios
+    .post<undefined, boolean>(`/wishes?boardId=${boardId}`)
+}

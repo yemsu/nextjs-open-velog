@@ -40,3 +40,7 @@ export interface BoardResponseData {
   totalElements: number
   last: true
 }
+
+export interface PostWishParams {
+  boardId: number
+}
